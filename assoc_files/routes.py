@@ -35,26 +35,22 @@ def home():
 @app.route('/api')
 def api():
     code = request.args['code']
-    #hmac = request.args['hmac']
     shop = request.args['shop']
     timestamp =request.args["timestamp"]
     params = dict({"client_id":app.config["API_KEY"],"client_secret":app.config["SECRET_KEY"],"code":code,"shop":shop,"timestamp":timestamp})
-    print(params)
-    #sesion = shopify.Session(app.config['shop_url'], app.config["api_version"])
-    #access_token = sesion.request_token(params=params)
-    #print(access_token)
+
     response = requests.post(app.config["access_token_url"],data=params)
 
-    data = response.json()
-    session["access_token"] = data['access_token']
-    print(session["access_token"])
+    session["access_token"] = response.json()['access_token']
+
     return redirect(url_for("success"))
+
 
 
 
 @app.route('/success')
 def success():
-    sesion = shopify.Session(app.config['shop_url'], app.config["api_version"],session["access_token"])
+    sesion = shopify.Session(app.config['shop_url'], app.config["api_version"], session["access_token"])
     shopify.ShopifyResource.activate_session(sesion)
     product = shopify.Product.find(id_=7888407822570)
     print(shopify.Shop.current())
@@ -62,9 +58,13 @@ def success():
 
 @app.route('/product')
 def product():
-    print(shopify.Shop.current())
+    sesion = shopify.Session(app.config['shop_url'], app.config["api_version"], session["access_token"])
+    shopify.ShopifyResource.activate_session(sesion)
+    shop = shopify.Shop.current()
+    print(shop)
     product = shopify.Product.find(id_=7888407822570)
     return product.title
+
 
 
 
