@@ -27,6 +27,7 @@ auth_url = newSession.create_permission_url(scopes, redirect_uri, state)
 
 
 
+
 @app.route('/home')
 def home():
     return redirect(auth_url)
@@ -37,13 +38,19 @@ def api():
     code = request.args['code']
     shop = request.args['shop']
     timestamp =request.args["timestamp"]
+
     params = dict({"client_id":app.config["API_KEY"],"client_secret":app.config["SECRET_KEY"],"code":code,"shop":shop,"timestamp":timestamp})
 
     response = requests.post(app.config["access_token_url"],data=params)
 
     session["access_token"] = response.json()['access_token']
 
-    return redirect(url_for("success"))
+    params = dict(
+        {"client_id": app.config["API_KEY"], "client_secret": app.config["SECRET_KEY"], "code": code, "shop": shop,"timestamp": timestamp,"access_token":session['access_token']})
+
+
+
+    return redirect(url_for("product"))
 
 
 
@@ -52,18 +59,32 @@ def api():
 def success():
     sesion = shopify.Session(app.config['shop_url'], app.config["api_version"], session["access_token"])
     shopify.ShopifyResource.activate_session(sesion)
-    product = shopify.Product.find(id_=7888407822570)
-    print(shopify.Shop.current())
-    return f"your logged succes your products => {product.title} "
+
+    return f"your logged succes "
 
 @app.route('/product')
 def product():
-    sesion = shopify.Session(app.config['shop_url'], app.config["api_version"], session["access_token"])
-    shopify.ShopifyResource.activate_session(sesion)
-    shop = shopify.Shop.current()
-    print(shop)
-    product = shopify.Product.find(id_=7888407822570)
-    return product.title
+    print(session['access_token'])
+    header = {f"X-Shopify-Access-Token":session["access_token"]}
+    #response2 = requests.get("https://armonika.myshopify.com/admin/api/2022-07/orders.json?status=any",headers=header)
+    #print(response2)
+
+    response = requests.get("https://armonika.myshopify.com/admin/api/2022-07/orders.json?status=any",headers=header)
+    #response = requests.get("https://armonika.myshopify.com/admin/oauth/access_scopes.json", headers=header)
+    data = response.json()
+    return data
+    #sesion = shopify.Session(app.config['shop_url'], app.config["api_version"], session["access_token"])
+    #print(sesion)
+    #shopify.ShopifyResource.activate_session(sesion)
+    #shop = shopify.Shop.current()
+    #orders = shopify.Order.find(status='any')
+    #print(orders)
+    #print(shop.name)
+    #product = shopify.Product._find_every()
+    #for i in product:
+    #    print(i.title)
+#
+    #return 'mustafa'
 
 
 
