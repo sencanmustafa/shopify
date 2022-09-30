@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Shopify</title>
+</head>
+<body>
+{% if session["logged_in"] %}
+    <a href="{{ url_for("home") }}"> Shopify</a>
+    <a href="{{ url_for("logout") }}"> Logout</a>
+{% endif %}
+</body>
+</html>

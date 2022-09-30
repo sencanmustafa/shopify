@@ -1,14 +1,14 @@
 import binascii
-import json
 import os
-import urllib.request
-import hmac
 import requests
 import shopify
+from functools import wraps
 from flask import render_template, redirect, url_for, request, Response, session, jsonify
 from html5lib import serialize
-
+from assoc_files.entity.UserClass import User , validate , UpdatetUserOnDb
+from assoc_files.modal import UserTable
 from assoc_files import app
+from assoc_files import db
 
 #shopify.Session.setup(api_key=app.config['API_KEY'], secret=app.config['SECRET_KEY'])
 #client = shopify.Session(app.config['shop_url'], app.config['api_version'])
@@ -26,11 +26,65 @@ newSession = shopify.Session(app.config['shop_url'], app.config["api_version"])
 auth_url = newSession.create_permission_url(scopes, redirect_uri, state)
 
 
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if "logged_in" in session:
+            return f(*args, **kwargs)
+        else:
+            return redirect(url_for("login"))
+    return decorated_function
 
+def token_required(f):
+    @wraps(f)
+    def decorated_function(*args,**kwargs):
+        if "access_token" in session:
+            return f(*args,**kwargs)
+        else:
+            return redirect(url_for("token_page"))
+    return decorated_function
 
 @app.route('/home')
 def home():
     return redirect(auth_url)
+
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect(url_for("login"))
+
+@app.route('/',methods=['GET'])
+def starter():
+    return redirect(url_for("login"))
+
+@app.route('/login',methods=['GET','POST'])
+def login():
+    global user
+    global db_user
+    if request.method == 'POST':
+        db_user = UserTable.query.filter_by(email=request.form['email']).first()
+        print(db_user)
+        user = User(email=request.form['email'],password=request.form['password'])
+        print(validate(user=user,dbUser=db_user) == True)
+        if validate(user=user,dbUser=db_user) == True:
+            return redirect(url_for("info"))
+
+
+
+
+    return render_template("index.html")
+
+
+
+@app.route('/info')
+@login_required
+def info():
+    return render_template("info.html")
+
+
+
+
+
 
 
 @app.route('/api')
@@ -43,17 +97,14 @@ def api():
 
     response = requests.post(app.config["access_token_url"],data=params)
 
-    session["access_token"] = response.json()['access_token']
+    session["accessToken"] = response.json()['access_token']
 
-    params = dict(
-        {"client_id": app.config["API_KEY"], "client_secret": app.config["SECRET_KEY"], "code": code, "shop": shop,"timestamp": timestamp,"access_token":session['access_token']})
+    user.accessToken = session["accessToken"]
 
-
-
-    return redirect(url_for("product"))
+    updateUser = UpdateUserOnDb(user=user)
 
 
-
+    return f"{session['accessToken']}"
 
 @app.route('/success')
 def success():
@@ -73,18 +124,6 @@ def product():
     #response = requests.get("https://armonika.myshopify.com/admin/oauth/access_scopes.json", headers=header)
     data = response.json()
     return data
-    #sesion = shopify.Session(app.config['shop_url'], app.config["api_version"], session["access_token"])
-    #print(sesion)
-    #shopify.ShopifyResource.activate_session(sesion)
-    #shop = shopify.Shop.current()
-    #orders = shopify.Order.find(status='any')
-    #print(orders)
-    #print(shop.name)
-    #product = shopify.Product._find_every()
-    #for i in product:
-    #    print(i.title)
-#
-    #return 'mustafa'
 
 
 
@@ -94,30 +133,6 @@ def product():
 def serialize_model(model):
     return jsonify(serialize(model))
 
-#@app.route('/api',methods = ['GET','POST'])
-#def route():
-#    if request.args.get('shop'):
-#        params = {"client_id":app.config["API_KEY"],"client_secret":app.config["SECRET_KEY"],"code":request.args.get("code"),"timestamp":request.args.get("timestamp")}
-#        #"hmac": request.args.get("hmac"),
-#        req = requests.post(f"https://mustafa-flask.myshopify.com/admin/oauth/access_token",data=params)
-#
-#
-#
-#
-#        auth_client = shopify.Session(app.config['shop_url'],app.config['api_version'],app.config["access_token"])
-#        shopify.ShopifyResource.activate_session(auth_client)
-#        print(shopify.ShopifyResource.activate_session(auth_client))
-
-#   return redirect(url_for("success"))
-
-
-
-
-#@app.route('/home',methods = ['GET','POST'])
-#def home_route():
-#    auth_url = f"{app.config['shop_url']}admin/oauth/authorize?client_id={app.config['API_KEY']}&scope=read_products&redirect_uri={app.config['redirect_uri']}"
-#    print("debug - auth Url" , auth_url)
-#    return redirect(auth_url)
 
 
 
