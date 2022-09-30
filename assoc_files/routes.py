@@ -101,7 +101,7 @@ def api():
 
     user.accessToken = session["accessToken"]
 
-    updateUser = UpdateUserOnDb(user=user)
+    UpdatetUserOnDb(user=user)
 
 
     return f"{session['accessToken']}"
