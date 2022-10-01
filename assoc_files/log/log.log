@@ -52,3 +52,6 @@
 2022-10-01 03:57:48 INFO 1664585868.5972 (16816) 	 2022-10-01 03:57:48 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Flogin L59 - userId -> 1 logged in   
 2022-10-01 03:57:50 INFO 1664585870.9662561 (19185) 	 2022-10-01 03:57:50 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L105 - userId -> 1 called order function   
 2022-10-01 03:57:50 INFO 1664585870.970701 (19189) 	 2022-10-01 03:57:50 /Users/mustafasencan/Desktop/software/shopify/assoc_files/utilities/utilities.py FinsertOrderOnDb L59 - order inserted to db , userId -> 1    
+2022-10-02 00:39:02 INFO 1664660342.421053 (7404) 	 2022-10-02 00:39:02 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Flogin L59 - userId -> 1 logged in   
+2022-10-02 00:39:04 INFO 1664660344.474729 (9458) 	 2022-10-02 00:39:04 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L105 - userId -> 1 called order function   
+2022-10-02 00:39:04 INFO 1664660344.479881 (9463) 	 2022-10-02 00:39:04 /Users/mustafasencan/Desktop/software/shopify/assoc_files/utilities/utilities.py FinsertOrderOnDb L59 - order inserted to db , userId -> 1    

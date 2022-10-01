@@ -76,3 +76,7 @@ def jsonToObject(data:dict,order:Order):
     except Exception as e:
         logger.error(f"error occurred error -> {e} , userId -> {session['userId']}")
         return False
+
+def getOrderOnDb():
+    order = OrderTable.query.filter_by(userId=session['userId']).all()
+    return order

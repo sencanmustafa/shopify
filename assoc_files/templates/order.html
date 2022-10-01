@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Orders</title>
+</head>
+<body>
+<table>
+    <thead>
+        <tr>
+            <th>firstName</th>
+            <th>lastName</th>
+            <th>address1</th>
+            <th>phone</th>
+            <th>city</th>
+            <th>country</th>
+        </tr>
+
+        {% for i in orders %}
+            <tr>
+                <td>{{ i.firstName }}</td>
+                <td>{{ i.lastName }}</td>
+                <td>{{ i.address1 }}</td>
+                <td>{{ i.phone }}</td>
+                <td>{{ i.city }}</td>
+                <td>{{ i.country }}</td>
+            </tr>
+        {% endfor %}
+
+    </thead>
+</table>
+</body>
+</html>

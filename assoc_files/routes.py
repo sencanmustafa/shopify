@@ -6,7 +6,7 @@ from flask import render_template, redirect, url_for, request, session
 from assoc_files.entity.UserClass import User ,Order
 from assoc_files.modal import UserTable
 from assoc_files import app
-from assoc_files.utilities.utilities import login_required,jsonToObject,validate , UpdatetUserOnDb,insertOrderOnDb, token_required , getOrder,jsonify
+from assoc_files.utilities.utilities import getOrderOnDb,login_required,jsonToObject,validate , UpdatetUserOnDb,insertOrderOnDb, token_required , getOrder,jsonify
 from assoc_files.log.logging import *
 
 from assoc_files.data import data
@@ -115,6 +115,11 @@ def order():
         return redirect(url_for("info"))
 
 
+@app.route('/vieworders',methods=['GET','POST'])
+@login_required
+def viewOrder():
+    orders = getOrderOnDb()
+    return render_template("order.html",orders=orders)
 
 
 
