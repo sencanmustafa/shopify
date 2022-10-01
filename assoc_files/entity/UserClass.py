@@ -1,6 +1,6 @@
-from assoc_files.modal import UserTable
+from assoc_files.modal import UserTable,OrderTable
 from flask import session
-
+import datetime
 class User:
     def __init__(self,email=None,password=None,accessToken=None):
         self.email = email
@@ -8,19 +8,18 @@ class User:
         self.accessToken = accessToken
     def __str__(self):
         return f"{self.email} , {self.accessToken}"
+class Order:
+    def __init__(self,firstName=None,lastName=None,address1=None,phone=None,city=None,zip=None,country=None,address2=None,company=None,name=None,countryCode=None):
+        self.firstName=firstName
+        self.lastName=lastName
+        self.address1=address1
+        self.phone=phone
+        self.city=city
+        self.zip=zip
+        self.country=country
+        self.address2=address2
+        self.company=company
+        self.name=name
+        self.countryCode=countryCode
 
 
-def validate(user:User,dbUser:UserTable):
-    if user.email == dbUser.email:
-        if user.password == dbUser.password:
-            user.accessToken = dbUser.accessToken
-            session["logged_in"] = True
-            session["accessToken"] = user.accessToken
-            return True
-        return False
-    return False
-
-def UpdatetUserOnDb(user:User):
-    entity = UserTable.query.filter_by(email=user.email).first()
-    entity.accessToken = user.accessToken
-    entity.updateUserTable()

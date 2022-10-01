@@ -2,13 +2,16 @@ import binascii
 import os
 import requests
 import shopify
-from functools import wraps
-from flask import render_template, redirect, url_for, request, Response, session, jsonify
-from html5lib import serialize
-from assoc_files.entity.UserClass import User , validate , UpdatetUserOnDb
+from flask import render_template, redirect, url_for, request, session
+from assoc_files.entity.UserClass import User ,Order
 from assoc_files.modal import UserTable
 from assoc_files import app
-from assoc_files import db
+from assoc_files.utilities.utilities import login_required,jsonToObject,validate , UpdatetUserOnDb,insertOrderOnDb, token_required , getOrder,jsonify
+from assoc_files.log.logging import *
+
+from assoc_files.data import data
+
+
 
 #shopify.Session.setup(api_key=app.config['API_KEY'], secret=app.config['SECRET_KEY'])
 #client = shopify.Session(app.config['shop_url'], app.config['api_version'])
@@ -26,30 +29,16 @@ newSession = shopify.Session(app.config['shop_url'], app.config["api_version"])
 auth_url = newSession.create_permission_url(scopes, redirect_uri, state)
 
 
-def login_required(f):
-    @wraps(f)
-    def decorated_function(*args, **kwargs):
-        if "logged_in" in session:
-            return f(*args, **kwargs)
-        else:
-            return redirect(url_for("login"))
-    return decorated_function
 
-def token_required(f):
-    @wraps(f)
-    def decorated_function(*args,**kwargs):
-        if "access_token" in session:
-            return f(*args,**kwargs)
-        else:
-            return redirect(url_for("token_page"))
-    return decorated_function
 
-@app.route('/home')
-def home():
+@app.route('/go_api')
+def goApi():
+    logger.info(f"userId -> {session['userId']} called goApi function")
     return redirect(auth_url)
 
 @app.route('/logout')
 def logout():
+    logger.info(f"userId -> {session['userId']} logout")
     session.clear()
     return redirect(url_for("login"))
 
@@ -62,15 +51,13 @@ def login():
     global user
     global db_user
     if request.method == 'POST':
-        db_user = UserTable.query.filter_by(email=request.form['email']).first()
+        db_user = UserTable.query.filter_by(email=request.form['email']).one_or_none()
         print(db_user)
         user = User(email=request.form['email'],password=request.form['password'])
-        print(validate(user=user,dbUser=db_user) == True)
         if validate(user=user,dbUser=db_user) == True:
+            print(session["accessToken"])
+            logger.info(f"userId -> {session['userId']} logged in")
             return redirect(url_for("info"))
-
-
-
 
     return render_template("index.html")
 
@@ -81,30 +68,29 @@ def login():
 def info():
     return render_template("info.html")
 
-
-
-
-
-
-
 @app.route('/api')
 def api():
-    code = request.args['code']
-    shop = request.args['shop']
-    timestamp =request.args["timestamp"]
+    try:
+        logger.info(f" userId -> {session['userId']} called api function")
+        code = request.args['code']
+        shop = request.args['shop']
+        timestamp =request.args["timestamp"]
 
-    params = dict({"client_id":app.config["API_KEY"],"client_secret":app.config["SECRET_KEY"],"code":code,"shop":shop,"timestamp":timestamp})
+        params = dict({"client_id":app.config["API_KEY"],"client_secret":app.config["SECRET_KEY"],"code":code,"shop":shop,"timestamp":timestamp})
 
-    response = requests.post(app.config["access_token_url"],data=params)
+        response = requests.post(app.config["access_token_url"],data=params)
 
-    session["accessToken"] = response.json()['access_token']
+        session["accessToken"] = response.json()['access_token']
 
-    user.accessToken = session["accessToken"]
+        user.accessToken = session["accessToken"]
 
-    UpdatetUserOnDb(user=user)
+        UpdatetUserOnDb(user=user)
+        return redirect(url_for("info"))
+    except Exception as e:
+        logger.error(f"error occurred in api function error -> {e} , userId -> {session['userId']}")
+        return redirect(url_for("info"))
 
 
-    return f"{session['accessToken']}"
 
 @app.route('/success')
 def success():
@@ -113,25 +99,22 @@ def success():
 
     return f"your logged succes "
 
-@app.route('/product')
-def product():
-    print(session['access_token'])
-    header = {f"X-Shopify-Access-Token":session["access_token"]}
-    #response2 = requests.get("https://armonika.myshopify.com/admin/api/2022-07/orders.json?status=any",headers=header)
-    #print(response2)
+@app.route('/order',methods=['GET','POST'])
+def order():
+    try:
+        logger.info(f"userId -> {session['userId']} called order function")
+        #orderData = getOrder(app.config["order_url"])
+        orderData = data["shipping_address"]
+        print(orderData)
+        order = Order()
+        order = jsonToObject(data=orderData,order=order)
+        insertOrderOnDb(order)
+        return 'success'
+    except Exception as e:
+        logger.error(f"Error occurred {e} , userId -> {session['userId']}")
+        return redirect(url_for("info"))
 
-    response = requests.get("https://armonika.myshopify.com/admin/api/2022-07/orders.json?status=any",headers=header)
-    #response = requests.get("https://armonika.myshopify.com/admin/oauth/access_scopes.json", headers=header)
-    data = response.json()
-    return data
 
-
-
-
-
-
-def serialize_model(model):
-    return jsonify(serialize(model))
 
 
 

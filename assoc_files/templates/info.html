@@ -5,8 +5,11 @@
     <title>Shopify</title>
 </head>
 <body>
-{% if session["logged_in"] %}
-    <a href="{{ url_for("home") }}"> Shopify</a>
+{% if session["accessToken"] %}
+    <a href="{{ url_for("order") }}"> Shopify Get Orders Token</a>
+    <a href="{{ url_for("logout") }}"> Logout</a>
+{% else %}
+    <a href="{{ url_for("goApi") }}"> Shopify Get Orders</a>
     <a href="{{ url_for("logout") }}"> Logout</a>
 {% endif %}
 </body>
