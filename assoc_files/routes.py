@@ -36,7 +36,6 @@ def login():
     global db_user
     if request.method == 'POST':
         db_user = UserTable.query.filter_by(email=request.form['email']).one_or_none()
-        print(db_user)
         user = User(email=request.form['email'],password=request.form['password'])
         if validate(user=user,dbUser=db_user) == True:
             print(session["accessToken"])
