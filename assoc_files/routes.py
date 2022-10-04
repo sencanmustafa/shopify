@@ -6,7 +6,7 @@ from flask import render_template, redirect, url_for, request, session
 from assoc_files.entity.UserClass import User ,Order
 from assoc_files.modal import UserTable
 from assoc_files import app
-from assoc_files.utilities.utilities import getOrderOnDb,login_required,jsonToObject,validate , UpdatetUserOnDb,insertOrderOnDb, token_required , getOrder,jsonify
+from assoc_files.utilities.utilities import getOrderOnDb,login_required,jsonToObject,validate , UpdatetUserOnDb,insertOrderOnDb,deleteAccessToken, token_required , getOrder,jsonify
 from assoc_files.log.logging import *
 
 from assoc_files.data import data
@@ -30,22 +30,6 @@ auth_url = newSession.create_permission_url(scopes, redirect_uri, state)
 
 
 
-
-@app.route('/go_api')
-def goApi():
-    logger.info(f"userId -> {session['userId']} called goApi function")
-    return redirect(auth_url)
-
-@app.route('/logout')
-def logout():
-    logger.info(f"userId -> {session['userId']} logout")
-    session.clear()
-    return redirect(url_for("login"))
-
-@app.route('/',methods=['GET'])
-def starter():
-    return redirect(url_for("login"))
-
 @app.route('/login',methods=['GET','POST'])
 def login():
     global user
@@ -62,16 +46,12 @@ def login():
     return render_template("index.html")
 
 
-
-@app.route('/info')
-@login_required
-def info():
-    return render_template("info.html")
-
 @app.route('/api')
 def api():
     try:
-        logger.info(f" userId -> {session['userId']} called api function")
+        print('*', session.values())
+        print(session.keys())
+        logger.info(f" user -> {user.email} called api function")
         code = request.args['code']
         shop = request.args['shop']
         timestamp =request.args["timestamp"]
@@ -87,17 +67,9 @@ def api():
         UpdatetUserOnDb(user=user)
         return redirect(url_for("info"))
     except Exception as e:
-        logger.error(f"error occurred in api function error -> {e} , userId -> {session['userId']}")
+        logger.error(f"error occurred in api function error -> {e} , user -> {user.email}")
         return redirect(url_for("info"))
 
-
-
-@app.route('/success')
-def success():
-    sesion = shopify.Session(app.config['shop_url'], app.config["api_version"], session["access_token"])
-    shopify.ShopifyResource.activate_session(sesion)
-
-    return f"your logged succes "
 
 @app.route('/order',methods=['GET','POST'])
 def order():
@@ -123,8 +95,45 @@ def viewOrder():
 
 
 
+@app.route('/go_api')
+def goApi():
+    logger.info(f"userId -> {session['userId']} called goApi function")
+    return redirect(auth_url)
 
 
+@app.route('/',methods=['GET'])
+def starter():
+    return redirect(url_for("login"))
 
+@app.route('/getToken',methods=['GET'])
+def getToken():
+    return 'Please Get Token'
+
+@app.route('/info')
+@login_required
+def info():
+    print('*',session.values())
+    print(session.keys())
+
+    return render_template("info.html")
+
+
+@app.route('/disconnect',methods=['GET','POST'])
+def disconnect():
+    deleteAccessToken()
+    session.pop('accessToken',default='')
+    return redirect(url_for("info"))
+@app.route('/success',methods=['GET'])
+def success():
+    sesion = shopify.Session(app.config['shop_url'], app.config["api_version"], session["access_token"])
+    shopify.ShopifyResource.activate_session(sesion)
+
+    return f"your logged succes "
+
+@app.route('/logout')
+def logout():
+    logger.info(f"userId -> {session['userId']} logout")
+    session.clear()
+    return redirect(url_for("login"))
 
 

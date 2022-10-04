@@ -14,7 +14,6 @@ def getOrder(url:str):
     data = response.json()
     return data
 
-
 def serialize_model(model):
     return jsonify(serialize(model))
 
@@ -30,10 +29,10 @@ def login_required(f):
 def token_required(f):
     @wraps(f)
     def decorated_function(*args,**kwargs):
-        if "access_token" in session:
+        if "accessToken" in session and session['accessToken'] != '':
             return f(*args,**kwargs)
         else:
-            return redirect(url_for("token_page"))
+            return redirect(url_for("getToken"))
     return decorated_function
 
 def validate(user:User,dbUser:UserTable):
@@ -51,7 +50,7 @@ def validate(user:User,dbUser:UserTable):
 def UpdatetUserOnDb(user:User):
     entity = UserTable.query.filter_by(email=user.email).first()
     entity.accessToken = user.accessToken
-    entity.updateUserTable()
+    UserTable.updateTable(entity)
 
 def insertOrderOnDb(order:Order):
     dbOrder = OrderTable(userId=session['userId'],firstName=order.firstName,lastName=order.lastName,address1=order.address1,phone=order.phone,orderDate=datetime.datetime.now(),city=order.city,zip=order.zip,address2=order.address2,country=order.country,company=order.company,name=order.name,countryCode=order.countryCode)
@@ -80,3 +79,15 @@ def jsonToObject(data:dict,order:Order):
 def getOrderOnDb():
     order = OrderTable.query.filter_by(userId=session['userId']).all()
     return order
+
+def deleteAccessToken():
+    try:
+        logger.info(f"UserId -> {session['userId']} called deleteAccessToken function")
+        deleteToken = UserTable.query.filter_by(id=session['userId']).one_or_none()
+        if deleteToken != None and deleteToken.accessToken != '':
+            deleteToken.accessToken=''
+            UserTable.updateTable(deleteToken)
+            return True
+        return False
+    except Exception as e:
+        logger.error(f"Error occurred while delete accessToken error -> {e} userId -> {session['userId']}")

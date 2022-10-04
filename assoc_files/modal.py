@@ -1,7 +1,4 @@
-from flask_sqlalchemy import SQLAlchemy
 from assoc_files import db
-import pandas as pd
-from assoc_files import app
 
 class UserTable(db.Model):
     __tablename__ = 'user'
@@ -41,10 +38,6 @@ class OrderTable(db.Model):
     name = db.Column(db.String(150),nullable=False)
     countryCode = db.Column(db.String(45),nullable=False)
 
-    """
-    def __str__(self):
-        return f"order orderId -> {self.id},userId -> {self.userId}, firstName -> {self.firstName}, lastName -> {self.lastName},address -> {self.address1}, phone-> {self.phone},orderDate->{self.orderDate}"
-    """
     def insert(self):
         db.session.add(self)
         db.session.commit()

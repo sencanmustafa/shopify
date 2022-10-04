@@ -1,3 +1,5 @@
+from typing import List
+
 from assoc_files.modal import UserTable,OrderTable
 from flask import session
 import datetime
@@ -21,5 +23,6 @@ class Order:
         self.company=company
         self.name=name
         self.countryCode=countryCode
+
 
 
