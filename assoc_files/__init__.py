@@ -4,7 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 
 #app.config['SQLALCHEMY_DATABASE_URI'] = 'mssql+pymssql://shpadmin:Arm0@n!k32021@host.pl.armonikadijital.com.tr/ShopifyApp'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mssql+pymysql://usrshp61022:Sh0pify@2021!@http://apps.armonikadijital.com/usrshp61022_db6102022'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://usrshp61022:Sh0pify@2021!@http://apps.armonikadijital.com/usrshp61022_db6102022'
 
 db = SQLAlchemy(app)
 
