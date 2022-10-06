@@ -1,16 +1,4 @@
 Flask==2.0.1
-Flask-Admin==1.6.0
-Flask-BabelEx==0.9.4
-Flask-Bcrypt==0.7.1
-Flask-Bootstrap==3.3.7.1
-Flask-Excel==0.0.7
-Flask-Login==0.5.0
-Flask-Mail==0.9.1
-Flask-Migrate==2.7.0
-flask-ngrok==0.0.25
-Flask-OAuthlib==0.9.6
-Flask-Principal==0.4.0
-Flask-Security==3.0.0
 Flask-Session==0.4.0
 Flask-SQLAlchemy==2.4.4
 Flask-WTF==0.15.1

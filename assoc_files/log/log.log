@@ -140,3 +140,5 @@
 2022-10-06 15:42:02 INFO 1665060122.507621 (256400) 	 2022-10-06 15:42:02 /Users/mustafasencan/Desktop/software/shopify/assoc_files/utilities/utilities.py FdeleteAccessToken L92 - UserId -> 1 called deleteAccessToken function   
 2022-10-06 15:42:15 INFO 1665060135.326386 (269219) 	 2022-10-06 15:42:15 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py FgoApi L102 - userId -> 1 called goApi function   
 2022-10-06 15:42:16 INFO 1665060136.5734131 (270466) 	 2022-10-06 15:42:16 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Fapi L54 -  user -> exp called api function   
+2022-10-06 16:28:05 INFO 1665062885.5356128 (8734) 	 2022-10-06 16:28:05 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Flogin L43 - userId -> 1 logged in   
+2022-10-06 16:28:07 INFO 1665062887.7272372 (10926) 	 2022-10-06 16:28:07 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L77 - userId -> 1 called order function   
