@@ -21,8 +21,10 @@ class UserTable(db.Model):
     def __str__(self):
         return f" user -> {self.email} - {self.accessToken}"
 
+query = UserTable.query.all()
+print(query)
 
-
+"""
 class OrderTable(db.Model):
     __tablename__ = 'order'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -72,3 +74,4 @@ class YurticiKargoApiInfo(db.Model):
     def deleteOrder(self):
         db.session.delete(self)
         db.session.commit()
+"""
