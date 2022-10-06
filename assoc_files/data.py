@@ -1,7 +1,8 @@
 from sqlalchemy import null, false, true
-
+from assoc_files import db
+from assoc_files.modal import YurticiKargoApiInfo
 data = {
-        "id": 4893196583145,
+        "id": 4893196583145,#OrderId 4. column
         "admin_graphql_api_id": "gid://shopify/Order/4893196583145",
         "app_id": 580111,
         "browser_ip": "176.232.59.47",
@@ -22,7 +23,7 @@ data = {
         "closed_at": null,
         "confirmed": true,
         "contact_email": "trr676789@gmail.com",
-        "created_at": "2022-09-27T17:22:30+03:00",
+        "created_at": "2022-09-27T17:22:30+03:00",#OrderDate
         "currency": "TRY",
         "current_subtotal_price": "875.00",
         "current_subtotal_price_set": {
@@ -75,12 +76,12 @@ data = {
         "email": "trr676789@gmail.com",
         "estimated_taxes": false,
         "financial_status": "paid",
-        "fulfillment_status": null,
+        "fulfillment_status": null, #Order Status
         "gateway": "iyzico - Kredi ve Banka Kartları",
         "landing_site": "/collections/giyim-yeni-sezon?gclid=CjwKCAjwvsqZBhAlEiwAqAHElThi2W4_lEcQiBKes5G4gBJ_5qKhrj38IirRY3P37pz8XpXoU1buhBoC1kwQAvD_BwE",
         "landing_site_ref": null,
         "location_id": null,
-        "name": "#35712",
+        "name": "#35712",#OrderName
         "note": null,
         "note_attributes": [
             {
@@ -352,7 +353,7 @@ data = {
             "company": "Armonika",
             "latitude": null,
             "longitude": null,
-            "name": "Anna Andriyanenko",
+            "name": "Anna Andriyanenko",# Customer name
             "country_code": "TR",
             "province_code": null
         },
@@ -414,3 +415,6 @@ data = {
 
 orderData = data["shipping_address"]
 
+
+query = YurticiKargoApiInfo.query.all()
+print(query[0].domain)

@@ -21,6 +21,8 @@ class UserTable(db.Model):
     def __str__(self):
         return f" user -> {self.email} - {self.accessToken}"
 
+
+
 class OrderTable(db.Model):
     __tablename__ = 'order'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -37,6 +39,30 @@ class OrderTable(db.Model):
     company = db.Column(db.String(45),nullable=False)
     name = db.Column(db.String(150),nullable=False)
     countryCode = db.Column(db.String(45),nullable=False)
+
+    def insert(self):
+        db.session.add(self)
+        db.session.commit()
+    def updateTable(self):
+        db.session.commit()
+    def deleteOrder(self):
+        db.session.delete(self)
+        db.session.commit()
+
+class YurticiKargoApiInfo(db.Model):
+    __tablename__ = 'yurtici_kargo_api_info'
+    shopPrimaryId = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    domain = db.Column(db.String(300),nullable=False)
+    companyName = db.Column(db.String(300),nullable=False)
+    email = db.Column(db.String(300),nullable=False)
+    phone  = db.Column(db.String(300),nullable=False)
+    shop_address = db.Column(db.String(300),nullable=False)
+    note = db.Column(db.String(300),nullable=False)
+    userNameForGO = db.Column(db.String(300),nullable=False)
+    userPasswordForGO = db.Column(db.String(300),nullable=False)
+    userNameForKO = db.Column(db.String(300),nullable=False)
+    userPasswordForKO = db.Column(db.String(300),nullable=False)
+    userId = db.Column(db.Integer,nullable=False)
 
     def insert(self):
         db.session.add(self)

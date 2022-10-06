@@ -6,7 +6,7 @@ from flask import render_template, redirect, url_for, request, session
 from assoc_files.entity.UserClass import User ,Order
 from assoc_files.modal import UserTable
 from assoc_files import app
-from assoc_files.utilities.utilities import getOrderOnDb,login_required,jsonToObject,validate , UpdatetUserOnDb,insertOrderOnDb,deleteAccessToken, token_required , getOrder,jsonify
+from assoc_files.utilities.utilities import getOrderOnDb,login_required,jsonToOrder,validate , UpdatetUserOnDb,insertOrderOnDb,deleteAccessToken, token_required , getOrder,jsonify
 from assoc_files.log.logging import *
 
 from assoc_files.data import data
@@ -22,6 +22,7 @@ api_version = '2020-07'
 state = binascii.b2a_hex(os.urandom(15)).decode("utf-8")
 redirect_uri = app.config["redirect_uri"]
 scopes = ['read_products', 'read_orders']
+
 
 
 shopify.Session.setup(api_key=app.config["API_KEY"],secret=app.config["SECRET_KEY"])
@@ -74,13 +75,15 @@ def api():
 def order():
     try:
         logger.info(f"userId -> {session['userId']} called order function")
-        #orderData = getOrder(app.config["order_url"])
-        orderData = data["shipping_address"]
-        print(orderData)
-        order = Order()
-        order = jsonToObject(data=orderData,order=order)
-        insertOrderOnDb(order)
-        return 'success'
+        orderData = getOrder()
+        #orderData = data[""]
+
+        #shipping = orderData["orders"]["shipping_address"]
+        #order = Order()
+        #order = jsonToOrder(data=orderData,order=order)
+        #insertOrderOnDb(order)
+
+        return orderData
     except Exception as e:
         logger.error(f"Error occurred {e} , userId -> {session['userId']}")
         return redirect(url_for("info"))

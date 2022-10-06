@@ -1,3 +1,4 @@
+import json
 import requests
 from html5lib import serialize
 from assoc_files import app
@@ -7,15 +8,21 @@ from assoc_files.entity.UserClass import Order , User
 from assoc_files.log.logging import logger
 from assoc_files.modal import UserTable,OrderTable
 import datetime
+import ast
 
-def getOrder(url:str):
-    header = {f"X-Shopify-Access-Token": session["accessToken"]}
+
+
+
+def getOrder():
+    header = {f"X-Shopify-Access-Token": session["accessToken"],"Content-Type": "application/json" }
     response = requests.get(app.config["order_url"],headers=header)
     data = response.json()
+
+    #####ERROR
     return data
 
 def serialize_model(model):
-    return jsonify(serialize(model))
+    return jsonify(serialize(model,encoding='utf-8'))
 
 def login_required(f):
     @wraps(f)
@@ -58,7 +65,7 @@ def insertOrderOnDb(order:Order):
     logger.info(f"order inserted to db , userId -> {session['userId']} ")
     return True
 
-def jsonToObject(data:dict,order:Order):
+def jsonToOrder(data:dict,order:Order):
     try:
         order.firstName = data["first_name"]
         order.lastName = data["last_name"]
