@@ -416,5 +416,4 @@ data = {
 orderData = data["shipping_address"]
 
 
-query = YurticiKargoApiInfo.query.all()
-print(query[0].domain)
+

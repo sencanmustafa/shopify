@@ -3,9 +3,10 @@ from assoc_files import db
 class UserTable(db.Model):
     __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    email = db.Column(db.String(100))
-    password = db.Column(db.String(100))
-    accessToken = db.Column(db.String(225))
+    shopurl = db.Column(db.String(225),unique=True,nullable=False)
+    email = db.Column(db.String(100),nullable=True)
+    password = db.Column(db.String(100),nullable=True)
+    accessToken = db.Column(db.String(225),nullable=False)
 
     def insert(self):
         db.session.add(self)
@@ -24,7 +25,7 @@ class UserTable(db.Model):
 query = UserTable.query.all()
 print(query)
 
-"""
+
 class OrderTable(db.Model):
     __tablename__ = 'order'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -74,4 +75,3 @@ class YurticiKargoApiInfo(db.Model):
     def deleteOrder(self):
         db.session.delete(self)
         db.session.commit()
-"""

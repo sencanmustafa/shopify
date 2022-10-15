@@ -4,12 +4,13 @@ from assoc_files.modal import UserTable,OrderTable
 from flask import session
 import datetime
 class User:
-    def __init__(self,email=None,password=None,accessToken=None):
+    def __init__(self,email=None,password=None,accessToken=None,shopUrl=None):
         self.email = email
         self.password = password
         self.accessToken = accessToken
+        self.shopUrl=shopUrl
     def __str__(self):
-        return f"{self.email} , {self.accessToken}"
+        return f"{self.shopUrl} , {self.accessToken}"
 class Order:
     def __init__(self,firstName=None,lastName=None,address1=None,phone=None,city=None,zip=None,country=None,address2=None,company=None,name=None,countryCode=None):
         self.firstName=firstName
@@ -23,6 +24,7 @@ class Order:
         self.company=company
         self.name=name
         self.countryCode=countryCode
+
 
 
 

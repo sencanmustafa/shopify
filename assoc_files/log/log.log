@@ -142,3 +142,5 @@
 2022-10-06 15:42:16 INFO 1665060136.5734131 (270466) 	 2022-10-06 15:42:16 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Fapi L54 -  user -> exp called api function   
 2022-10-06 16:28:05 INFO 1665062885.5356128 (8734) 	 2022-10-06 16:28:05 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Flogin L43 - userId -> 1 logged in   
 2022-10-06 16:28:07 INFO 1665062887.7272372 (10926) 	 2022-10-06 16:28:07 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L77 - userId -> 1 called order function   
+2022-10-11 11:40:26 INFO 1665477626.9555671 (7052) 	 2022-10-11 11:40:26 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Flogin L44 - userId -> 1 logged in   
+2022-10-11 11:40:29 INFO 1665477629.1447291 (9241) 	 2022-10-11 11:40:29 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Flogout L138 - userId -> 1 logout   

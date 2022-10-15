@@ -13,11 +13,16 @@
                  <form action="{{url_for('login')}}" method="POST" class="main_form">
                      <div class="row">
                         <div class="col-md-12">
-                           <input class="form_control" placeholder="Email" type="text" name="email" required>
+                           <input class="form_control" placeholder="Shopify Store Link" type="text" name="storeName" >
+                        </div>
+                         <!-- a comment in html
+                        <div class="col-md-12">
+                           <input class="form_control" placeholder="Email" type="text" name="email" >
                         </div>
                         <div class="col-md-12">
-                           <input class="form_control" placeholder="Password" type="password" name="password" required>
+                           <input class="form_control" placeholder="Password" type="password" name="password" >
                         </div>
+                        -->
                         <div class="col-sm-12">
                            <input type="submit" name="login_btn" class="send_btn" value="Login">
                         </div>
