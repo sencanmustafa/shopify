@@ -20,7 +20,7 @@ class UserTable(db.Model):
         db.session.commit()
 
     def __str__(self):
-        return f" user -> {self.email} - {self.accessToken}"
+        return f" user -> {self.shopurl} - {self.accessToken}"
 
 query = UserTable.query.all()
 print(query)
@@ -28,20 +28,22 @@ print(query)
 
 class OrderTable(db.Model):
     __tablename__ = 'order'
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    orderId = db.Column(db.Float, primary_key=True,nullable=True)
     userId = db.Column(db.Integer,nullable=False)
     orderDate = db.Column(db.DateTime, nullable=False)
-    firstName = db.Column(db.String(45),nullable=False)
-    lastName = db.Column(db.String(45),nullable=False)
+    firstName = db.Column(db.String(300),nullable=False)
+    orderName = db.Column(db.String(300),nullable=False)
+    orderStatus = db.Column(db.String(300),nullable=False)
+    lastName = db.Column(db.String(300),nullable=False)
     address1 = db.Column(db.String(300),nullable=False)
-    phone = db.Column(db.String(45),nullable=False)
-    city = db.Column(db.String(45),nullable=False)
-    zip = db.Column(db.String(45),nullable=False)
-    country = db.Column(db.String(45),nullable=False)
+    phone = db.Column(db.String(300),nullable=False)
+    city = db.Column(db.String(300),nullable=False)
+    zip = db.Column(db.String(300),nullable=False)
+    country = db.Column(db.String(300),nullable=False)
     address2 = db.Column(db.String(300),nullable=True)
-    company = db.Column(db.String(45),nullable=False)
-    name = db.Column(db.String(150),nullable=False)
-    countryCode = db.Column(db.String(45),nullable=False)
+    company = db.Column(db.String(300),nullable=False)
+    name = db.Column(db.String(300),nullable=False)
+    countryCode = db.Column(db.String(300),nullable=False)
 
     def insert(self):
         db.session.add(self)

@@ -12,9 +12,13 @@ class User:
     def __str__(self):
         return f"{self.shopUrl} , {self.accessToken}"
 class Order:
-    def __init__(self,firstName=None,lastName=None,address1=None,phone=None,city=None,zip=None,country=None,address2=None,company=None,name=None,countryCode=None):
+    def __init__(self,orderId=None,firstName=None,lastName=None,orderName=None,orderStatus=None,date=None,address1=None,phone=None,city=None,zip=None,country=None,address2=None,company=None,name=None,countryCode=None):
+        self.orderId = orderId
         self.firstName=firstName
         self.lastName=lastName
+        self.orderStatus=orderStatus
+        self.orderName=orderName
+        self.date = date
         self.address1=address1
         self.phone=phone
         self.city=city

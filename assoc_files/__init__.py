@@ -12,8 +12,8 @@ app.config["API_KEY"] = "01f1fb02c1c85413aece6af94c8ec9e8"
 app.config["SECRET_KEY"] = "f20bb93cbfa66d11cec02313e78e6fa9"
 app.config["shop_url"] = ""
 app.config["api_version"]= "2022-07"
-app.config["redirect_uri"] = "https://c20a-95-10-200-20.eu.ngrok.io/api"
-app.config["order_url"] = "https://armonika.myshopify.com/admin/api/2022-07/orders.json?status=any"
+app.config["redirect_uri"] = "https://ad51-95-10-200-20.eu.ngrok.io/api"
+app.config["order_url"] = "https://armonika.myshopify.com/admin/api/2022-07/orders.json?financial_status:paid AND fulfillment_status:unshipped"
 app.config["access_scope_url"] = "https://armonika.myshopify.com/admin/oauth/access_scopes.json"
 
 from assoc_files import routes
