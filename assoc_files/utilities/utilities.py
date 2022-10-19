@@ -1,4 +1,3 @@
-
 import requests
 from html5lib import serialize
 from assoc_files import app
@@ -7,6 +6,7 @@ from functools import wraps
 from assoc_files.entity.UserClass import Order , User
 #from assoc_files.log.logging import logger
 from assoc_files.modal import UserTable,OrderTable
+
 import datetime
 
 
@@ -22,16 +22,25 @@ def verifyLogin(dbUser):
         return False
     return False
 
+
+
 def getOrder():
-    header = {f"X-Shopify-Access-Token": session["accessToken"],"Content-Type": "application/json" }
-    response = requests.get(app.config["order_url"],headers=header)
-    data = response.json()
-    print(len(data["orders"]))
+    print(app.config["shop_url"])
+    if app.config["shop_url"] == '' or app.config["shop_url"] == None:
+        return redirect(url_for("login"))
 
-    return data
+    else:
+        header = {f"X-Shopify-Access-Token": session["accessToken"], "Content-Type": "application/json"}
+        print(app.config['shop_url'], 'ni')
+        response = requests.get(f"https://{app.config['shop_url']}/admin/api/2022-07/orders.json?financial_status:paid AND fulfillment_status:unshipped",headers=header)
+        data = response.json()
+        print(response.json())
 
+        return data
 def serialize_model(model):
     return jsonify(serialize(model,encoding='utf-8'))
+
+
 
 def login_required(f):
     @wraps(f)

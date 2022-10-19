@@ -1,18 +1,17 @@
 import binascii
 import os
 import requests
-
 from flask import render_template, redirect, url_for, request, session, flash
 from assoc_files.entity.UserClass import User ,Order
 from assoc_files.modal import UserTable
 from assoc_files import app
 from assoc_files.utilities.utilities import getOrderOnDb,login_required,jsonToOrder,verifyLogin,validate ,InsertUserOnDb,insertOrderOnDb,deleteAccessToken, token_required , getOrder,jsonify
+from assoc_files.utilities.order import updateShopifyOrder
 #from assoc_files.log.logging import logger
 from assoc_files.log.logging import *
-
 state = binascii.b2a_hex(os.urandom(15)).decode("utf-8")
 redirect_uri = app.config["redirect_uri"]
-scopes = ['read_products', 'read_orders']
+scopes = ['read_products', 'read_orders','write_orders']
 scopes_string = ','.join(scopes)
 
 global user
@@ -21,11 +20,12 @@ global db_user
 
 
 
-
 @app.route('/updateorder/<int:orderId>',methods=['POST'])
 def updateOrder(orderId):
+    address = request.form['addressInput']
 
-    return f"{orderId}"
+    statusCode = updateShopifyOrder(orderId=orderId,address=address)
+    return statusCode
 
 def createAuthUrl():
     auth_url = f"https://{app.config['shop_url']}/admin/oauth/authorize?client_id={app.config['API_KEY']}&scope={scopes_string}&redirect_uri={app.config['redirect_uri']}&state={state}"
@@ -37,7 +37,6 @@ def login():
         if request.form['storeName']:
             #db_user = UserTable.query.filter_by(shopurl=request.form['storeName']).one_or_none()
             #armonika.myshopify.com
-
             app.config["shop_url"] = request.form['storeName']
             user.shopUrl = app.config["shop_url"]
             return redirect(url_for("goApi"))
@@ -72,12 +71,13 @@ def api():
         code = request.args['code']
         shop = request.args['shop']
         timestamp =request.args["timestamp"]
-        params = dict({"client_id":app.config["API_KEY"],"client_secret":app.config["SECRET_KEY"],"code":code,"shop":shop,"timestamp":timestamp})
+        params = dict({"client_id":app.config['API_KEY'],"client_secret":app.config["SECRET_KEY"],"code":code,"shop":shop,"timestamp":timestamp})
         access_token_url = f"https://{app.config['shop_url']}/admin/oauth/access_token"
         response = requests.post(access_token_url,data=params)
         session["accessToken"] = response.json()['access_token']
         user.accessToken = session["accessToken"]
         user.shopUrl = app.config['shop_url']
+        print("urlurlurl",app.config['shop_url'])
         #InsertUserOnDb(user=user)
         session["logged_in"] = True
         return redirect(url_for("info"))
@@ -112,6 +112,7 @@ def order():
 
         return render_template("order.html",orders=orderList)
     except Exception as e:
+        print(e)
         #logger.error(f"Error occurred {e} , userId -> {session['userId']}")
         return redirect(url_for("info"))
 
