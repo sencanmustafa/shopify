@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Shopify</title>
+</head>
+<body>
+{% if session["accessToken"] %}
+    <div>
+        <a href="{{ url_for("order") }}"> Shopify Get Orders Token</a>
+    </div>
+    <div>
+        <a href="{{ url_for("disconnect") }}">Disconnect Shopify</a>
+    </div>
+    <div>
+        <a href="{{ url_for("logout") }}"> Logout</a>
+    </div>
+
+
+
+{% else %}
+    <a href="{{ url_for("goApi") }}"> Shopify Get Orders (PLEASE GET TOKEN)</a>
+    <a href="{{ url_for("logout") }}"> Logout</a>
+{% endif %}
+</body>
+</html>

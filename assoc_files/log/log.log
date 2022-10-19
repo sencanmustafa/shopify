@@ -1,0 +1,146 @@
+2022-10-04 16:38:29 INFO 1664890709.419521 (2504) 	 2022-10-04 16:38:29 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Flogin L43 - userId -> 1 logged in   
+2022-10-04 16:38:35 INFO 1664890715.70225 (8786) 	 2022-10-04 16:38:35 /Users/mustafasencan/Desktop/software/shopify/assoc_files/utilities/utilities.py FdeleteAccessToken L85 - UserId -> 1 called deleteAccessToken function   
+2022-10-04 16:38:38 INFO 1664890718.150229 (11234) 	 2022-10-04 16:38:38 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py FgoApi L100 - userId -> 1 called goApi function   
+2022-10-04 16:38:38 INFO 1664890718.782279 (11866) 	 2022-10-04 16:38:38 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Fapi L54 -  user -> exp called api function   
+2022-10-04 16:38:43 INFO 1664890723.8511128 (16935) 	 2022-10-04 16:38:43 /Users/mustafasencan/Desktop/software/shopify/assoc_files/utilities/utilities.py FdeleteAccessToken L85 - UserId -> 1 called deleteAccessToken function   
+2022-10-04 16:38:45 INFO 1664890725.356242 (18440) 	 2022-10-04 16:38:45 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py FgoApi L100 - userId -> 1 called goApi function   
+2022-10-04 16:38:46 INFO 1664890726.055713 (19140) 	 2022-10-04 16:38:46 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Fapi L54 -  user -> exp called api function   
+2022-10-04 16:38:50 INFO 1664890730.34591 (23430) 	 2022-10-04 16:38:50 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Flogout L135 - userId -> 1 logout   
+2022-10-04 16:38:53 INFO 1664890733.511828 (26596) 	 2022-10-04 16:38:53 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Flogin L43 - userId -> 1 logged in   
+2022-10-04 16:39:02 INFO 1664890742.8398468 (35924) 	 2022-10-04 16:39:02 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L77 - userId -> 1 called order function   
+2022-10-04 16:39:02 INFO 1664890742.850191 (35934) 	 2022-10-04 16:39:02 /Users/mustafasencan/Desktop/software/shopify/assoc_files/utilities/utilities.py FinsertOrderOnDb L58 - order inserted to db , userId -> 1    
+2022-10-04 18:18:20 INFO 1664896700.797056 (9044) 	 2022-10-04 18:18:20 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Flogin L42 - userId -> 1 logged in   
+2022-10-04 18:31:01 INFO 1664897461.9123268 (4598) 	 2022-10-04 18:31:01 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Flogout L134 - userId -> 1 logout   
+2022-10-04 18:31:04 INFO 1664897464.7255979 (7411) 	 2022-10-04 18:31:04 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Flogin L42 - userId -> 1 logged in   
+2022-10-04 18:31:08 INFO 1664897468.476845 (11162) 	 2022-10-04 18:31:08 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L76 - userId -> 1 called order function   
+2022-10-04 18:32:11 INFO 1664897531.4740758 (4918) 	 2022-10-04 18:32:11 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L76 - userId -> 1 called order function   
+2022-10-05 01:23:25 INFO 1664922205.838729 (88788) 	 2022-10-05 01:23:25 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Flogin L43 - userId -> 1 logged in   
+2022-10-05 01:23:26 INFO 1664922206.99533 (89945) 	 2022-10-05 01:23:26 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Flogin L43 - userId -> 1 logged in   
+2022-10-05 01:23:41 INFO 1664922221.4586549 (104408) 	 2022-10-05 01:23:41 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py FgoApi L100 - userId -> 1 called goApi function   
+2022-10-05 01:30:34 INFO 1664922634.235148 (3366) 	 2022-10-05 01:30:34 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Flogin L43 - userId -> 1 logged in   
+2022-10-05 01:30:36 INFO 1664922636.3335738 (5464) 	 2022-10-05 01:30:36 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py FgoApi L100 - userId -> 1 called goApi function   
+2022-10-05 01:30:51 INFO 1664922651.573468 (20704) 	 2022-10-05 01:30:51 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Fapi L54 -  user -> exp called api function   
+2022-10-05 01:30:59 INFO 1664922659.5734231 (28704) 	 2022-10-05 01:30:59 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Flogin L43 - userId -> 1 logged in   
+2022-10-05 01:31:21 INFO 1664922681.520203 (50651) 	 2022-10-05 01:31:21 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L77 - userId -> 1 called order function   
+2022-10-05 01:45:18 INFO 1664923518.745864 (7413) 	 2022-10-05 01:45:18 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Flogin L43 - userId -> 1 logged in   
+2022-10-05 01:45:23 INFO 1664923523.662762 (12330) 	 2022-10-05 01:45:23 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L77 - userId -> 1 called order function   
+2022-10-05 01:45:24 ERROR 1664923524.505009 (13172) 	 2022-10-05 01:45:24 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L86 - Error occurred 'shipping_address' , userId -> 1   
+2022-10-05 01:45:48 INFO 1664923548.721092 (6669) 	 2022-10-05 01:45:48 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L77 - userId -> 1 called order function   
+2022-10-05 01:46:07 ERROR 1664923567.141941 (25090) 	 2022-10-05 01:46:07 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L86 - Error occurred 'shipping_address' , userId -> 1   
+2022-10-05 01:47:26 INFO 1664923646.5405388 (4763) 	 2022-10-05 01:47:26 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L77 - userId -> 1 called order function   
+2022-10-05 01:47:34 INFO 1664923654.028626 (12251) 	 2022-10-05 01:47:34 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L77 - userId -> 1 called order function   
+2022-10-05 01:47:54 INFO 1664923674.597971 (5833) 	 2022-10-05 01:47:54 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L77 - userId -> 1 called order function   
+2022-10-05 01:54:16 INFO 1664924056.538273 (21577) 	 2022-10-05 01:54:16 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L77 - userId -> 1 called order function   
+2022-10-05 01:55:05 INFO 1664924105.970392 (4471) 	 2022-10-05 01:55:05 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L77 - userId -> 1 called order function   
+2022-10-05 01:56:51 INFO 1664924211.2909582 (6456) 	 2022-10-05 01:56:51 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L77 - userId -> 1 called order function   
+2022-10-05 01:58:13 INFO 1664924293.8098931 (27193) 	 2022-10-05 01:58:13 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L77 - userId -> 1 called order function   
+2022-10-05 01:58:21 ERROR 1664924301.1715279 (34554) 	 2022-10-05 01:58:21 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L86 - Error occurred string indices must be integers , userId -> 1   
+2022-10-05 01:58:57 INFO 1664924337.388204 (11431) 	 2022-10-05 01:58:57 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L77 - userId -> 1 called order function   
+2022-10-05 01:59:03 ERROR 1664924343.603889 (17647) 	 2022-10-05 01:59:03 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L86 - Error occurred string indices must be integers , userId -> 1   
+2022-10-05 01:59:28 INFO 1664924368.776911 (3242) 	 2022-10-05 01:59:28 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L77 - userId -> 1 called order function   
+2022-10-05 02:00:07 INFO 1664924407.004819 (1934) 	 2022-10-05 02:00:07 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L77 - userId -> 1 called order function   
+2022-10-05 02:00:07 ERROR 1664924407.476427 (2406) 	 2022-10-05 02:00:07 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L87 - Error occurred string indices must be integers , userId -> 1   
+2022-10-05 02:02:14 INFO 1664924534.264998 (30184) 	 2022-10-05 02:02:14 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L77 - userId -> 1 called order function   
+2022-10-05 02:03:51 INFO 1664924631.32703 (4771) 	 2022-10-05 02:03:51 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L77 - userId -> 1 called order function   
+2022-10-05 02:03:51 INFO 1664924631.327251 (4772) 	 2022-10-05 02:03:51 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L77 - userId -> 1 called order function   
+2022-10-05 02:04:20 INFO 1664924660.163448 (5016) 	 2022-10-05 02:04:20 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L77 - userId -> 1 called order function   
+2022-10-05 02:04:25 ERROR 1664924665.139523 (9993) 	 2022-10-05 02:04:25 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L87 - Error occurred 'str' object has no attribute 'getroot' , userId -> 1   
+2022-10-05 02:05:08 INFO 1664924708.2265449 (18576) 	 2022-10-05 02:05:08 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L77 - userId -> 1 called order function   
+2022-10-05 02:05:08 INFO 1664924708.227419 (18577) 	 2022-10-05 02:05:08 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L77 - userId -> 1 called order function   
+2022-10-05 02:05:08 INFO 1664924708.227732 (18577) 	 2022-10-05 02:05:08 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L77 - userId -> 1 called order function   
+2022-10-05 02:06:16 INFO 1664924776.254155 (2606) 	 2022-10-05 02:06:16 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L77 - userId -> 1 called order function   
+2022-10-05 02:06:16 ERROR 1664924776.7777972 (3130) 	 2022-10-05 02:06:16 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L87 - Error occurred Object of type Response is not JSON serializable , userId -> 1   
+2022-10-05 02:08:53 INFO 1664924933.6815639 (3038) 	 2022-10-05 02:08:53 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L77 - userId -> 1 called order function   
+2022-10-05 02:08:55 ERROR 1664924935.310751 (4667) 	 2022-10-05 02:08:55 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L87 - Error occurred dump() missing 1 required positional argument: 'fp' , userId -> 1   
+2022-10-05 02:09:33 INFO 1664924973.211197 (4326) 	 2022-10-05 02:09:33 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L77 - userId -> 1 called order function   
+2022-10-05 02:09:33 ERROR 1664924973.6319602 (4747) 	 2022-10-05 02:09:33 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L87 - Error occurred dump() missing 1 required positional argument: 'fp' , userId -> 1   
+2022-10-05 02:09:44 INFO 1664924984.8814468 (15997) 	 2022-10-05 02:09:44 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L77 - userId -> 1 called order function   
+2022-10-05 02:09:45 ERROR 1664924985.384007 (16499) 	 2022-10-05 02:09:45 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L87 - Error occurred dump() missing 1 required positional argument: 'fp' , userId -> 1   
+2022-10-05 02:34:47 INFO 1664926487.1095521 (3312) 	 2022-10-05 02:34:47 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L77 - userId -> 1 called order function   
+2022-10-05 02:34:47 ERROR 1664926487.682024 (3884) 	 2022-10-05 02:34:47 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L87 - Error occurred dump() missing 1 required positional argument: 'fp' , userId -> 1   
+2022-10-05 02:36:41 INFO 1664926601.61049 (6630) 	 2022-10-05 02:36:41 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L77 - userId -> 1 called order function   
+2022-10-05 02:36:45 ERROR 1664926605.236887 (10256) 	 2022-10-05 02:36:45 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L87 - Error occurred Object of type Response is not JSON serializable , userId -> 1   
+2022-10-05 02:37:10 INFO 1664926630.853842 (4727) 	 2022-10-05 02:37:10 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L77 - userId -> 1 called order function   
+2022-10-05 02:37:11 ERROR 1664926631.3179321 (5192) 	 2022-10-05 02:37:11 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L87 - Error occurred byte indices must be integers or slices, not str , userId -> 1   
+2022-10-05 02:37:33 INFO 1664926653.318342 (4598) 	 2022-10-05 02:37:33 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L77 - userId -> 1 called order function   
+2022-10-05 02:38:44 INFO 1664926724.050001 (5541) 	 2022-10-05 02:38:44 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L77 - userId -> 1 called order function   
+2022-10-05 02:38:44 ERROR 1664926724.509326 (6000) 	 2022-10-05 02:38:44 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L87 - Error occurred byte indices must be integers or slices, not str , userId -> 1   
+2022-10-05 02:39:26 INFO 1664926766.0066292 (11859) 	 2022-10-05 02:39:26 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L77 - userId -> 1 called order function   
+2022-10-05 02:39:26 INFO 1664926766.007863 (11860) 	 2022-10-05 02:39:26 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L77 - userId -> 1 called order function   
+2022-10-05 02:39:59 INFO 1664926799.2858722 (2133) 	 2022-10-05 02:39:59 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L77 - userId -> 1 called order function   
+2022-10-05 02:39:59 ERROR 1664926799.8757749 (2723) 	 2022-10-05 02:39:59 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L87 - Error occurred byte indices must be integers or slices, not str , userId -> 1   
+2022-10-05 02:40:00 INFO 1664926800.8089988 (3656) 	 2022-10-05 02:40:00 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L77 - userId -> 1 called order function   
+2022-10-05 02:40:01 ERROR 1664926801.300477 (4148) 	 2022-10-05 02:40:01 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L87 - Error occurred byte indices must be integers or slices, not str , userId -> 1   
+2022-10-05 02:40:09 INFO 1664926809.1871 (2373) 	 2022-10-05 02:40:09 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L77 - userId -> 1 called order function   
+2022-10-05 02:40:09 ERROR 1664926809.706868 (2892) 	 2022-10-05 02:40:09 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L87 - Error occurred byte indices must be integers or slices, not str , userId -> 1   
+2022-10-05 02:40:18 INFO 1664926818.318151 (2659) 	 2022-10-05 02:40:18 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L77 - userId -> 1 called order function   
+2022-10-05 02:40:29 INFO 1664926829.6910899 (2580) 	 2022-10-05 02:40:29 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L77 - userId -> 1 called order function   
+2022-10-05 02:40:59 INFO 1664926859.0914052 (3445) 	 2022-10-05 02:40:59 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L77 - userId -> 1 called order function   
+2022-10-05 02:41:22 INFO 1664926882.3335612 (2424) 	 2022-10-05 02:41:22 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L77 - userId -> 1 called order function   
+2022-10-05 02:41:45 INFO 1664926905.5305102 (2287) 	 2022-10-05 02:41:45 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L77 - userId -> 1 called order function   
+2022-10-05 02:42:05 INFO 1664926925.768028 (2552) 	 2022-10-05 02:42:05 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L77 - userId -> 1 called order function   
+2022-10-05 02:43:31 INFO 1664927011.032322 (2238) 	 2022-10-05 02:43:31 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L77 - userId -> 1 called order function   
+2022-10-05 02:43:31 ERROR 1664927011.5179431 (2724) 	 2022-10-05 02:43:31 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L88 - Error occurred __init__() got an unexpected keyword argument 'encode' , userId -> 1   
+2022-10-05 02:43:32 INFO 1664927012.40649 (3613) 	 2022-10-05 02:43:32 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L77 - userId -> 1 called order function   
+2022-10-05 02:43:32 ERROR 1664927012.9500082 (4156) 	 2022-10-05 02:43:32 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L88 - Error occurred __init__() got an unexpected keyword argument 'encode' , userId -> 1   
+2022-10-05 02:44:21 INFO 1664927061.1673942 (2834) 	 2022-10-05 02:44:21 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L77 - userId -> 1 called order function   
+2022-10-05 02:44:22 ERROR 1664927062.498187 (4165) 	 2022-10-05 02:44:22 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L88 - Error occurred 'dict' object has no attribute 'encode' , userId -> 1   
+2022-10-05 02:46:01 INFO 1664927161.247788 (2943) 	 2022-10-05 02:46:01 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L77 - userId -> 1 called order function   
+2022-10-05 02:46:01 ERROR 1664927161.842046 (3537) 	 2022-10-05 02:46:01 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L88 - Error occurred Object of type Response is not JSON serializable , userId -> 1   
+2022-10-05 02:46:04 INFO 1664927164.5950038 (6290) 	 2022-10-05 02:46:04 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L77 - userId -> 1 called order function   
+2022-10-05 02:46:05 ERROR 1664927165.0462332 (6741) 	 2022-10-05 02:46:05 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L88 - Error occurred Object of type Response is not JSON serializable , userId -> 1   
+2022-10-05 02:46:23 INFO 1664927183.016449 (3607) 	 2022-10-05 02:46:23 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L77 - userId -> 1 called order function   
+2022-10-05 02:46:23 ERROR 1664927183.645063 (4236) 	 2022-10-05 02:46:23 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L88 - Error occurred dump() missing 1 required positional argument: 'fp' , userId -> 1   
+2022-10-05 02:46:56 INFO 1664927216.301244 (2177) 	 2022-10-05 02:46:56 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L77 - userId -> 1 called order function   
+2022-10-05 02:46:56 ERROR 1664927216.81344 (2689) 	 2022-10-05 02:46:56 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L88 - Error occurred dump() missing 1 required positional argument: 'fp' , userId -> 1   
+2022-10-05 02:47:06 INFO 1664927226.079983 (2187) 	 2022-10-05 02:47:06 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L77 - userId -> 1 called order function   
+2022-10-05 02:47:30 INFO 1664927250.101761 (2180) 	 2022-10-05 02:47:30 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L77 - userId -> 1 called order function   
+2022-10-05 02:48:32 INFO 1664927312.1774879 (2414) 	 2022-10-05 02:48:32 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L77 - userId -> 1 called order function   
+2022-10-05 02:48:32 ERROR 1664927312.953685 (3190) 	 2022-10-05 02:48:32 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L88 - Error occurred 'dict' object has no attribute 'getroot' , userId -> 1   
+2022-10-05 02:48:33 INFO 1664927313.923127 (4160) 	 2022-10-05 02:48:33 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L77 - userId -> 1 called order function   
+2022-10-05 02:48:34 ERROR 1664927314.397432 (4634) 	 2022-10-05 02:48:34 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L88 - Error occurred 'dict' object has no attribute 'getroot' , userId -> 1   
+2022-10-05 02:53:28 INFO 1664927608.574364 (24256) 	 2022-10-05 02:53:28 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L77 - userId -> 1 called order function   
+2022-10-05 02:53:28 ERROR 1664927608.57498 (24257) 	 2022-10-05 02:53:28 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L88 - Error occurred getOrder() takes 0 positional arguments but 1 was given , userId -> 1   
+2022-10-05 02:53:34 INFO 1664927614.348178 (30030) 	 2022-10-05 02:53:34 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L77 - userId -> 1 called order function   
+2022-10-05 02:53:34 ERROR 1664927614.348751 (30031) 	 2022-10-05 02:53:34 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L88 - Error occurred getOrder() takes 0 positional arguments but 1 was given , userId -> 1   
+2022-10-05 02:53:34 INFO 1664927614.6026921 (30285) 	 2022-10-05 02:53:34 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L77 - userId -> 1 called order function   
+2022-10-05 02:53:34 ERROR 1664927614.6031659 (30285) 	 2022-10-05 02:53:34 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L88 - Error occurred getOrder() takes 0 positional arguments but 1 was given , userId -> 1   
+2022-10-05 02:53:34 INFO 1664927614.766146 (30448) 	 2022-10-05 02:53:34 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L77 - userId -> 1 called order function   
+2022-10-05 02:53:34 ERROR 1664927614.7663841 (30448) 	 2022-10-05 02:53:34 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L88 - Error occurred getOrder() takes 0 positional arguments but 1 was given , userId -> 1   
+2022-10-05 02:53:34 INFO 1664927614.90496 (30587) 	 2022-10-05 02:53:34 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L77 - userId -> 1 called order function   
+2022-10-05 02:53:34 ERROR 1664927614.905349 (30587) 	 2022-10-05 02:53:34 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L88 - Error occurred getOrder() takes 0 positional arguments but 1 was given , userId -> 1   
+2022-10-05 02:54:14 INFO 1664927654.556739 (4806) 	 2022-10-05 02:54:14 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L77 - userId -> 1 called order function   
+2022-10-05 02:54:15 ERROR 1664927655.073066 (5322) 	 2022-10-05 02:54:15 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L88 - Error occurred malformed node or string: <ast.Name object at 0x12013fd90> , userId -> 1   
+2022-10-05 02:54:43 INFO 1664927683.873031 (2552) 	 2022-10-05 02:54:43 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L77 - userId -> 1 called order function   
+2022-10-05 02:54:44 ERROR 1664927684.477695 (3156) 	 2022-10-05 02:54:44 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L88 - Error occurred malformed node or string: <ast.Name object at 0x111d71d90> , userId -> 1   
+2022-10-05 02:55:03 INFO 1664927703.623282 (1987) 	 2022-10-05 02:55:03 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L77 - userId -> 1 called order function   
+2022-10-05 02:55:23 INFO 1664927723.285144 (1990) 	 2022-10-05 02:55:23 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L77 - userId -> 1 called order function   
+2022-10-05 02:57:01 INFO 1664927821.890458 (2040) 	 2022-10-05 02:57:01 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L77 - userId -> 1 called order function   
+2022-10-05 02:57:02 ERROR 1664927822.4465148 (2596) 	 2022-10-05 02:57:02 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L88 - Error occurred 'str' object has no attribute 'getroot' , userId -> 1   
+2022-10-05 02:58:29 INFO 1664927909.2688158 (2052) 	 2022-10-05 02:58:29 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L77 - userId -> 1 called order function   
+2022-10-05 02:58:39 INFO 1664927919.8085618 (1951) 	 2022-10-05 02:58:39 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L77 - userId -> 1 called order function   
+2022-10-06 14:38:28 INFO 1665056308.29006 (17336) 	 2022-10-06 14:38:28 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Flogin L43 - userId -> 1 logged in   
+2022-10-06 15:27:21 INFO 1665059241.912452 (4759) 	 2022-10-06 15:27:21 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Flogin L43 - userId -> 1 logged in   
+2022-10-06 15:27:25 INFO 1665059245.406568 (8253) 	 2022-10-06 15:27:25 /Users/mustafasencan/Desktop/software/shopify/assoc_files/utilities/utilities.py FdeleteAccessToken L92 - UserId -> 1 called deleteAccessToken function   
+2022-10-06 15:27:33 INFO 1665059253.072528 (15919) 	 2022-10-06 15:27:33 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Flogout L137 - userId -> 1 logout   
+2022-10-06 15:28:03 INFO 1665059283.493377 (46340) 	 2022-10-06 15:28:03 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Flogin L43 - userId -> 1 logged in   
+2022-10-06 15:28:15 INFO 1665059295.675967 (58523) 	 2022-10-06 15:28:15 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py FgoApi L102 - userId -> 1 called goApi function   
+2022-10-06 15:30:16 INFO 1665059416.633684 (179480) 	 2022-10-06 15:30:16 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Flogin L43 - userId -> 1 logged in   
+2022-10-06 15:30:18 INFO 1665059418.158294 (181005) 	 2022-10-06 15:30:18 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py FgoApi L102 - userId -> 1 called goApi function   
+2022-10-06 15:32:53 INFO 1665059573.3960419 (336243) 	 2022-10-06 15:32:53 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Flogin L43 - userId -> 1 logged in   
+2022-10-06 15:32:58 INFO 1665059578.107882 (340955) 	 2022-10-06 15:32:58 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py FgoApi L102 - userId -> 1 called goApi function   
+2022-10-06 15:33:04 INFO 1665059584.626461 (347473) 	 2022-10-06 15:33:04 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Fapi L54 -  user -> exp called api function   
+2022-10-06 15:34:06 INFO 1665059646.760911 (409608) 	 2022-10-06 15:34:06 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Flogin L43 - userId -> 1 logged in   
+2022-10-06 15:34:32 INFO 1665059672.618665 (435465) 	 2022-10-06 15:34:32 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Flogin L43 - userId -> 1 logged in   
+2022-10-06 15:34:34 INFO 1665059674.7559 (437603) 	 2022-10-06 15:34:34 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py FgoApi L102 - userId -> 1 called goApi function   
+2022-10-06 15:35:03 INFO 1665059703.0147252 (465861) 	 2022-10-06 15:35:03 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Fapi L54 -  user -> exp called api function   
+2022-10-06 15:37:51 INFO 1665059871.717324 (5610) 	 2022-10-06 15:37:51 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L77 - userId -> 1 called order function   
+2022-10-06 15:41:41 INFO 1665060101.4202602 (235313) 	 2022-10-06 15:41:41 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Flogin L43 - userId -> 1 logged in   
+2022-10-06 15:41:45 INFO 1665060105.2471402 (239140) 	 2022-10-06 15:41:45 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L77 - userId -> 1 called order function   
+2022-10-06 15:42:02 INFO 1665060122.507621 (256400) 	 2022-10-06 15:42:02 /Users/mustafasencan/Desktop/software/shopify/assoc_files/utilities/utilities.py FdeleteAccessToken L92 - UserId -> 1 called deleteAccessToken function   
+2022-10-06 15:42:15 INFO 1665060135.326386 (269219) 	 2022-10-06 15:42:15 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py FgoApi L102 - userId -> 1 called goApi function   
+2022-10-06 15:42:16 INFO 1665060136.5734131 (270466) 	 2022-10-06 15:42:16 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Fapi L54 -  user -> exp called api function   
+2022-10-06 16:28:05 INFO 1665062885.5356128 (8734) 	 2022-10-06 16:28:05 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Flogin L43 - userId -> 1 logged in   
+2022-10-06 16:28:07 INFO 1665062887.7272372 (10926) 	 2022-10-06 16:28:07 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Forder L77 - userId -> 1 called order function   
+2022-10-11 11:40:26 INFO 1665477626.9555671 (7052) 	 2022-10-11 11:40:26 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Flogin L44 - userId -> 1 logged in   
+2022-10-11 11:40:29 INFO 1665477629.1447291 (9241) 	 2022-10-11 11:40:29 /Users/mustafasencan/Desktop/software/shopify/assoc_files/routes.py Flogout L138 - userId -> 1 logout   
