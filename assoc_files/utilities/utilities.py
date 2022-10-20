@@ -1,4 +1,5 @@
-import requests
+import binascii
+import os
 from html5lib import serialize
 from assoc_files import app
 from flask import jsonify ,session , redirect,url_for
@@ -9,7 +10,10 @@ from assoc_files.modal import UserTable,OrderTable
 
 import datetime
 
-
+state = binascii.b2a_hex(os.urandom(15)).decode("utf-8")
+redirect_uri = app.config["redirect_uri"]
+scopes = ['read_products', 'read_orders','write_orders']
+scopes_string = ','.join(scopes)
 
 def verifyLogin(dbUser):
     if dbUser!=None:
@@ -23,7 +27,9 @@ def verifyLogin(dbUser):
     return False
 
 
-
+def createAuthUrl():
+    auth_url = f"https://{app.config['shop_url']}/admin/oauth/authorize?client_id={app.config['API_KEY']}&scope={scopes_string}&redirect_uri={app.config['redirect_uri']}&state={state}"
+    return auth_url
 
 def serialize_model(model):
     return jsonify(serialize(model,encoding='utf-8'))
@@ -59,9 +65,6 @@ def validate(user:User,dbUser:UserTable):
                 return True
             return False
     return False
-
-
-
 
 
 def deleteAccessToken():

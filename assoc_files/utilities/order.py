@@ -5,17 +5,18 @@ from assoc_files.entity.UserClass import User,Order
 from assoc_files.modal import OrderTable, UserTable
 
 
+def printqr(orderid):
+    pass
+
 def getOrder():
     print(app.config["shop_url"])
     if app.config["shop_url"] == '' or app.config["shop_url"] == None:
-        return redirect(url_for("login"))
+        return redirect(url_for("app.login"))
     else:
-        header = {f"X-Shopify-Access-Token": session["accessToken"], "Content-Type": "application/json"}
+        header = {f"X-Shopify-Access-Token": session["accessToken"], "Content-Type": "applica tion/json"}
         response = requests.get(f"https://{app.config['shop_url']}/admin/api/2022-07/orders.json?financial_status:paid AND fulfillment_status:unshipped",headers=header)
         data = response.json()
         return data
-
-
 
 def updateShopifyOrder(orderId,address):
     if app.config["shop_url"] == '' or app.config["shop_url"] == None:

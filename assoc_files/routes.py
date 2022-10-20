@@ -5,14 +5,11 @@ from flask import render_template, redirect, url_for, request, session, flash
 from assoc_files.entity.UserClass import User ,Order
 from assoc_files.modal import UserTable
 from assoc_files import app
-from assoc_files.utilities.utilities import getOrderOnDb,login_required,jsonToOrder,verifyLogin,validate ,InsertUserOnDb,insertOrderOnDb,deleteAccessToken, token_required , getOrder,jsonify
-from assoc_files.utilities.order import updateShopifyOrder
+from assoc_files.utilities.utilities import login_required,verifyLogin,validate ,deleteAccessToken, token_required ,jsonify,createAuthUrl
+from assoc_files.utilities.order import *
 #from assoc_files.log.logging import logger
 from assoc_files.log.logging import *
-state = binascii.b2a_hex(os.urandom(15)).decode("utf-8")
-redirect_uri = app.config["redirect_uri"]
-scopes = ['read_products', 'read_orders','write_orders']
-scopes_string = ','.join(scopes)
+
 
 global user
 user = User()
@@ -23,15 +20,15 @@ global db_user
 @app.route('/updateorder/<int:orderId>',methods=['POST'])
 def updateOrder(orderId):
     address = request.form['addressInput']
-    if (updateShopifyOrder(orderId=orderId,address=address)==True):
-        flash(message="Adres basariyla guncellendi",category="success")
+    if updateShopifyOrder(orderId=orderId,address=address)==False:
+        flash(message="Adres guncellenirken hata olustu", category="danger")
         return redirect(url_for("order"))
-    flash(message="Adres guncellenirken hata olustu",category="danger")
+    flash(message="Adres basariyla guncellendi", category="success")
     return redirect(url_for("order"))
 
-def createAuthUrl():
-    auth_url = f"https://{app.config['shop_url']}/admin/oauth/authorize?client_id={app.config['API_KEY']}&scope={scopes_string}&redirect_uri={app.config['redirect_uri']}&state={state}"
-    return auth_url
+@app.route('/printqr/<int:orderId>')
+def printQr(orderId):
+    pass
 
 @app.route('/login',methods=['GET','POST'])
 def login():
@@ -79,7 +76,7 @@ def api():
         session["accessToken"] = response.json()['access_token']
         user.accessToken = session["accessToken"]
         user.shopUrl = app.config['shop_url']
-        print("urlurlurl",app.config['shop_url'])
+
         #InsertUserOnDb(user=user)
         session["logged_in"] = True
         return redirect(url_for("info"))
@@ -87,7 +84,7 @@ def api():
         #logger.error(f"error occurred in api function error -> {e} , user -> {user.email}")
         user.shopUrl = None
         print(e)
-        return redirect(url_for("info"))
+        return redirect(url_for("login"))
 
 @app.route('/go_api')
 def goApi():
@@ -116,7 +113,7 @@ def order():
     except Exception as e:
         print(e)
         #logger.error(f"Error occurred {e} , userId -> {session['userId']}")
-        return redirect(url_for("info"))
+        return redirect(url_for("login"))
 
 @app.route('/vieworders',methods=['GET','POST'])
 @login_required
