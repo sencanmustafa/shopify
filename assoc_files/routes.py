@@ -23,9 +23,11 @@ global db_user
 @app.route('/updateorder/<int:orderId>',methods=['POST'])
 def updateOrder(orderId):
     address = request.form['addressInput']
-
-    statusCode = updateShopifyOrder(orderId=orderId,address=address)
-    return statusCode
+    if (updateShopifyOrder(orderId=orderId,address=address)==True):
+        flash(message="Adres basariyla guncellendi",category="success")
+        return redirect(url_for("order"))
+    flash(message="Adres guncellenirken hata olustu",category="danger")
+    return redirect(url_for("order"))
 
 def createAuthUrl():
     auth_url = f"https://{app.config['shop_url']}/admin/oauth/authorize?client_id={app.config['API_KEY']}&scope={scopes_string}&redirect_uri={app.config['redirect_uri']}&state={state}"
@@ -91,7 +93,7 @@ def api():
 def goApi():
     print(user)
     #logger.info(f"userId -> {session['userId']} called goApi function")
-    print(createAuthUrl())
+
     try:
         requests.get(url=createAuthUrl())
         return redirect(createAuthUrl())
@@ -105,9 +107,9 @@ def order():
 
         #logger.info(f"userId -> {session['userId']} called order function")
         orderData = getOrder()
-        print(orderData)
+
         orderList = jsonToOrder(data=orderData)
-        print(orderList)
+
         #insertOrderOnDb(orderList)
 
         return render_template("order.html",orders=orderList)
