@@ -1,8 +1,3 @@
-from typing import List
-
-from assoc_files.modal import UserTable,OrderTable
-from flask import session
-import datetime
 class User:
     def __init__(self,email=None,password=None,accessToken=None,shopUrl=None):
         self.email = email

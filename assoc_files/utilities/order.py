@@ -2,23 +2,10 @@ import requests
 from assoc_files import app
 from flask import session, redirect, url_for,flash
 from assoc_files.entity.UserClass import User,Order
-from assoc_files.modal import OrderTable, UserTable
+from assoc_files.database.modal import OrderTable, UserTable
 
-
-def printqr(orderid):
-    pass
-
-def getOrder():
-    print(app.config["shop_url"])
-    if app.config["shop_url"] == '' or app.config["shop_url"] == None:
-        return redirect(url_for("app.login"))
-    else:
-        header = {f"X-Shopify-Access-Token": session["accessToken"], "Content-Type": "applica tion/json"}
-        response = requests.get(f"https://{app.config['shop_url']}/admin/api/2022-07/orders.json?financial_status:paid AND fulfillment_status:unshipped",headers=header)
-        data = response.json()
-        return data
-
-def updateShopifyOrder(orderId,address):
+# UPDATE ORDER ADDRESS #
+def sendTagUpdateOrderAddress(orderId,address):
     if app.config["shop_url"] == '' or app.config["shop_url"] == None:
         flash(message="hata")
         return False
@@ -38,6 +25,86 @@ def updateShopifyOrder(orderId,address):
     if response.status_code == 200:
         return True
     return False
+# UPDATE ORDER ADDRESS #
+
+
+#  QR  #
+def sendTagPrintQr(orderId):
+    if app.config["shop_url"] == '' or app.config["shop_url"] == None:
+        flash(message="hata")
+        return False
+    headers = {f"X-Shopify-Access-Token":session["accessToken"]}
+
+    json_data = {
+        'order': {
+            'id': orderId,
+            'tags':'Barkod Alindi',
+        },
+    }
+
+    response = requests.put(f"https://{app.config['shop_url']}/admin/api/2022-07/orders/{orderId}.json",headers=headers, json=json_data)
+    if response.status_code == 200:
+        return True
+    return False
+def callQrOrder():
+    print(app.config["shop_url"])
+    if app.config["shop_url"] == '' or app.config["shop_url"] == None:
+        return redirect(url_for("app.login"))
+    else:
+        header = {f"X-Shopify-Access-Token": session["accessToken"], "Content-Type": "application/json"}
+        response = requests.get(f"https://{app.config['shop_url']}/admin/api/2022-07/orders.json?financial_status:paid&fulfillment_status:unshipped&tag=Barkod Alindi",headers=header)
+        data = response.json()
+        return data
+
+#  QR  #
+
+
+# CARGO #
+def sendTagCargo(orderId):
+    #kargo islemleri
+    if app.config["shop_url"] == '' or app.config["shop_url"] == None:
+        flash(message="hata")
+        return False
+    headers = {f"X-Shopify-Access-Token":session["accessToken"]}
+
+    json_data = {
+        'order': {
+            'id': orderId,
+            'tags':'Kargoya Veri Gönderildi',
+        },
+    }
+
+    response = requests.put(f"https://{app.config['shop_url']}/admin/api/2022-07/orders/{orderId}.json",headers=headers, json=json_data)
+    if response.status_code == 200:
+        return True
+    return False
+
+def callCargoOrder():
+    print(app.config["shop_url"])
+    if app.config["shop_url"] == '' or app.config["shop_url"] == None:
+        return redirect(url_for("app.login"))
+    else:
+        header = {f"X-Shopify-Access-Token": session["accessToken"], "Content-Type": "application/json"}
+        response = requests.get(f"https://{app.config['shop_url']}/admin/api/2022-07/orders.json?financial_status:paid&fulfillment_status:unshipped&tag=Kargoya Veri Gönderildi",headers=header)
+        data = response.json()
+        return data
+
+# CARGO #
+
+
+# NEW ORDER  #
+
+
+def callNewOrder():
+    print(app.config["shop_url"])
+    if app.config["shop_url"] == '' or app.config["shop_url"] == None:
+        return redirect(url_for("app.login"))
+    else:
+        header = {f"X-Shopify-Access-Token": session["accessToken"], "Content-Type": "application/json"}
+        response = requests.get(f"https://{app.config['shop_url']}/admin/api/2022-07/orders.json?financial_status:paid AND fulfillment_status:unshipped&tag= ",headers=header)
+        data = response.json()
+        return data
+
 
 def InsertUserOnDb(user:User):
     checkUser = UserTable.query.filter_by(shopurl=user.shopUrl).one_or_none()
@@ -55,7 +122,7 @@ def insertOrderOnDb(order:list):
             print(order[i].orderId,session['userId'])
             dbOrder = OrderTable(orderId=order[i].orderId,userId=session['userId'],firstName=order[i].firstName,lastName=order[i].lastName,orderStatus=order[i].orderStatus,orderName=order[i].orderName,address1=order[i].address1,phone=order[i].phone,orderDate=order[i].date,city=order[i].city,zip=order[i].zip,address2=order[i].address2,country=order[i].country,company=order[i].company,name=order[i].name,countryCode=order[i].countryCode)
             OrderTable.insert(dbOrder)
-        #logger.info(f"order inserted to db , userId -> {session['userId']} ")
+        #logger.info(f"order inserted to database , userId -> {session['userId']} ")
         return True
     except Exception as e:
         print(e)

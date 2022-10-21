@@ -17,7 +17,8 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
-
+<div><a class="btn btn-primary" href="{{ url_for("orderCargo") }}">Kargo sayfasi</a></div>
+<div><a class="btn btn-primary" href="{{ url_for("orderBarkod") }}">Barkod Sayfasi</a></div>
 <table>
     <thead>
     <tr>
@@ -26,7 +27,8 @@
         <th>Kargo Anahtari</th>
         <th>Musteri</th>
     </tr>
-
+    </thead>
+    <tbody>
     {% for i in orders %}
         <tr>
             <td>{{ i.orderName }}</td>
@@ -101,7 +103,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form class="mb-0" action="{{ url_for("printQr",orderId=i.orderId) }}" method="post">
+                        <form class="mb-0" action="{{ url_for("printqr",orderId=i.orderId) }}" method="post">
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                 <button  type="submit" class="btn btn-primary">Barkod Yazdir</button>
@@ -114,8 +116,7 @@
             </div>
         </div>
     {% endfor %}
-
-    </thead>
+    </tbody>
 </table>
 <!-- Button trigger modal -->
 

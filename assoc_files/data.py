@@ -1,6 +1,5 @@
 from sqlalchemy import null, false, true
-from assoc_files import db
-from assoc_files.modal import YurticiKargoApiInfo
+
 data = {
         "id": 4893196583145,#OrderId 4. column
         "admin_graphql_api_id": "gid://shopify/Order/4893196583145",
