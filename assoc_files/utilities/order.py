@@ -3,6 +3,27 @@ from assoc_files import app
 from flask import session, redirect, url_for,flash
 from assoc_files.entity.UserClass import User,Order
 from assoc_files.database.modal import OrderTable, UserTable
+from barcode import Code128
+from barcode.writer import ImageWriter
+from barcode import generate
+import barcode
+
+
+#####     barcode ####
+
+def writeBarcode(orderId):
+    try:
+        Code128 = barcode.get_barcode_class('code128')
+        qr = Code128(f"{orderId}", writer=ImageWriter())
+        qr.save(f"assoc_files/barcode/{orderId}")
+        return True
+    except Exception as e:
+        print(e)
+        return False
+
+####      barcode ####
+
+
 
 # UPDATE ORDER ADDRESS #
 def sendTagUpdateOrderAddress(orderId,address):
