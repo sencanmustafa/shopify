@@ -1,5 +1,5 @@
 from assoc_files import app
-from assoc_files.entity.UserClass import User
+
 
 
 if __name__ == '__main__':

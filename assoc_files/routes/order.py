@@ -1,11 +1,28 @@
 import time
 
+import barcode
 from flask import render_template, request
 from assoc_files.utilities.utilities import login_required
 from assoc_files.utilities.order import *
+from io import BytesIO
+from barcode import Code128
+from barcode.writer import ImageWriter
+from barcode import generate
 #from assoc_files.log.logging import logger
 
 
+@app.route('/deneme',methods=['GET'])
+def deneme():
+    Code128 = barcode.get_barcode_class('code128')
+    my_code = Code128("123456",writer=ImageWriter())
+    fullName = my_code.save('code128_barcode')
+    print(fullName)
+    fp = BytesIO()
+
+    #with open('assoc_files/routes','wb') as f:
+    #    my_code.write(f)
+    #generate('Code128','123456',writer=ImageWriter(),output=fp)
+    return fullName
 
 
 @app.route('/updateorder/<int:orderId>',methods=['POST'])

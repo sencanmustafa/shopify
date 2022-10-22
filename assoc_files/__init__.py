@@ -12,7 +12,7 @@ db = SQLAlchemy(app)
 app.config["API_KEY"] = "01f1fb02c1c85413aece6af94c8ec9e8"
 app.config["SECRET_KEY"] = "f20bb93cbfa66d11cec02313e78e6fa9"
 app.config["shop_url"] = ""
-app.config["redirect_uri"] = "https://edf6-188-132-132-50.ngrok.io/api"
+app.config["redirect_uri"] = "https://3469-188-132-132-50.ngrok.io/api"
 app.config["api_version"]= "2022-07"
 
 app.config["access_scope_url"] = "https://armonika.myshopify.com/admin/oauth/access_scopes.json"
