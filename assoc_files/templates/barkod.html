@@ -76,7 +76,7 @@
                         </button>
                     </div>
                     <div>
-                        <img id="myImg" src="/assoc_files/barcode/{{i.orderId}}.png" alt="Avatar" style="width:100%;max-width:300px">
+                        <img id="myImg" src="../barcode/{{i.orderId}}.png" alt="Avatar" style="width:100%;max-width:300px">
                     </div>
                     <div class="modal-body">
                         <form class="mb-0" action="{{ url_for("sendCargo",orderId=i.orderId) }}" method="post">
@@ -90,10 +90,14 @@
             </div>
         </div>
     {% endfor %}
-    <div>
-        <img id="myImg" src="/assoc_files/barcode/4803777822857.png" alt="Avatar" style="width:100%;max-width:300px">
-    </div>
     </tbody>
 </table>
+<div class="card">
+  <img src="../barcode/4803777822857.jpeg" alt="Avatar" style="width:100%;max-width:200px">
+  <div class="container">
+    <h4><b>John Doe</b></h4>
+    <p>Architect & Engineer</p>
+  </div>
+</div>
 </body>
 </html>
