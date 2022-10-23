@@ -1,46 +1,41 @@
 import requests
 from assoc_files import app
-from flask import session, redirect, url_for,flash
-from assoc_files.entity.UserClass import User,Order
+from flask import session,flash
+from assoc_files.entity.UserClass import User, Order
 from assoc_files.database.modal import OrderTable, UserTable
-from barcode import Code128
 from barcode.writer import ImageWriter
-from barcode import generate
 import barcode
 
 ##### JSON DATA TO SEND SHOPIFY IN REQUEST #####
 def jsonData(orderId,tag,address=None):
     if address !=None:
-        json_data = {
-        'order': {
-            'id': orderId,
-            'tags':tag,
-            'shipping_address': {
-                'address1': address
-            },
-        },
-    }
-
-
+        json_data = {'order': {'id': orderId,'tags':tag,'shipping_address': {'address1': address},},}
+    else:
+        json_data = {'order': {'id': orderId, 'tags': tag}, }
+    return json_data
 
 
 ##### JSON DATA TO SEND SHOPIFY IN REQUEST #####
+
+
+###### CHECK SHOP URL ######
+
+def checkSessionUrl():
+    if app.config["shop_url"] == '' or app.config["shop_url"] == None:
+        flash(message="hata")
+        return False
+    return True
+
+###### CHECK SHOP URL ######
+
 
 ####    SHIPPING    ####
 
 
 def sendTagShipping(orderId):
-    if app.config["shop_url"] == '' or app.config["shop_url"] == None:
-        flash(message="hata")
-        return False
+    checkSessionUrl()
     headers = {f"X-Shopify-Access-Token":session["accessToken"]}
-
-    json_data = {
-        'order': {
-            'id': orderId,
-            'tags':'Dağıtıma Çıktı'
-        },
-    }
+    json_data = jsonData(orderId=orderId,tag='Dagitima Cikti')
 
     response = requests.put(f"https://{app.config['shop_url']}/admin/api/2022-07/orders/{orderId}.json",headers=headers, json=json_data)
     if response.status_code == 200:
@@ -68,20 +63,10 @@ def writeBarcode(orderId):
 
 # UPDATE ORDER ADDRESS #
 def sendTagUpdateOrderAddress(orderId,address):
-    if app.config["shop_url"] == '' or app.config["shop_url"] == None:
-        flash(message="hata")
-        return False
+    checkSessionUrl()
     headers = {f"X-Shopify-Access-Token":session["accessToken"]}
 
-    json_data = {
-        'order': {
-            'id': orderId,
-            'tags':'Adres Duzenlendi',
-            'shipping_address': {
-                'address1': address
-            },
-        },
-    }
+    json_data = jsonData(orderId=orderId,tag='Dagitima Cikti',address=address)
 
     response = requests.put(f"https://{app.config['shop_url']}/admin/api/2022-07/orders/{orderId}.json",headers=headers, json=json_data)
     if response.status_code == 200:
@@ -92,17 +77,10 @@ def sendTagUpdateOrderAddress(orderId,address):
 
 #  QR  #
 def sendTagPrintQr(orderId):
-    if app.config["shop_url"] == '' or app.config["shop_url"] == None:
-        flash(message="hata")
-        return False
+    checkSessionUrl()
     headers = {f"X-Shopify-Access-Token":session["accessToken"]}
 
-    json_data = {
-        'order': {
-            'id': orderId,
-            'tags':'Barkod Alindi',
-        },
-    }
+    json_data = jsonData(orderId=orderId,tag='Barkod Alindi')
 
     response = requests.put(f"https://{app.config['shop_url']}/admin/api/2022-07/orders/{orderId}.json",headers=headers, json=json_data)
     if response.status_code == 200:
@@ -110,13 +88,12 @@ def sendTagPrintQr(orderId):
     return False
 def callQrOrder():
     print(app.config["shop_url"])
-    if app.config["shop_url"] == '' or app.config["shop_url"] == None:
-        return redirect(url_for("app.login"))
-    else:
-        header = {f"X-Shopify-Access-Token": session["accessToken"], "Content-Type": "application/json"}
-        response = requests.get(f"https://{app.config['shop_url']}/admin/api/2022-07/orders.json?financial_status:paid&fulfillment_status:unshipped&tag=Barkod Alindi",headers=header)
-        data = response.json()
-        return data
+    checkSessionUrl()
+
+    header = {f"X-Shopify-Access-Token": session["accessToken"], "Content-Type": "application/json"}
+    response = requests.get(f"https://{app.config['shop_url']}/admin/api/2022-07/orders.json?financial_status:paid&fulfillment_status:unshipped&tag=Barkod Alindi",headers=header)
+    data = response.json()
+    return data
 
 #  QR  #
 
@@ -124,17 +101,10 @@ def callQrOrder():
 # CARGO #
 def sendTagCargo(orderId):
     #kargo islemleri
-    if app.config["shop_url"] == '' or app.config["shop_url"] == None:
-        flash(message="hata")
-        return False
+    checkSessionUrl()
     headers = {f"X-Shopify-Access-Token":session["accessToken"]}
 
-    json_data = {
-        'order': {
-            'id': orderId,
-            'tags':'Kargoya Veri Gönderildi',
-        },
-    }
+    json_data = jsonData(orderId=orderId,tag='Kargoya Veri Gonderildi')
 
     response = requests.put(f"https://{app.config['shop_url']}/admin/api/2022-07/orders/{orderId}.json",headers=headers, json=json_data)
     if response.status_code == 200:
@@ -143,13 +113,11 @@ def sendTagCargo(orderId):
 
 def callCargoOrder():
     print(app.config["shop_url"])
-    if app.config["shop_url"] == '' or app.config["shop_url"] == None:
-        return redirect(url_for("app.login"))
-    else:
-        header = {f"X-Shopify-Access-Token": session["accessToken"], "Content-Type": "application/json"}
-        response = requests.get(f"https://{app.config['shop_url']}/admin/api/2022-07/orders.json?financial_status:paid&fulfillment_status:unshipped&tag=Kargoya Veri Gönderildi",headers=header)
-        data = response.json()
-        return data
+    checkSessionUrl()
+    header = {f"X-Shopify-Access-Token": session["accessToken"], "Content-Type": "application/json"}
+    response = requests.get(f"https://{app.config['shop_url']}/admin/api/2022-07/orders.json?financial_status:paid&fulfillment_status:unshipped&tag=Kargoya Veri Gönderildi",headers=header)
+    data = response.json()
+    return data
 
 # CARGO #
 
@@ -159,13 +127,12 @@ def callCargoOrder():
 
 def callNewOrder():
     print(app.config["shop_url"])
-    if app.config["shop_url"] == '' or app.config["shop_url"] == None:
-        return redirect(url_for("app.login"))
-    else:
-        header = {f"X-Shopify-Access-Token": session["accessToken"], "Content-Type": "application/json"}
-        response = requests.get(f"https://{app.config['shop_url']}/admin/api/2022-07/orders.json?financial_status:paid AND fulfillment_status:unshipped&tag= ",headers=header)
-        data = response.json()
-        return data
+    checkSessionUrl()
+
+    header = {f"X-Shopify-Access-Token": session["accessToken"], "Content-Type": "application/json"}
+    response = requests.get(f"https://{app.config['shop_url']}/admin/api/2022-07/orders.json?financial_status:paid AND fulfillment_status:unshipped&tag= ",headers=header)
+    data = response.json()
+    return data
 
 # NEW ORDER  #
 
