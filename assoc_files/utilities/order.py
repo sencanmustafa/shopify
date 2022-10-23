@@ -8,6 +8,47 @@ from barcode.writer import ImageWriter
 from barcode import generate
 import barcode
 
+##### JSON DATA TO SEND SHOPIFY IN REQUEST #####
+def jsonData(orderId,tag,address=None):
+    if address !=None:
+        json_data = {
+        'order': {
+            'id': orderId,
+            'tags':tag,
+            'shipping_address': {
+                'address1': address
+            },
+        },
+    }
+
+
+
+
+##### JSON DATA TO SEND SHOPIFY IN REQUEST #####
+
+####    SHIPPING    ####
+
+
+def sendTagShipping(orderId):
+    if app.config["shop_url"] == '' or app.config["shop_url"] == None:
+        flash(message="hata")
+        return False
+    headers = {f"X-Shopify-Access-Token":session["accessToken"]}
+
+    json_data = {
+        'order': {
+            'id': orderId,
+            'tags':'Dağıtıma Çıktı'
+        },
+    }
+
+    response = requests.put(f"https://{app.config['shop_url']}/admin/api/2022-07/orders/{orderId}.json",headers=headers, json=json_data)
+    if response.status_code == 200:
+        return True
+    return False
+
+
+####    SHIPPING    ####
 
 #####     barcode ####
 
@@ -15,7 +56,7 @@ def writeBarcode(orderId):
     try:
         Code128 = barcode.get_barcode_class('code128')
         qr = Code128(f"{orderId}", writer=ImageWriter())
-        qr.save(f"assoc_files/barcode/{orderId}")
+        qr.save(f"assoc_files/static/barcode/{orderId}")
         return True
     except Exception as e:
         print(e)
@@ -125,6 +166,9 @@ def callNewOrder():
         response = requests.get(f"https://{app.config['shop_url']}/admin/api/2022-07/orders.json?financial_status:paid AND fulfillment_status:unshipped&tag= ",headers=header)
         data = response.json()
         return data
+
+# NEW ORDER  #
+
 
 
 def InsertUserOnDb(user:User):

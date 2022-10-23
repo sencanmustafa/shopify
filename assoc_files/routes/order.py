@@ -54,7 +54,7 @@ def order():
 @app.route('/orderbarkod',methods=['GET'])
 def orderBarkod():
     try:
-        time.sleep(3)
+        time.sleep(10)
         orderData = callQrOrder()
         orderList = jsonToOrder(data=orderData)
         print(orderList,"orderlist")
@@ -70,13 +70,19 @@ def orderCargo():
         orderData = callCargoOrder()
         orderList = jsonToOrder(data=orderData)
         print(orderList, "orderlist")
-        return render_template("cargo.html", orders=orderList)
+        return render_template("takip_bekleyenler.html", orders=orderList)
     except Exception as e:
         print(e)
         return redirect(url_for("info"))
 
 
-
+@app.route('/shipping',methods=['GET'])
+def shipping():
+    try:
+        pass
+    except Exception as e:
+        print(e)
+        return redirect(url_for("info"))
 
 
 @app.route('/info')
