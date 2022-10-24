@@ -1,4 +1,4 @@
-from flask import  request
+from flask import  request,redirect,url_for
 from assoc_files.utilities.utilities import createAuthUrl
 from assoc_files.utilities.order import *
 
@@ -20,7 +20,15 @@ def api():
         session["accessToken"] = response.json()['access_token']
         user.accessToken = session["accessToken"]
         user.shopUrl = app.config['shop_url']
-
+        dbUser = UserTable.query.filter_by(shopurl=user.shopUrl).one_or_none()
+        if dbUser == None:
+            try:
+                newUser = UserTable(shopurl=user.shopUrl,accessToken=user.accessToken)
+                UserTable.insert(newUser)
+            except Exception as e:
+                print(e)
+                return redirect(url_for("login"))
+        session["userId"] = dbUser.id
         #InsertUserOnDb(user=user)
         session["logged_in"] = True
         return redirect(url_for("info"))

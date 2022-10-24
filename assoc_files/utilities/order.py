@@ -186,6 +186,28 @@ def jsonToOrder(data:dict):
                 order.orderName = "null"
             if order.company == None:
                 order.company = "default"
+            if order.zip == None:
+                order.zip = "default"
+            if order.city == None:
+                order.city = "Null"
+            if order.country == None:
+                order.country = "Null"
+            if order.address2 == None:
+                order.address2 = "Null"
+            if order.name == None:
+                order.name = "Null"
+            if order.countryCode == None:
+                order.countryCode = "Null"
+            if order.date == None:
+                order.date = "Null"
+            if order.phone == None:
+                order.phone = "Null"
+            if order.firstName == None:
+                order.firstName = "Null"
+            if order.lastName == None:
+                order.lastName = "Null"
+
+
             orderList.append(order)
         return orderList
     except Exception as e:

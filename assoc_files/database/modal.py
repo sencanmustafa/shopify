@@ -2,7 +2,7 @@ from assoc_files import db
 
 class UserTable(db.Model):
     __tablename__ = 'user'
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    id = db.Column(db.BIGINT, primary_key=True, autoincrement=True)
     shopurl = db.Column(db.String(225),unique=True,nullable=False)
     email = db.Column(db.String(100),nullable=True)
     password = db.Column(db.String(100),nullable=True)
@@ -28,7 +28,7 @@ print(query)
 
 class OrderTable(db.Model):
     __tablename__ = 'order'
-    orderId = db.Column(db.Float, primary_key=True,nullable=True)
+    orderId = db.Column(db.Float, primary_key=True,nullable=False,unique=True)
     userId = db.Column(db.Integer,nullable=False)
     orderDate = db.Column(db.DateTime, nullable=False)
     firstName = db.Column(db.String(300),nullable=False)

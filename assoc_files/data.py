@@ -1,4 +1,7 @@
-from sqlalchemy import null, false, true
+from sqlalchemy import null, false, true, desc
+
+from assoc_files import db
+from assoc_files.database.modal import OrderTable
 
 data = {
         "id": 4893196583145,#OrderId 4. column
@@ -413,7 +416,6 @@ data = {
 
 
 orderData = data["shipping_address"]
-
 
 
 

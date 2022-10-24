@@ -1,6 +1,6 @@
 import time
-from flask import render_template, request
-from assoc_files.utilities.utilities import login_required
+from flask import render_template, request , redirect , url_for
+from assoc_files.utilities.utilities import login_required, checkOrders
 from assoc_files.utilities.order import *
 #from assoc_files.log.logging import logger
 
@@ -22,7 +22,7 @@ def printqr(orderId):
         flash(message="Beklenmeyen bir hata olustu", category="danger")
         return redirect(url_for("order"))
     flash(message="Kargoya iletildi", category="danger")
-    return redirect(url_for("orderBarkod"))
+    return redirect(url_for("order"))
 
 
 @app.route('/sendcargo/<int:orderId>',methods=['POST'])
@@ -32,7 +32,7 @@ def sendCargo(orderId):
         return redirect(url_for("order"))
 
     flash(message="Adres basariyla guncellendi", category="success")
-    return redirect(url_for("orderCargo"))
+    return redirect(url_for("orderBarkod"))
 
 
 
@@ -43,7 +43,9 @@ def order():
         #logger.info(f"userId -> {session['userId']} called order function")
         orderData = callNewOrder()
         orderList = jsonToOrder(data=orderData)
-        #insertOrderOnDb(orderList)
+        checkOrderList = jsonToOrder(data=orderData)
+        comparedOrderList = checkOrders(orderList=checkOrderList)
+        insertOrderOnDb(comparedOrderList)
         return render_template("order.html",orders=orderList)
     except Exception as e:
         print(e)
