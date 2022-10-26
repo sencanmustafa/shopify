@@ -1,3 +1,5 @@
+import json
+
 import requests , xmltodict
 from assoc_files.database.modal import *
 from sqlalchemy import desc
@@ -90,5 +92,34 @@ def queryShipment(orderId):
     </soapenv:Envelope> """
     response = requests.post(url=cargoUrl, data=queryShipmentBody, headers=cargoHeaders)
     if response.status_code == 200:
-        print("tracking number")
+        print("track")
     return False
+
+
+def testCreateShipment():
+    testCreateShipment = f"""<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ship="http://yurticikargo.com.tr/ShippingOrderDispatcherServices">
+
+           <soapenv:Header/>
+
+           <soapenv:Body>
+
+              <ship:createShipment>
+
+                 <wsUserName>YKTEST</wsUserName><wsPassword>YK</wsPassword><userLanguage>TR</userLanguage>
+
+              <ShippingOrderVO><cargoKey>4525184187541589</cargoKey><invoiceKey>4525184187541589</invoiceKey><receiverCustName>ALICI ADI</receiverCustName><receiverAddress>ALICI SEVK ADRESi Kargo Plaza K:5 Maslak</receiverAddress><cityName>istanbul</cityName><townName>sisli</townName><receiverPhone1>2123652365</receiverPhone1><taxOfficeId/><cargoCount>1</cargoCount><specialField1>1$1340965#</specialField1><ttDocumentId/><dcSelectedCredit/><dcCreditRule/><orgReceiverCustId>11988</orgReceiverCustId></ShippingOrderVO></ship:createShipment>
+
+           </soapenv:Body>
+
+        </soapenv:Envelope>"""
+    response = requests.post(url=cargoUrl, data=testCreateShipment, headers=cargoHeaders)
+    if response.status_code == 200:
+        try:
+
+            obj = xmltodict.parse(response.content)
+            obj2 = obj["env:Envelope"]["env:Body"]["ns1:createShipmentResponse"]["ShippingOrderResultVO"]["outFlag"]
+            print(obj2)
+            #
+        except Exception as e:
+            print(e)
+testCreateShipment()
