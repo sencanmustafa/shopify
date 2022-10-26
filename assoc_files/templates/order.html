@@ -26,6 +26,8 @@
         <th>Tarih</th>
         <th>Kargo Anahtari</th>
         <th>Musteri</th>
+        <th>Etiket</th>
+        <th></th>
     </tr>
     </thead>
     <tbody>
@@ -35,6 +37,7 @@
             <td>{{ i.date }}</td>
             <td>{{ i.orderId }}</td>
             <td>{{ i.firstName + i.lastName }}</td>
+            <td>{{ i.tag }}</td>
             <td>
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#orderAdressModal{{ i.orderId }}">Edit</button>
             </td>

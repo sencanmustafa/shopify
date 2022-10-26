@@ -56,7 +56,6 @@ def order():
 @app.route('/orderbarkod',methods=['GET'])
 def orderBarkod():
     try:
-        time.sleep(10)
         orderData = callQrOrder()
         orderList = jsonToOrder(data=orderData)
         print(orderList,"orderlist")

@@ -6,6 +6,7 @@ from assoc_files.database.modal import OrderTable, UserTable
 from barcode.writer import ImageWriter
 import barcode
 from assoc_files.yurticiApi.cargoApi import *
+
 from assoc_files.utilities.utilities import callYurticiUser
 ##### JSON DATA TO SEND SHOPIFY IN REQUEST #####
 def jsonData(orderId,tag,address=None):
@@ -67,11 +68,11 @@ def sendTagUpdateOrderAddress(orderId,address):
     checkSessionUrl()
     headers = {f"X-Shopify-Access-Token":session["accessToken"]}
 
-    json_data = jsonData(orderId=orderId,tag='Dagitima Cikti',address=address)
+    json_data = jsonData(orderId=orderId,tag='Adres Duzenlendi',address=address)
 
     response = requests.put(f"https://{app.config['shop_url']}/admin/api/2022-07/orders/{orderId}.json",headers=headers, json=json_data)
     if response.status_code == 200:
-        updateOrder(orderId=orderId,orderstatus="Adres Duzenlendi")
+        updateOrder(orderId=orderId,orderstatusStr="Adres Duzenlendi",orderStatus=0)
         return True
     return False
 # UPDATE ORDER ADDRESS #
@@ -86,7 +87,7 @@ def sendTagPrintQr(orderId):
 
     response = requests.put(f"https://{app.config['shop_url']}/admin/api/2022-07/orders/{orderId}.json",headers=headers, json=json_data)
     if response.status_code == 200:
-        updateOrder(orderId=orderId, orderstatus="Barkod Alindi")
+        updateOrder(orderId=orderId, orderstatusStr="Barkod Alindi",orderStatus=1)
         return True
     return False
 def callQrOrder():
@@ -106,9 +107,11 @@ def sendTagCargo(orderId):
     #kargo islemleri
     checkSessionUrl()
     ####  SEND CARGO TO YURTICI   ####
-    if createShipment(userYurtici=callYurticiUser(), order=getOrderOnDb(orderId=orderId))==False:
-        return False
-    updateOrder(orderId=orderId, orderstatus="Yurtici Veri Gonderildi")
+    #if createShipment(userYurtici=callYurticiUser(), order=getOrderOnDb(orderId=orderId))==False:
+    #    return False
+    #if testCreateShipment() == False:
+    #    return False
+    updateOrder(orderId=orderId, orderstatusStr="Yurtici Veri Gonderildi",orderStatus=2)
     ####  SEND CARGO TO YURTICI   ####
     headers = {f"X-Shopify-Access-Token":session["accessToken"]}
 
@@ -116,7 +119,7 @@ def sendTagCargo(orderId):
 
     response = requests.put(f"https://{app.config['shop_url']}/admin/api/2022-07/orders/{orderId}.json",headers=headers, json=json_data)
     if response.status_code == 200:
-        updateOrder(orderId=orderId, orderstatus="Yurtici ve shopify veri Gonderildi")
+        updateOrder(orderId=orderId, orderstatusStr="Yurtici ve shopify veri Gonderildi",orderStatus=2)
         return True
     return False
 
@@ -124,7 +127,7 @@ def callCargoOrder():
     print(app.config["shop_url"])
     checkSessionUrl()
     header = {f"X-Shopify-Access-Token": session["accessToken"], "Content-Type": "application/json"}
-    response = requests.get(f"https://{app.config['shop_url']}/admin/api/2022-07/orders.json?financial_status:paid&fulfillment_status:unshipped&tag=Kargoya Veri Gönderildi",headers=header)
+    response = requests.get(f"https://{app.config['shop_url']}/admin/api/2022-07/orders.json?financial_status:paid AND fulfillment_status:unshipped&tag=Kargoya Veri Gonderildi",headers=header)
     data = response.json()
     return data
 
@@ -144,12 +147,13 @@ def callNewOrder():
     return data
 
 # NEW ORDER  #
-def updateOrder(orderId,orderstatus:str):
+def updateOrder(orderId,orderstatusStr:str,orderStatus:int):
     try:
         update = OrderTable.query.filter_by(orderId=orderId).one_or_none()
         if update == None:
             return False
-        update.orderStatus = orderstatus
+        update.orderStatus2 = orderstatusStr
+        update.orderStatus = orderStatus
         OrderTable.updateTable(update)
         return True
     except Exception as e:
@@ -187,7 +191,7 @@ def jsonToOrder(data:dict):
             order.firstName = data["orders"][i]["shipping_address"]["first_name"]
             order.lastName = data["orders"][i]["shipping_address"]["last_name"]
             order.date = data["orders"][i]["created_at"]
-            order.orderStatus = data["orders"][i]["fulfillment_status"]
+            order.fulfillment_status = data["orders"][i]["fulfillment_status"]
             order.address1 = data["orders"][i]["shipping_address"]["address1"]
             order.phone = data["orders"][i]["shipping_address"]["phone"]
             order.city = data["orders"][i]["shipping_address"]["city"]
@@ -198,9 +202,10 @@ def jsonToOrder(data:dict):
             order.name = data["orders"][i]["shipping_address"]["name"]
             order.countryCode = data["orders"][i]["shipping_address"]["country_code"]
             order.orderName = data["orders"][i]["name"]
-
-            if order.orderStatus == None:
-                order.orderStatus = "Null"
+            order.tag = data["orders"][i]["tags"]
+            order.orderStatusStr = "Null"
+            if order.fulfillment_status == None:
+                order.fulfillment_status = "Null"
             if order.orderName == None:
                 order.orderName = "null"
             if order.company == None:
