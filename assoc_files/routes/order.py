@@ -1,8 +1,9 @@
 import time
 from flask import render_template, request , redirect , url_for
-from assoc_files.utilities.utilities import login_required, checkOrders
+from assoc_files.utilities.utilities import login_required, checkOrders,callYurticiUser
 from assoc_files.utilities.order import *
 #from assoc_files.log.logging import logger
+from assoc_files.yurticiApi.cargoApi import *
 
 @app.route('/updateorder/<int:orderId>',methods=['POST'])
 def updateOrder(orderId):
@@ -28,10 +29,9 @@ def printqr(orderId):
 @app.route('/sendcargo/<int:orderId>',methods=['POST'])
 def sendCargo(orderId):
     if sendTagCargo(orderId=orderId) == False:
-        flash(message="Adres guncellenirken hata olustu", category="danger")
+        flash(message="Beklenmeyen bir hata olustu", category="danger")
         return redirect(url_for("order"))
-
-    flash(message="Adres basariyla guncellendi", category="success")
+    flash(message="Kargoya Veri Gonderildi", category="success")
     return redirect(url_for("orderBarkod"))
 
 

@@ -6,17 +6,23 @@ from flask import jsonify ,session , redirect,url_for
 from functools import wraps
 from assoc_files.entity.UserClass import User
 #from assoc_files.log.logging import logger
-from assoc_files.database.modal import UserTable,OrderTable
+from assoc_files.database.modal import UserTable,OrderTable,YurticiKargoApiInfo
 from sqlalchemy import desc
 state = binascii.b2a_hex(os.urandom(15)).decode("utf-8")
 redirect_uri = app.config["redirect_uri"]
 scopes = ['read_products', 'read_orders','write_orders']
 scopes_string = ','.join(scopes)
 
-
+def callYurticiUser():
+    try:
+        yurticiUser = YurticiKargoApiInfo.query.filter_by(userId=session["userId"]).one_or_none()
+        return yurticiUser
+    except Exception as e:
+        print(e)
+        return False
 def checkOrders(orderList):
     idOrder = []
-    orders = OrderTable.query.filter_by(userId=session["userId"]).all()
+    orders = OrderTable.query.filter_by(userId=session["userId"]).order_by(desc(OrderTable.orderDate)).all()
     for i in orderList:
         idOrder.append(i.orderId)
     for x in orders:

@@ -417,5 +417,7 @@ data = {
 
 orderData = data["shipping_address"]
 
+orders = OrderTable.query.filter_by(userId=5).order_by(desc(OrderTable.orderDate)).all()
 
-
+for i in orders:
+    print(i.orderDate)

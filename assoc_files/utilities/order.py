@@ -5,7 +5,8 @@ from assoc_files.entity.UserClass import User, Order
 from assoc_files.database.modal import OrderTable, UserTable
 from barcode.writer import ImageWriter
 import barcode
-
+from assoc_files.yurticiApi.cargoApi import *
+from assoc_files.utilities.utilities import callYurticiUser
 ##### JSON DATA TO SEND SHOPIFY IN REQUEST #####
 def jsonData(orderId,tag,address=None):
     if address !=None:
@@ -70,6 +71,7 @@ def sendTagUpdateOrderAddress(orderId,address):
 
     response = requests.put(f"https://{app.config['shop_url']}/admin/api/2022-07/orders/{orderId}.json",headers=headers, json=json_data)
     if response.status_code == 200:
+        updateOrder(orderId=orderId,orderstatus="Adres Duzenlendi")
         return True
     return False
 # UPDATE ORDER ADDRESS #
@@ -84,6 +86,7 @@ def sendTagPrintQr(orderId):
 
     response = requests.put(f"https://{app.config['shop_url']}/admin/api/2022-07/orders/{orderId}.json",headers=headers, json=json_data)
     if response.status_code == 200:
+        updateOrder(orderId=orderId, orderstatus="Barkod Alindi")
         return True
     return False
 def callQrOrder():
@@ -102,12 +105,18 @@ def callQrOrder():
 def sendTagCargo(orderId):
     #kargo islemleri
     checkSessionUrl()
+    ####  SEND CARGO TO YURTICI   ####
+    if createShipment(userYurtici=callYurticiUser(), order=getOrderOnDb(orderId=orderId))==False:
+        return False
+    updateOrder(orderId=orderId, orderstatus="Yurtici Veri Gonderildi")
+    ####  SEND CARGO TO YURTICI   ####
     headers = {f"X-Shopify-Access-Token":session["accessToken"]}
 
     json_data = jsonData(orderId=orderId,tag='Kargoya Veri Gonderildi')
 
     response = requests.put(f"https://{app.config['shop_url']}/admin/api/2022-07/orders/{orderId}.json",headers=headers, json=json_data)
     if response.status_code == 200:
+        updateOrder(orderId=orderId, orderstatus="Yurtici ve shopify veri Gonderildi")
         return True
     return False
 
@@ -135,7 +144,17 @@ def callNewOrder():
     return data
 
 # NEW ORDER  #
-
+def updateOrder(orderId,orderstatus:str):
+    try:
+        update = OrderTable.query.filter_by(orderId=orderId).one_or_none()
+        if update == None:
+            return False
+        update.orderStatus = orderstatus
+        OrderTable.updateTable(update)
+        return True
+    except Exception as e:
+        print(e)
+        return False
 
 
 def InsertUserOnDb(user:User):
@@ -214,6 +233,10 @@ def jsonToOrder(data:dict):
         #logger.error(f"error occurred error -> {e} , userId -> {session['userId']}")
         return False
 
-def getOrderOnDb():
-    order = OrderTable.query.filter_by(userId=session['userId']).all()
-    return order
+def getOrderOnDb(orderId):
+    try:
+        order = OrderTable.query.filter_by(orderId=orderId).one_or_none()
+        return order
+    except Exception as e:
+        print(e)
+        return False
