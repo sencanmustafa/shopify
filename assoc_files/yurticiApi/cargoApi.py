@@ -58,6 +58,8 @@ f"""<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" 
 #
 #print(obj)
 
+
+
 def createShipment(userYurtici:YurticiKargoApiInfo,order:Order):
     createShipmentBody = f"""<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ship="http://yurticikargo.com.tr/ShippingOrderDispatcherServices">
        <soapenv:Header/>
@@ -119,3 +121,31 @@ def testCreateShipment():
         except Exception as e:
             print(e)
 
+def testQueryShipment(orderId):
+    testqueryshipment = f"""<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ship="http://yurticikargo.com.tr/ShippingOrderDispatcherServices"> 
+       <soapenv:Header/> 
+       <soapenv:Body> 
+          <ship:queryShipment> 
+             <wsUserName>YKTEST</wsUserName><wsPassword>YK</wsPassword><wsLanguage>TR</wsLanguage> 
+             <keys>{orderId}</keys> 
+             <keyType>0</keyType> 
+             <addHistoricalData>false</addHistoricalData> 
+             <onlyTracking>false</onlyTracking> 
+          </ship:queryShipment > 
+       </soapenv:Body> 
+    </soapenv:Envelope> """
+    response = requests.post(url=cargoUrl, data=testqueryshipment, headers=cargoHeaders)
+    if response.status_code == 200:
+        try:
+            obj = xmltodict.parse(response.content)
+            result = obj["env:Envelope"]["env:Body"]["ns1:createShipmentResponse"]["ShippingOrderResultVO"]["outFlag"]
+            if result != '0':
+                return False
+            if obj["env:Envelope"]["env:Body"]["ns1:createShipmentResponse"]["ShippingDeliveryItemDetailVO[]"]["trackingUrl"]:
+                trackingUrl =obj["env:Envelope"]["env:Body"]["ns1:createShipmentResponse"]["ShippingDeliveryItemDetailVO[]"]["trackingUrl"]
+                arr = {'cargoKey' : orderId,'trackingUrl' : trackingUrl}
+                return arr
+            else:
+                return False
+        except Exception as e:
+            print(e)
