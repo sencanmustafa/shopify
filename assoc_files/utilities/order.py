@@ -107,10 +107,12 @@ def sendTagCargo(orderId):
     #kargo islemleri
     checkSessionUrl()
     ####  SEND CARGO TO YURTICI   ####
+
     #if createShipment(userYurtici=callYurticiUser(), order=getOrderOnDb(orderId=orderId))==False:
     #    return False
     #if testCreateShipment() == False:
     #    return False
+
     updateOrder(orderId=orderId, orderstatusStr="Yurtici Veri Gonderildi",orderStatus=2)
     ####  SEND CARGO TO YURTICI   ####
     headers = {f"X-Shopify-Access-Token":session["accessToken"]}

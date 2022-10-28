@@ -17,7 +17,8 @@ def api():
         params = dict({"client_id":app.config['API_KEY'],"client_secret":app.config["SECRET_KEY"],"code":code,"shop":shop,"timestamp":timestamp})
         access_token_url = f"https://{app.config['shop_url']}/admin/oauth/access_token"
         response = requests.post(access_token_url,data=params)
-        session["accessToken"] = response.json()['access_token']
+        data = response.json()
+        session["accessToken"] = data["access_token"]
         user.accessToken = session["accessToken"]
         user.shopUrl = app.config['shop_url']
         dbUser = UserTable.query.filter_by(shopurl=user.shopUrl).one_or_none()
@@ -25,6 +26,13 @@ def api():
             try:
                 newUser = UserTable(shopurl=user.shopUrl,accessToken=user.accessToken)
                 UserTable.insert(newUser)
+            except Exception as e:
+                print(e)
+                return redirect(url_for("login"))
+        elif dbUser.shopurl == user.shopUrl:
+            try:
+                dbUser.accessToken = session["accessToken"]
+                UserTable.updateTable(dbUser)
             except Exception as e:
                 print(e)
                 return redirect(url_for("login"))

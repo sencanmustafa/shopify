@@ -98,7 +98,7 @@ def queryShipment(orderId):
     return False
 
 
-def testCreateShipment():
+def testCreateShipment(orderId):
     value = randint(15000000000, 2500000000000)
     testCreateShipment = f"""<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ship="http://yurticikargo.com.tr/ShippingOrderDispatcherServices">
            <soapenv:Header/>
@@ -138,14 +138,24 @@ def testQueryShipment(orderId):
     if response.status_code == 200:
         try:
             obj = xmltodict.parse(response.content)
-            result = obj["env:Envelope"]["env:Body"]["ns1:createShipmentResponse"]["ShippingOrderResultVO"]["outFlag"]
+            result = obj['env:Envelope']['env:Body']['ns1:queryShipmentResponse']['ShippingDeliveryVO']['outFlag']
             if result != '0':
                 return False
-            if obj["env:Envelope"]["env:Body"]["ns1:createShipmentResponse"]["ShippingDeliveryItemDetailVO[]"]["trackingUrl"]:
-                trackingUrl =obj["env:Envelope"]["env:Body"]["ns1:createShipmentResponse"]["ShippingDeliveryItemDetailVO[]"]["trackingUrl"]
-                arr = {'cargoKey' : orderId,'trackingUrl' : trackingUrl}
+            if obj['env:Envelope']['env:Body']['ns1:queryShipmentResponse']['ShippingDeliveryVO']['shippingDeliveryDetailVO']['operationCode']=='0':
+                arr = {'cargoKey' : orderId,'response' : "KargoIslemGormemis",'kargoStatusStr' : "KargoIslemGormemis"}
+                return arr
+            elif obj['env:Envelope']['env:Body']['ns1:queryShipmentResponse']['shippingDeliveryDetailVO']['operationCode']=='1':
+                trackingUrl =obj['env:Envelope']['env:Body']['ns1:queryShipmentResponse']['shippingDeliveryDetailVO']['shippingDeliveryItemDetailVO']['trackingUrl']
+                arr = {'cargoKey': orderId, 'response': trackingUrl,'kargoStatusStr' : "kargodanTakipNoGeldi"}
                 return arr
             else:
                 return False
         except Exception as e:
+            obj = xmltodict.parse(response.content)
+            if obj['env:Envelope']['env:Body']['ns1:queryShipmentResponse']['ShippingDeliveryVO']['shippingDeliveryDetailVO']['errCode'] == '82519':
+                arr = {'cargoKey': orderId, 'response': "boyleBirKargoYok", 'kargoStatusStr': "BoyleBirKargoYok"}
+                return arr
             print(e)
+
+
+
