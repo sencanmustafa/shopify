@@ -4,6 +4,8 @@ from assoc_files.utilities.utilities import login_required, checkOrders,callYurt
 from assoc_files.utilities.order import *
 #from assoc_files.log.logging import logger
 from assoc_files.yurticiApi.cargoApi import *
+from assoc_files.yurticiApi.checkTrackNumber import checkTrackNumber
+
 
 @app.route('/updateorder/<int:orderId>',methods=['POST'])
 def updateOrder(orderId):
@@ -67,6 +69,7 @@ def orderBarkod():
 @app.route('/ordercargo',methods=['GET'])
 def orderCargo():
     try:
+        checkTrackNumber()
         time.sleep(3)
         orderData = callCargoOrder()
         orderList = jsonToOrder(data=orderData)

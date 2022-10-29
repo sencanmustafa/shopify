@@ -1,7 +1,6 @@
 from flask import  request,redirect,url_for
 from assoc_files.utilities.utilities import createAuthUrl
 from assoc_files.utilities.order import *
-
 from assoc_files.routes.login import user
 
 @app.route('/api')
@@ -36,9 +35,11 @@ def api():
             except Exception as e:
                 print(e)
                 return redirect(url_for("login"))
+        session["shop_url"] = user.shopUrl
         session["userId"] = dbUser.id
         #InsertUserOnDb(user=user)
         session["logged_in"] = True
+
         return redirect(url_for("info"))
     except Exception as e:
         #logger.error(f"error occurred in api function error -> {e} , user -> {user.email}")

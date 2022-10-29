@@ -121,12 +121,12 @@ def testCreateShipment(orderId):
         except Exception as e:
             print(e)
 
-def testQueryShipment(orderId):
+def testQueryShipment(orderId,userNameGO,passwordGO):
     testqueryshipment = f"""<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ship="http://yurticikargo.com.tr/ShippingOrderDispatcherServices"> 
        <soapenv:Header/> 
        <soapenv:Body> 
           <ship:queryShipment> 
-             <wsUserName>YKTEST</wsUserName><wsPassword>YK</wsPassword><wsLanguage>TR</wsLanguage> 
+             <wsUserName>{userNameGO}</wsUserName><wsPassword>{passwordGO}</wsPassword><wsLanguage>TR</wsLanguage> 
              <keys>{orderId}</keys> 
              <keyType>0</keyType> 
              <addHistoricalData>false</addHistoricalData> 

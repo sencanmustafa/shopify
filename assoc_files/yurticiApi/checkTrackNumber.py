@@ -1,20 +1,24 @@
 import threading
+from flask import session
 from assoc_files.yurticiApi.cargoApi import testQueryShipment
-from assoc_files.database.modal import OrderTable
+from assoc_files.database.modal import OrderTable, YurticiKargoApiInfo
 
 
 def checkTrackNumber():
-  threading.Timer(60, checkTrackNumber).start()
+  #threading.Timer(240, checkTrackNumber).start()
   try:
+    yurticiUser = YurticiKargoApiInfo.query.filter_by(userId=session["userId"]).one_or_none()
+    yurticiUsernameGO = yurticiUser.userNameForGO
+    yurticiPasswordGO = yurticiUser.userPasswordForGO
     orderIdStatus2 = []
-    orders = OrderTable.query.filter_by(orderStatus=2).all()
+    orders = OrderTable.query.filter_by(userId=session["userId"],orderStatus=2).all()
     print(orders,"orders")
     for i in orders:
       orderIdStatus2.append(int(i.orderId))
     print(orderIdStatus2)
-
+#
     for j in orderIdStatus2:
-      result = testQueryShipment(orderId=j)
+      result = testQueryShipment(orderId=j,userNameGO=yurticiUsernameGO,passwordGO=yurticiPasswordGO)
       print("********")
       print(result)
       #### CODE DUPLICATION ######## CODE DUPLICATION ######## CODE DUPLICATION ######## CODE DUPLICATION ####

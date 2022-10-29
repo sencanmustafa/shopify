@@ -20,6 +20,10 @@ def jsonData(orderId,tag,address=None):
 ##### JSON DATA TO SEND SHOPIFY IN REQUEST #####
 
 
+
+
+
+
 ###### CHECK SHOP URL ######
 
 def checkSessionUrl():
@@ -30,6 +34,16 @@ def checkSessionUrl():
 
 ###### CHECK SHOP URL ######
 
+###### UPDATE ITEM SHIPPED ######
+
+def updateOrderShippedTag(orderId):
+    pass
+
+
+
+
+
+###### UPDATE ITEM SHIPPED ######
 
 ####    SHIPPING    ####
 
@@ -134,6 +148,7 @@ def callCargoOrder():
     return data
 
 # CARGO #
+
 
 
 # NEW ORDER  #
