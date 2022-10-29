@@ -1,3 +1,4 @@
+"""
 from sqlalchemy import null, false, true, desc
 
 from assoc_files import db
@@ -421,3 +422,4 @@ orders = OrderTable.query.filter_by(userId=5).order_by(desc(OrderTable.orderDate
 
 for i in orders:
     print(i.orderDate)
+"""
