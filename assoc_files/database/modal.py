@@ -7,6 +7,8 @@ class UserTable(db.Model):
     email = db.Column(db.String(100),nullable=True)
     password = db.Column(db.String(100),nullable=True)
     accessToken = db.Column(db.String(225),nullable=False)
+    chargeId = db.Column(db.String(100), unique=True)
+    chargeStartDate =db.Column(db.DateTime)
 
     def insert(self):
         db.session.add(self)
