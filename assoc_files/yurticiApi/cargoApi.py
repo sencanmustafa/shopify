@@ -60,7 +60,7 @@ f"""<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" 
 
 
 
-def createShipment(userYurtici:YurticiKargoApiInfo,order:Order):
+def createShipment(userYurtici:ShopInformationTable,order:Order):
     createShipmentBody = f"""<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ship="http://yurticikargo.com.tr/ShippingOrderDispatcherServices">
        <soapenv:Header/>
        <soapenv:Body>

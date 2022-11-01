@@ -1,12 +1,14 @@
 import threading
+
+from assoc_files.utilities.order import sendTagShipping
 from assoc_files.yurticiApi.cargoApi import testQueryShipment
-from assoc_files.database.modal import OrderTable, YurticiKargoApiInfo
+from assoc_files.database.modal import OrderTable,ShopInformationTable
 
 
 def checkTrackNumber():
   threading.Timer(240, checkTrackNumber).start()
   try:
-    yurticiUser = YurticiKargoApiInfo.query.all()
+    yurticiUser = ShopInformationTable.query.all()
     for x in yurticiUser:
       yurticiUsernameGO = x.userNameForGO
       yurticiPasswordGO = x.userPasswordForGO
@@ -29,6 +31,7 @@ def checkTrackNumber():
             order.orderStatus = 3
             order.orderStatusStr = result['kargoStatusStr']
             OrderTable.updateTable(order)
+            sendTagShipping(orderId=order.orderId)
             print("success")
             continue
           except Exception as e:

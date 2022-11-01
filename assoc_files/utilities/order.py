@@ -149,7 +149,19 @@ def callCargoOrder():
 
 # CARGO #
 
+##### SHIPPING #####
+def callShippingOrder():
+    checkSessionUrl()
+    header = {f"X-Shopify-Access-Token": session["accessToken"], "Content-Type": "application/json"}
+    response = requests.get(f"https://{app.config['shop_url']}/admin/api/2022-07/orders.json?financial_status:paid AND fulfillment_status:shipped&tag=Kargo Teslimattadır",headers=header)
+    data = response.json()
+    return data
 
+
+
+
+
+##### SHIPPING #####
 
 # NEW ORDER  #
 

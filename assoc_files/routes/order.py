@@ -8,6 +8,7 @@ from assoc_files.yurticiApi.checkTrackNumber import checkTrackNumber
 
 
 @app.route('/updateorder/<int:orderId>',methods=['POST'])
+@login_required
 def updateOrder(orderId):
     address = request.form['addressInput']
     if sendTagUpdateOrderAddress(orderId=orderId,address=address)==False:
@@ -17,6 +18,7 @@ def updateOrder(orderId):
     return redirect(url_for("order"))
 
 @app.route('/printqr/<int:orderId>',methods=['POST'])
+@login_required
 def printqr(orderId):
     if writeBarcode(orderId=orderId) == False:
         flash(message="Beklenmeyen bir hata olustu", category="danger")
@@ -29,6 +31,7 @@ def printqr(orderId):
 
 
 @app.route('/sendcargo/<int:orderId>',methods=['POST'])
+@login_required
 def sendCargo(orderId):
     if sendTagCargo(orderId=orderId) == False:
         flash(message="Beklenmeyen bir hata olustu", category="danger")
@@ -40,6 +43,7 @@ def sendCargo(orderId):
 
 
 @app.route('/order',methods=['GET'])
+@login_required
 def order():
     try:
         #logger.info(f"userId -> {session['userId']} called order function")
@@ -56,6 +60,7 @@ def order():
 
 
 @app.route('/orderbarkod',methods=['GET'])
+@login_required
 def orderBarkod():
     try:
         orderData = callQrOrder()
@@ -67,6 +72,7 @@ def orderBarkod():
         return redirect(url_for("info"))
 
 @app.route('/ordercargo',methods=['GET'])
+@login_required
 def orderCargo():
     try:
         checkTrackNumber()
@@ -81,9 +87,12 @@ def orderCargo():
 
 
 @app.route('/shipping',methods=['GET'])
+@login_required
 def shipping():
     try:
-        pass
+        orderData = callShippingOrder()
+        orderList = jsonToOrder(data=orderData)
+        return render_template("dagitim.html",orders=orderList)
     except Exception as e:
         print(e)
         return redirect(url_for("info"))

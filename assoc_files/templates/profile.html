@@ -17,38 +17,67 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
+<a href="{{ url_for("info") }}">Ana Sayfa</a>
+<a href="{{ url_for("logout") }}">Cikis</a>
 {% if existUser %}
     <form action="{{ url_for("updateProfile") }}" method="post">
         <div class="col-md-12">
             <input  type="hidden" name="check" >
         </div>
         <div class="col-md-12">
-            <input autocomplete="on" class="form_control" value="{{ existUser.companyName}}" type="text" name="companyName" >
+            <p>Company Name</p>
+            <label>
+                <input autocomplete="on" class="form_control" value="{{ existUser.companyName}}" type="text" name="companyName" >
+            </label>
+        </div>
+        <p>Email</p>
+        <div class="col-md-12">
+            <label>
+                <input autocomplete="on" class="form_control" value="{{ existUser.email}}" type="text" name="email" >
+            </label>
         </div>
         <div class="col-md-12">
-            <input autocomplete="on" class="form_control" value="{{ existUser.email}}" type="text" name="email" >
+            <p>Phone</p>
+            <label>
+                <input autocomplete="on" class="form_control" value="{{ existUser.phone}}" type="text" name="phone" >
+            </label>
         </div>
         <div class="col-md-12">
-            <input autocomplete="on" class="form_control" value="{{ existUser.phone}}" type="text" name="telefon" >
-        </div>
-        <div class="col-md-12">
-            <input autocomplete="on" class="form_control" value="{{ existUser.shop_address}}" type="text" name="shopAdress" >
-        </div>
-        <div class="col-md-12">
-            <input autocomplete="on" class="form_control" value="{{ existUser.note}}" type="text" name="note" >
-        </div>
-        <div class="col-md-12">
-            <input autocomplete="on" class="form_control" value="{{ existUser.userNameForGO}}" type="text" name="usernameGO" >
-        </div>
-        <div class="col-md-12">
-            <input autocomplete="on" class="form_control" value="{{ existUser.userPasswordForGO}}" type="text" name="passwordGO" >
+            <p>Shop Address</p>
+            <label>
+                <input autocomplete="on" class="form_control" value="{{ existUser.address}}" type="text" name="shopAddress" >
+            </label>
         </div>
 
         <div class="col-md-12">
-            <input autocomplete="on" class="form_control" value="{{ existUser.userNameForKO}}" type="text" name="usernameKO" >
+            <p>Note</p>
+            <label>
+                <input autocomplete="on" class="form_control" value="{{ existUser.note}}" type="text" name="note" >
+            </label>
         </div>
         <div class="col-md-12">
-            <input autocomplete="on" class="form_control" value="{{ existUser.userPasswordForKO}}" type="text" name="passwordKO" >
+            <p>Username Yurtici Kargo GO</p>
+            <label>
+                <input autocomplete="on" class="form_control" value="{{ existUser.userNameForGO}}"  type="text" name="usernameGO" >
+            </label>
+        </div>
+        <div class="col-md-12">
+            <p>Password Yurtici Kargo GO</p>
+            <label>
+                <input autocomplete="on" class="form_control" value="{{ existUser.userPasswordForGO}}" type="text" name="passwordGO" >
+            </label>
+        </div>
+        <div class="col-md-12">
+            <p>Username Yurtici Kargo KO</p>
+            <label>
+                <input autocomplete="on" class="form_control" value="{{ existUser.userNameForKO}}" type="text" name="usernameKO" >
+            </label>
+        </div>
+        <div class="col-md-12">
+            <p>Password Yurtici Kargo KO</p>
+            <label>
+                <input autocomplete="on" class="form_control" value="{{ existUser.userPasswordForKO}}" type="text" name="passwordKO" >
+            </label>
         </div>
         <div class="col-md-12" >
             <button  type="submit" class="btn btn-primary">Duzenlemeleri Kaydet</button>
@@ -58,32 +87,59 @@
 {% else %}
     <form action="{{ url_for("profile") }}" method="post">
         <div class="col-md-12">
-            <input autocomplete="on" class="form_control" placeholder="Sirket Adi" type="text" name="companyName" >
+            <p>Company Name</p>
+            <label>
+                <input autocomplete="on" class="form_control" placeholder="Sirket Adi" type="text" name="companyName" >
+            </label>
         </div>
         <div class="col-md-12">
-            <input autocomplete="on" class="form_control" placeholder="Email Adresi" type="text" name="email" >
+            <p>Email</p>
+            <label>
+                <input autocomplete="on" class="form_control" placeholder="Email Adresi" type="text" name="email" >
+            </label>
         </div>
         <div class="col-md-12">
-            <input autocomplete="on" class="form_control" placeholder="Telefon" type="text" name="telefon" >
+            <p>Phone</p>
+            <label>
+                <input autocomplete="on" class="form_control" placeholder="Telefon" type="text" name="phone" >
+            </label>
         </div>
         <div class="col-md-12">
-            <input autocomplete="on" class="form_control" placeholder="Adres" type="text" name="shopAdress" >
+            <p>Shop Address</p>
+            <label>
+                <input autocomplete="on" class="form_control" placeholder="Adres" type="text" name="shopAddress" >
+            </label>
         </div>
         <div class="col-md-12">
-            <input autocomplete="on" class="form_control" placeholder="Not" type="text" name="note" >
+            <p>Note</p>
+            <label>
+                <input autocomplete="on" class="form_control" placeholder="Not" type="text" name="note" >
+            </label>
         </div>
         <div class="col-md-12">
-            <input autocomplete="on" class="form_control" placeholder="Web Servis Bilgiler GO Username" type="text" name="usernameGO" >
+            <p>Username Yurtici Kargo GO</p>
+            <label>
+                <input autocomplete="on" class="form_control" placeholder="Web Servis Bilgiler GO Username" type="text" name="usernameGO" >
+            </label>
         </div>
         <div class="col-md-12">
-            <input autocomplete="on" class="form_control" placeholder="Web Servis Bilgiler GO Password" type="text" name="passwordGO" >
+            <p>Password Yurtici Kargo GO</p>
+            <label>
+                <input autocomplete="on" class="form_control" placeholder="Web Servis Bilgiler GO Password" type="text" name="passwordGO" >
+            </label>
         </div>
 
         <div class="col-md-12">
-            <input autocomplete="on" class="form_control" placeholder="Web Servis Bilgiler KO Username" type="text" name="usernameKO" >
+            <p>Username Yurtici Kargo KO</p>
+            <label>
+                <input autocomplete="on" class="form_control" placeholder="Web Servis Bilgiler KO Username" type="text" name="usernameKO" >
+            </label>
         </div>
         <div class="col-md-12">
-            <input autocomplete="on" class="form_control" placeholder="Web Servis Bilgiler KO Password" type="text" name="passwordKO" >
+            <p>Password Yurtici Kargo KO</p>
+            <label>
+                <input autocomplete="on" class="form_control" placeholder="Web Servis Bilgiler KO Password" type="text" name="passwordKO" >
+            </label>
         </div>
         <div class="col-md-12" >
             <button  type="submit" class="btn btn-primary">Kaydet</button>

@@ -6,7 +6,7 @@ from flask import jsonify ,session , redirect,url_for
 from functools import wraps
 from assoc_files.entity.UserClass import User
 #from assoc_files.log.logging import logger
-from assoc_files.database.modal import UserTable,OrderTable,YurticiKargoApiInfo
+from assoc_files.database.modal import UserTable,OrderTable
 from sqlalchemy import desc
 state = binascii.b2a_hex(os.urandom(15)).decode("utf-8")
 redirect_uri = app.config["redirect_uri"]

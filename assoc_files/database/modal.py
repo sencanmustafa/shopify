@@ -62,45 +62,51 @@ class OrderTable(db.Model):
         db.session.delete(self)
         db.session.commit()
 
-class YurticiKargoApiInfo(db.Model):
-    __tablename__ = 'yurtici_kargo_api_info'
-    shopPrimaryId = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    domain = db.Column(db.String(300),nullable=False)
-    companyName = db.Column(db.String(300),nullable=False)
-    email = db.Column(db.String(300),nullable=False)
-    phone  = db.Column(db.String(300),nullable=False)
-    shop_address = db.Column(db.String(300),nullable=False)
-    note = db.Column(db.String(300),nullable=False)
-    userNameForGO = db.Column(db.String(300),nullable=False)
-    userPasswordForGO = db.Column(db.String(300),nullable=False)
-    userNameForKO = db.Column(db.String(300),nullable=False)
-    userPasswordForKO = db.Column(db.String(300),nullable=False)
-    userId = db.Column(db.Integer,nullable=False)
-
-    def insert(self):
-        db.session.add(self)
-        db.session.commit()
-    def updateTable(self):
-        db.session.commit()
-    def deleteOrder(self):
-        db.session.delete(self)
-        db.session.commit()
+##class YurticiKargoApiInfo(db.Model):
+##    __tablename__ = 'yurtici_kargo_api_info'
+##    shopPrimaryId = db.Column(db.Integer, primary_key=True, autoincrement=True,unique=True)
+##    domain = db.Column(db.String(300),nullable=False)
+##    companyName = db.Column(db.String(300),nullable=False)
+##    email = db.Column(db.String(300),nullable=False)
+##    phone  = db.Column(db.String(300),nullable=False)
+##    shop_address = db.Column(db.String(300),nullable=False)
+##    note = db.Column(db.String(300),nullable=False)
+##    userNameForGO = db.Column(db.String(300),nullable=False)
+##    userPasswordForGO = db.Column(db.String(300),nullable=False)
+##    userNameForKO = db.Column(db.String(300),nullable=False)
+##    userPasswordForKO = db.Column(db.String(300),nullable=False)
+##    userId = db.Column(db.Integer,nullable=False)
+##
+##    def insert(self):
+##        db.session.add(self)
+##        db.session.commit()
+##    def updateTable(self):
+##        db.session.commit()
+##    def deleteOrder(self):
+##        db.session.delete(self)
+##        db.session.commit()
 
 
 class ShopInformationTable(db.Model):
     __tablename__ = 'shopInformation'
-    shopId = db.Column(db.String(100), primary_key=True,nullable=False)
-    userId = db.Column(db.Integer, nullable=False)
-    name = db.Column(db.String(100), nullable=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True,unique=True)
+    shopId = db.Column(db.String(100), nullable=False,unique=True)
+    userId = db.Column(db.Integer, nullable=False,unique=True)
     email = db.Column(db.String(100), nullable=True)
     domain = db.Column(db.String(300), nullable=True)
     address = db.Column(db.String(300), nullable=True)
     city = db.Column(db.String(100), nullable=True)
     phone = db.Column(db.String(100), nullable=True)
+    companyName = db.Column(db.String(100), nullable=True)
     createdAt = db.Column(db.String(100), nullable=True)
     customer_email = db.Column(db.String(100), nullable=True)
     shop_owner = db.Column(db.String(100), nullable=True)
     primary_location_id = db.Column(db.String(100), nullable=True)
+    note = db.Column(db.String(300), nullable=False)
+    userNameForGO = db.Column(db.String(300), nullable=False)
+    userPasswordForGO = db.Column(db.String(300), nullable=False)
+    userNameForKO = db.Column(db.String(300), nullable=False)
+    userPasswordForKO = db.Column(db.String(300), nullable=False)
 
     def insert(self):
         db.session.add(self)
