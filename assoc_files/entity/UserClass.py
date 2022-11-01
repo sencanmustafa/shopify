@@ -27,5 +27,19 @@ class Order:
         self.countryCode=countryCode
         self.tag = tag
 
+class ShopInformation:
+    def __init__(self,shopId=None,userId=None,name=None,email=None,domain=None,address=None,city=None,phone=None,createdAt=None,customer_email=None,shop_owner=None,primary_location_id=None):
+        self.shopId=shopId
+        self.userId = userId
+        self.name = name
+        self.email = email
+        self.domain = domain
+        self.address = address
+        self.city = city
+        self.phone = phone
+        self.createdAt = createdAt
+        self.customer_email = customer_email
+        self.shop_owner = shop_owner
+        self.primary_location_id = primary_location_id
 
 

@@ -13,7 +13,7 @@ db = SQLAlchemy(app)
 app.config["API_KEY"] = "01f1fb02c1c85413aece6af94c8ec9e8"
 app.config["SECRET_KEY"] = "f20bb93cbfa66d11cec02313e78e6fa9"
 app.config["shop_url"] = ""
-app.config["redirect_uri"] = "https://01b2-95-10-207-48.eu.ngrok.io/api"
+app.config["redirect_uri"] = "https://8360-176-55-184-155.eu.ngrok.io/api"
 app.config["api_version"]= "2022-07"
 app.config["return_url"] = 'https://01b2-95-10-207-48.eu.ngrok.io/returnpayment'
 app.config["access_scope_url"] = "https://armonika.myshopify.com/admin/oauth/access_scopes.json"
@@ -26,5 +26,7 @@ from assoc_files.routes import order
 from assoc_files.routes import profile
 from assoc_files.routes import payment
 
-from assoc_files.yurticiApi.checkTrackNumber import checkTrackNumber
-checkTrackNumber()
+
+
+#from assoc_files.yurticiApi.checkTrackNumber import checkTrackNumber
+#checkTrackNumber()

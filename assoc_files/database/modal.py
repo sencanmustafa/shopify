@@ -1,5 +1,9 @@
 from assoc_files import db
 
+
+
+
+
 class UserTable(db.Model):
     __tablename__ = 'user'
     id = db.Column(db.BIGINT, primary_key=True, autoincrement=True)
@@ -79,5 +83,32 @@ class YurticiKargoApiInfo(db.Model):
     def updateTable(self):
         db.session.commit()
     def deleteOrder(self):
+        db.session.delete(self)
+        db.session.commit()
+
+
+class ShopInformationTable(db.Model):
+    __tablename__ = 'shopInformation'
+    shopId = db.Column(db.String(100), primary_key=True,nullable=False)
+    userId = db.Column(db.Integer, nullable=False)
+    name = db.Column(db.String(100), nullable=True)
+    email = db.Column(db.String(100), nullable=True)
+    domain = db.Column(db.String(300), nullable=True)
+    address = db.Column(db.String(300), nullable=True)
+    city = db.Column(db.String(100), nullable=True)
+    phone = db.Column(db.String(100), nullable=True)
+    createdAt = db.Column(db.String(100), nullable=True)
+    customer_email = db.Column(db.String(100), nullable=True)
+    shop_owner = db.Column(db.String(100), nullable=True)
+    primary_location_id = db.Column(db.String(100), nullable=True)
+
+    def insert(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def updateTable(self):
+        db.session.commit()
+
+    def delete(self):
         db.session.delete(self)
         db.session.commit()

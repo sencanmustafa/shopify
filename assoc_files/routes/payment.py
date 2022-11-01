@@ -2,7 +2,7 @@ from assoc_files import app
 from flask import session, redirect, url_for, request, flash
 import requests
 from assoc_files.database.modal import UserTable
-
+from assoc_files.utilities.shopInfo import shopInfo
 
 
 @app.route('/basicpayment',methods=['GET','POST'])
@@ -55,6 +55,9 @@ def checkCharge(chargeid):
                         db_user.chargeId = chargeid
                         db_user.chargeStartDate = response["recurring_application_charge"]["created_at"]
                         UserTable.updateTable(db_user)
+                        ## GET SHOP INFORMATION FUNCTION ##
+                        shopInfo()
+                        ## GET SHOP INFORMATION FUNCTION ##
                         return redirect(url_for("info"))
                 except Exception as e:
                     print(e)
