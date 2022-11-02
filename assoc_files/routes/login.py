@@ -1,13 +1,14 @@
-from flask import render_template,request
+from flask import render_template,request , redirect,url_for
 
 from assoc_files.utilities.utilities import verifyLogin,validate ,deleteAccessToken
 from assoc_files.utilities.order import *
 #from assoc_files.log.logging import logger
 from assoc_files.entity.UserClass import User
-
+from assoc_files.yurticiApi.checkTrackNumber import checkTrackNumber
 global user
-user = User()
 global db_user
+user = User()
+
 @app.route('/',methods=['GET'])
 def starter():
     return redirect(url_for("login"))

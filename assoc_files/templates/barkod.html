@@ -15,6 +15,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
             integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
             crossorigin="anonymous"></script>
+
 </head>
 <body>
 
@@ -38,13 +39,18 @@
             <td>{{ i.orderId }}</td>
             <td>{{ i.firstName + i.lastName }}</td>
             <td>
-                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#cargoModal{{ i.orderId }}">Kargoya Gonder</button>
+                <button type="button" class="btn btn-secondary" data-toggle="modal"
+                        data-target="#cargoModal{{ i.orderId }}">Kargoya Gonder
+                </button>
             </td>
             <td>
-                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#barcodeModal{{ i.orderId }}">Barkod Goruntule</button>
+                <button type="button" class="btn btn-secondary" data-toggle="modal"
+                        data-target="#barcodeModal{{ i.orderId }}">Barkod Goruntule
+                </button>
             </td>
         </tr>
-        <div class="modal fade" id="cargoModal{{ i.orderId }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        <div class="modal fade" id="cargoModal{{ i.orderId }}" tabindex="-1" role="dialog"
+             aria-labelledby="exampleModalLabel"
              aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -58,14 +64,15 @@
                         <form class="mb-0" action="{{ url_for("sendCargo",orderId=i.orderId) }}" method="post">
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button  type="submit" class="btn btn-primary">Kargoya Gonder</button>
+                                <button type="submit" class="btn btn-primary">Kargoya Gonder</button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="modal fade" id="barcodeModal{{ i.orderId }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        <div class="modal fade" id="barcodeModal{{ i.orderId }}" tabindex="-1" role="dialog"
+             aria-labelledby="exampleModalLabel"
              aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -76,13 +83,13 @@
                         </button>
                     </div>
                     <div>
-                        <img id="myImg" src="../barcode/{{i.orderId}}.png" alt="Avatar" style="width:100%;max-width:300px">
+                        <img id="{{ i.orderId }}" onclick="window.print()" src="../static/barcode/{{ i.orderId }}.png" style="width: auto ">
                     </div>
                     <div class="modal-body">
                         <form class="mb-0" action="{{ url_for("sendCargo",orderId=i.orderId) }}" method="post">
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button  type="submit" class="btn btn-primary">Kargoya Gonder</button>
+                                <button type="submit" class="btn btn-primary">Kargoya Gonder</button>
                             </div>
                         </form>
                     </div>
@@ -92,12 +99,6 @@
     {% endfor %}
     </tbody>
 </table>
-<div class="card">
-  <img src="../barcode/4803777822857.jpeg" alt="Avatar" style="width:100%;max-width:200px">
-  <div class="container">
-    <h4><b>John Doe</b></h4>
-    <p>Architect & Engineer</p>
-  </div>
-</div>
+
 </body>
 </html>

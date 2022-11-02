@@ -19,6 +19,7 @@
 <body>
 <div><a class="btn btn-primary" href="{{ url_for("orderCargo") }}">Kargo sayfasi</a></div>
 <div><a class="btn btn-primary" href="{{ url_for("orderBarkod") }}">Barkod Sayfasi</a></div>
+<div><a class="btn btn-primary" href="{{ url_for("profile") }}">Profil Sayfasi</a></div>
 <table>
     <thead>
     <tr>
@@ -26,6 +27,8 @@
         <th>Tarih</th>
         <th>Kargo Anahtari</th>
         <th>Musteri</th>
+        <th>Etiket</th>
+        <th></th>
     </tr>
     </thead>
     <tbody>
@@ -35,6 +38,7 @@
             <td>{{ i.date }}</td>
             <td>{{ i.orderId }}</td>
             <td>{{ i.firstName + i.lastName }}</td>
+            <td>{{ i.tag }}</td>
             <td>
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#orderAdressModal{{ i.orderId }}">Edit</button>
             </td>
@@ -105,6 +109,33 @@
                     </div>
                     <div class="modal-body">
                         <form class="mb-0" action="{{ url_for("printqr",orderId=i.orderId) }}" method="post">
+                             <div class="row mb-4">
+                            </div>
+                            <div class="row mb-4">
+                                <div class="col">
+                                    <div class="form-outline">
+                                        <input value="{{ i.city }}" name="cityInput" type="text" id="form9Example3"
+                                               class="form-control input-custom"/>
+                                        <label class="form-label" >City</label>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-outline">
+                                        <input value="{{ i.zip }}" name="zipInput" type="text" id="form9Example4"
+                                               class="form-control input-custom"/>
+                                        <label class="form-label" >Zip</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-4">
+                                <div class="col">
+                                    <div class="form-outline">
+                                            <input value="{{ i.address1 }}" name="addressInput" type="text" id="form9Example6"
+                                                   class="form-control input-custom"/>
+                                            <label class="form-label" >Address</label>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                 <button  type="submit" class="btn btn-primary">Barkod Yazdir</button>
