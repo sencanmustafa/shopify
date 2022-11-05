@@ -45,6 +45,20 @@ def updateOrderShippedTag(orderId):
 
 ###### UPDATE ITEM SHIPPED ######
 
+####### FULFILLMENT #######
+
+def fulFillment():
+    checkSessionUrl()
+    headers = {f"X-Shopify-Access-Token": session["accessToken"],"Content-Type": "application/json"}
+
+    response = requests.get("https://armonika.myshopify.com/admin/api/2022-07/orders/4807005470857/fulfillment_orders.json",headers=headers)
+    response = response.json()
+    print(response)
+
+####### FULFILLMENT #######
+
+
+
 ####    SHIPPING    ####
 
 
@@ -52,16 +66,20 @@ def sendTagShipping(orderId):
     checkSessionUrl()
     headers = {f"X-Shopify-Access-Token":session["accessToken"]}
     json_data = jsonData(orderId=orderId,tag='Dagitima Cikti')
-
     response = requests.put(f"https://{app.config['shop_url']}/admin/api/2022-07/orders/{orderId}.json",headers=headers, json=json_data)
     if response.status_code == 200:
         return True
     return False
 
 
-####    SHIPPING    ####
-
-#####     barcode ####
+####    SHIPPING   #####
+"""
+orders = OrderTable.query.filter_by(userId=session["userId"],orderStatus=3).all()
+    if orders!= None:
+        for i in orders:
+            a = int(i.orderId)
+"""
+#####     barcode #####
 
 def writeBarcode(orderId):
     try:
