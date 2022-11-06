@@ -10,7 +10,7 @@ from assoc_files.database.modal import UserTable,OrderTable,ShopInformationTable
 from sqlalchemy import desc
 state = binascii.b2a_hex(os.urandom(15)).decode("utf-8")
 redirect_uri = app.config["redirect_uri"]
-scopes = ['read_products', 'read_orders','write_orders','write_fulfillments','read_fulfillments','write_assigned_fulfillment_orders','read_assigned_fulfillment_orders','write_merchant_managed_fulfillment_orders','read_merchant_managed_fulfillment_orders']
+scopes = ['read_products', 'read_orders','write_orders','write_fulfillments','read_fulfillments','write_assigned_fulfillment_orders','read_assigned_fulfillment_orders','write_merchant_managed_fulfillment_orders','read_merchant_managed_fulfillment_orders','read_third_party_fulfillment_orders','write_third_party_fulfillment_orders']
 scopes_string = ','.join(scopes)
 
 def callYurticiUser():

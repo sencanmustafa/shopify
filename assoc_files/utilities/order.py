@@ -34,16 +34,7 @@ def checkSessionUrl():
 
 ###### CHECK SHOP URL ######
 
-###### UPDATE ITEM SHIPPED ######
 
-def updateOrderShippedTag(orderId):
-    pass
-
-
-
-
-
-###### UPDATE ITEM SHIPPED ######
 
 ####### FULFILLMENT #######
 
@@ -51,8 +42,21 @@ def fulFillment():
     checkSessionUrl()
     headers = {f"X-Shopify-Access-Token": session["accessToken"],"Content-Type": "application/json"}
 
-    response = requests.get("https://armonika.myshopify.com/admin/api/2022-07/orders/4807005470857/fulfillment_orders.json",headers=headers)
+    response = requests.get(f"https://armonika.myshopify.com/admin/api/2022-07/orders/4807005470857/fulfillment_orders.json",headers=headers)
     response = response.json()
+    fulFillId = response["fulfillment_orders"][0]["line_items"][0]["fulfillment_order_id"]
+    if response["fulfillment_orders"][0]["request_status"] == "unsubmitted":
+        response2 = requests.post(f"https://armonika.myshopify.com/admin/api/2022-07/fulfillment_orders/{fulFillId}/fulfillment_request.json",headers=headers)
+        if response2.status_code == 200:
+            response2 = response2.json()
+            response3 = requests.post(f"https://armonika.myshopify.com/admin/api/2022-07/fulfillment_orders/{fulFillId}/fulfillment_request/accept.json",headers=headers)
+            if response3.status_code == 200:
+                response3 = response3.json()
+                response4 = requests.get(f"https://armonika.myshopify.com/admin/api/2022-07/fulfillments.json",headers=headers)
+                response4 = response4.json()
+                print(response4)
+            print(response3)
+
     print(response)
 
 ####### FULFILLMENT #######
