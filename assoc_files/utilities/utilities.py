@@ -6,16 +6,16 @@ from flask import jsonify ,session , redirect,url_for
 from functools import wraps
 from assoc_files.entity.UserClass import User
 #from assoc_files.log.logging import logger
-from assoc_files.database.modal import UserTable,OrderTable
+from assoc_files.database.modal import UserTable,OrderTable,ShopInformationTable
 from sqlalchemy import desc
 state = binascii.b2a_hex(os.urandom(15)).decode("utf-8")
 redirect_uri = app.config["redirect_uri"]
-scopes = ['read_products', 'read_orders','write_orders']
+scopes = ['read_products', 'read_orders','write_orders','write_fulfillments','read_fulfillments','write_assigned_fulfillment_orders','read_assigned_fulfillment_orders','write_merchant_managed_fulfillment_orders','read_merchant_managed_fulfillment_orders']
 scopes_string = ','.join(scopes)
 
 def callYurticiUser():
     try:
-        yurticiUser = YurticiKargoApiInfo.query.filter_by(userId=session["userId"]).one_or_none()
+        yurticiUser = ShopInformationTable.query.filter_by(userId=session["userId"]).one_or_none()
         return yurticiUser
     except Exception as e:
         print(e)

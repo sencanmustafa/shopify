@@ -1,10 +1,14 @@
 import time
 from flask import render_template, request , redirect , url_for
-from assoc_files.utilities.utilities import login_required, checkOrders,callYurticiUser
+from assoc_files.utilities.utilities import login_required, checkOrders
 from assoc_files.utilities.order import *
 #from assoc_files.log.logging import logger
-from assoc_files.yurticiApi.cargoApi import *
+
 from assoc_files.yurticiApi.checkTrackNumber import checkTrackNumber
+
+
+
+
 
 
 @app.route('/updateorder/<int:orderId>',methods=['POST'])

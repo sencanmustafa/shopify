@@ -3,7 +3,7 @@ from flask import session, redirect, url_for, request, flash
 import requests
 from assoc_files.database.modal import UserTable,ShopInformationTable
 from assoc_files.utilities.shopInfo import shopInfo
-
+from assoc_files.utilities.order import fulFillment
 
 @app.route('/basicpayment',methods=['GET','POST'])
 def basicPayment():
@@ -59,6 +59,8 @@ def checkCharge(chargeid):
                         ## GET SHOP INFORMATION FUNCTION ##
                         shopInfo(user=db_user2)
                         ## GET SHOP INFORMATION FUNCTION ##
+                        fulFillment()
+
                         return redirect(url_for("info"))
                 except Exception as e:
                     print(e)
