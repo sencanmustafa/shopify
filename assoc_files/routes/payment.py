@@ -59,7 +59,7 @@ def checkCharge(chargeid):
                         ## GET SHOP INFORMATION FUNCTION ##
                         shopInfo(user=db_user2)
                         ## GET SHOP INFORMATION FUNCTION ##
-                        fulFillment()
+
 
                         return redirect(url_for("info"))
                 except Exception as e:

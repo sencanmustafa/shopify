@@ -39,25 +39,34 @@ def checkSessionUrl():
 ####### FULFILLMENT #######
 
 def fulFillment():
-    checkSessionUrl()
-    headers = {f"X-Shopify-Access-Token": session["accessToken"],"Content-Type": "application/json"}
+    try:
+        checkSessionUrl()
+        db_orders = OrderTable.query.filter_by(userId=session["userId"],orderStatus=3).all()
+        headers = {f"X-Shopify-Access-Token": session["accessToken"],"Content-Type": "application/json"}
+        for i in db_orders:
+            response = requests.get(f"https://{app.config['shop_url']}/admin/api/2022-07/orders/{int(i.orderId)}/fulfillment_orders.json",headers=headers)
+            response = response.json()
+            for x in range(0,len(response["fulfillment_orders"])):
 
-    response = requests.get(f"https://armonika.myshopify.com/admin/api/2022-07/orders/4807005470857/fulfillment_orders.json",headers=headers)
-    response = response.json()
-    fulFillId = response["fulfillment_orders"][0]["line_items"][0]["fulfillment_order_id"]
-    if response["fulfillment_orders"][0]["request_status"] == "unsubmitted":
-        response2 = requests.post(f"https://armonika.myshopify.com/admin/api/2022-07/fulfillment_orders/{fulFillId}/fulfillment_request.json",headers=headers)
-        if response2.status_code == 200:
-            response2 = response2.json()
-            response3 = requests.post(f"https://armonika.myshopify.com/admin/api/2022-07/fulfillment_orders/{fulFillId}/fulfillment_request/accept.json",headers=headers)
-            if response3.status_code == 200:
-                response3 = response3.json()
-                response4 = requests.get(f"https://armonika.myshopify.com/admin/api/2022-07/fulfillments.json",headers=headers)
-                response4 = response4.json()
-                print(response4)
-            print(response3)
+                if  response["fulfillment_orders"][x]["status"] == "open":
+                    fulFillId = response["fulfillment_orders"][x]["line_items"][0]["fulfillment_order_id"]
+                    json_data = {"fulfillment":
+                                     {"message":"Siparişiniz Kargoya Teslim Edildi.","notify_customer":"False","tracking_info":
+                                         {
+                                             "number":11111,"url":i.cargoUrl,"company":"Yurtiçi Kargo"},
+                                              "line_items_by_fulfillment_order":
+                                                  [
+                                                      {"fulfillment_order_id":fulFillId}]}}
 
-    print(response)
+                    response2 = requests.post("https://armonika.myshopify.com/admin/api/2022-07/fulfillments.json",headers=headers,json=json_data).json()
+                    print("basarili")
+                    dbUpdatedOrder = OrderTable.query.filter_by(orderId=i.orderId).first()
+                    dbUpdatedOrder.orderStatus = 4
+                    OrderTable.updateTable(dbUpdatedOrder)
+
+    except Exception as e:
+        print(e)
+        return False
 
 ####### FULFILLMENT #######
 

@@ -94,6 +94,7 @@ def orderCargo():
 @login_required
 def shipping():
     try:
+        fulFillment()
         orderData = callShippingOrder()
         orderList = jsonToOrder(data=orderData)
         return render_template("dagitim.html",orders=orderList)
