@@ -1,22 +1,39 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from dotenv import load_dotenv
+import os
 
 
 
 app = Flask(__name__,static_folder="static")
 
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'mssql+pymssql://shpadmin:Arm0@n!k32021@host.pl.armonikadijital.com.tr/ShopifyApp'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://usrshp61022_usr06102022:Arm@n!k32021@185.73.202.133/usrshp61022_db6102022'
 
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://usrshp61022_usr06102022:Arm@n!k32021@185.73.202.133/usrshp61022_db6102022'
+
+load_dotenv()
+
+API_KEY =os.getenv("API_KEY")
+SECRET_KEY=os.getenv("SECRET_KEY")
+SQLALCHEMY_DATABASE_URI=os.getenv("SQLALCHEMY_DATABASE_URI")
+REDIRECT_URI=os.getenv("REDIRECT_URI")
+API_VERSION=os.getenv("API_VERSION")
+RETURN_URL=os.getenv("RETURN_URL")
+ACCESS_SCOPE_URL =os.getenv("ACCESS_SCOPE_URL")
+SHOP_URL = os.getenv("SHOP_URL")
+
+
+
+app.config['SQLALCHEMY_DATABASE_URI'] = SQLALCHEMY_DATABASE_URI
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 db = SQLAlchemy(app)
 
-app.config["API_KEY"] = "01f1fb02c1c85413aece6af94c8ec9e8"
-app.config["SECRET_KEY"] = "f20bb93cbfa66d11cec02313e78e6fa9"
+app.config["API_KEY"] = API_KEY
+app.config["SECRET_KEY"] = SECRET_KEY
 app.config["shop_url"] = ""
-app.config["redirect_uri"] = "https://3abc-206-0-156-74.ngrok.io/api"
-app.config["api_version"]= "2022-07"
-app.config["return_url"] = 'https://3abc-206-0-156-74.ngrok.io/returnpayment'
-app.config["access_scope_url"] = "https://armonika.myshopify.com/admin/oauth/access_scopes.json"
+app.config["redirect_uri"] = REDIRECT_URI
+app.config["api_version"]= API_VERSION
+app.config["return_url"] = RETURN_URL
+app.config["access_scope_url"] = ACCESS_SCOPE_URL
 
 
 

@@ -9,6 +9,11 @@ global user
 global db_user
 user = User()
 
+
+
+
+
+
 @app.route('/',methods=['GET'])
 def starter():
     return redirect(url_for("login"))

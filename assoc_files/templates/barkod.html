@@ -19,6 +19,7 @@
 </head>
 <body>
 
+
 <div><a class="btn btn-primary" href="{{ url_for("orderCargo") }}">Kargo sayfasi</a></div>
 <div><a class="btn btn-primary" href="{{ url_for("order") }}">Siparisler Sayfasi</a></div>
 
@@ -45,7 +46,7 @@
             </td>
             <td>
                 <button type="button" class="btn btn-secondary" data-toggle="modal"
-                        data-target="#barcodeModal{{ i.orderId }}">Barkod Goruntule
+                        data-target="#barcodeModal{{ i.orderId }}">Barkod Yazdir
                 </button>
             </td>
         </tr>
@@ -71,6 +72,7 @@
                 </div>
             </div>
         </div>
+
         <div class="modal fade" id="barcodeModal{{ i.orderId }}" tabindex="-1" role="dialog"
              aria-labelledby="exampleModalLabel"
              aria-hidden="true">
@@ -82,9 +84,14 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div>
-                        <img id="{{ i.orderId }}" onclick="window.print()" src="../static/barcode/{{ i.orderId }}.png" style="width: auto ">
+                    <div class="modal-footer">
+                        <img id="{{ i.orderId }}" onclick="printDiv()" src="../static/barcode/{{ i.orderId }}.png"
+                             style="width: auto ">
                     </div>
+                    <div><p>{{ i.firstName + i.lastName }}</p></div>
+                    <div><p>{{ i.address1 }}</p></div>
+                    <div>{{ i.phone }}</div>
+                    <div><p>{{ i.address2 }}</p></div>
                     <div class="modal-body">
                         <form class="mb-0" action="{{ url_for("sendCargo",orderId=i.orderId) }}" method="post">
                             <div class="modal-footer">
@@ -93,10 +100,23 @@
                             </div>
                         </form>
                     </div>
+                    <script>
+                        function printDiv() {
+                            var divContents = document.getElementById("barcodeModal{{ i.orderId }}").innerHTML;
+                            var a = window.open('', '', 'height=800, width=800');
+                            a.document.write('<html>');
+                            a.document.write('<body > <h1>Barcode<br>');
+                            a.document.write(divContents);
+                            a.document.write('');
+                            a.document.close();
+                            a.print();
+                        }
+                    </script>
                 </div>
             </div>
         </div>
     {% endfor %}
+
     </tbody>
 </table>
 

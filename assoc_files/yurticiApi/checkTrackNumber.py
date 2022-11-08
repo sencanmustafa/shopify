@@ -5,8 +5,9 @@ from assoc_files.yurticiApi.cargoApi import testQueryShipment
 from assoc_files.database.modal import OrderTable,ShopInformationTable
 
 
+
 def checkTrackNumber():
-  threading.Timer(240, checkTrackNumber).start()
+  #threading.Timer(240, checkTrackNumber).start()
   try:
     yurticiUser = ShopInformationTable.query.all()
     for x in yurticiUser:

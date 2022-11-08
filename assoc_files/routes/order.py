@@ -14,6 +14,8 @@ from assoc_files.yurticiApi.checkTrackNumber import checkTrackNumber
 @app.route('/updateorder/<int:orderId>',methods=['POST'])
 @login_required
 def updateOrder(orderId):
+    if request.method !='POST':
+        return redirect(url_for("login"))
     address = request.form['addressInput']
     if sendTagUpdateOrderAddress(orderId=orderId,address=address)==False:
         flash(message="Adres guncellenirken hata olustu", category="danger")
@@ -24,6 +26,8 @@ def updateOrder(orderId):
 @app.route('/printqr/<int:orderId>',methods=['POST'])
 @login_required
 def printqr(orderId):
+    if request.method !='POST':
+        return redirect(url_for("login"))
     if writeBarcode(orderId=orderId) == False:
         flash(message="Beklenmeyen bir hata olustu", category="danger")
         return redirect(url_for("order"))
@@ -37,6 +41,8 @@ def printqr(orderId):
 @app.route('/sendcargo/<int:orderId>',methods=['POST'])
 @login_required
 def sendCargo(orderId):
+    if request.method !='POST':
+        return redirect(url_for("login"))
     if sendTagCargo(orderId=orderId) == False:
         flash(message="Beklenmeyen bir hata olustu", category="danger")
         return redirect(url_for("order"))
@@ -50,6 +56,8 @@ def sendCargo(orderId):
 @login_required
 def order():
     try:
+        if request.method != 'GET':
+            return redirect(url_for("login"))
         #logger.info(f"userId -> {session['userId']} called order function")
         orderData = callNewOrder()
         orderList = jsonToOrder(data=orderData)
@@ -67,6 +75,8 @@ def order():
 @login_required
 def orderBarkod():
     try:
+        if request.method != 'GET':
+            return redirect(url_for("login"))
         orderData = callQrOrder()
         orderList = jsonToOrder(data=orderData)
         print(orderList,"orderlist")
@@ -79,6 +89,8 @@ def orderBarkod():
 @login_required
 def orderCargo():
     try:
+        if request.method != 'GET':
+            return redirect(url_for("login"))
         checkTrackNumber()
         time.sleep(3)
         orderData = callCargoOrder()
@@ -94,9 +106,12 @@ def orderCargo():
 @login_required
 def shipping():
     try:
+        if request.method != 'GET':
+            return redirect(url_for("login"))
         fulFillment()
-        orderData = callShippingOrder()
-        orderList = jsonToOrder(data=orderData)
+        #orderData = callShippingOrder()
+        #orderList = jsonToOrder(data=orderData)
+        orderList = OrderTable.query.filter_by(userId=session["userId"],orderStatus=4).all()
         return render_template("dagitim.html",orders=orderList)
     except Exception as e:
         print(e)

@@ -8,8 +8,24 @@ from assoc_files.entity.UserClass import User
 #from assoc_files.log.logging import logger
 from assoc_files.database.modal import UserTable,OrderTable,ShopInformationTable
 from sqlalchemy import desc
+
+
+from dotenv import load_dotenv
+import os
+load_dotenv()
+
+API_KEY =os.getenv("API_KEY")
+SECRET_KEY=os.getenv("SECRET_KEY")
+REDIRECT_URI=os.getenv("REDIRECT_URI")
+
+
+
+
+
+
+
 state = binascii.b2a_hex(os.urandom(15)).decode("utf-8")
-redirect_uri = app.config["redirect_uri"]
+redirect_uri = REDIRECT_URI
 scopes = ['read_products', 'read_orders','write_orders','write_fulfillments','read_fulfillments','write_assigned_fulfillment_orders','read_assigned_fulfillment_orders','write_merchant_managed_fulfillment_orders','read_merchant_managed_fulfillment_orders','read_third_party_fulfillment_orders','write_third_party_fulfillment_orders']
 scopes_string = ','.join(scopes)
 
@@ -48,7 +64,7 @@ def verifyLogin(dbUser):
     return False
 
 def createAuthUrl():
-    auth_url = f"https://{app.config['shop_url']}/admin/oauth/authorize?client_id={app.config['API_KEY']}&scope={scopes_string}&redirect_uri={app.config['redirect_uri']}&state={state}"
+    auth_url = f"https://{app.config['shop_url']}/admin/oauth/authorize?client_id={API_KEY}&scope={scopes_string}&redirect_uri={REDIRECT_URI}&state={state}"
     return auth_url
 
 def login_required(f):

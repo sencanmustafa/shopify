@@ -7,7 +7,7 @@ from barcode.writer import ImageWriter
 import barcode
 from assoc_files.yurticiApi.cargoApi import *
 
-from assoc_files.utilities.utilities import callYurticiUser
+
 ##### JSON DATA TO SEND SHOPIFY IN REQUEST #####
 def jsonData(orderId,tag,address=None):
     if address !=None:
@@ -27,7 +27,7 @@ def jsonData(orderId,tag,address=None):
 ###### CHECK SHOP URL ######
 
 def checkSessionUrl():
-    if app.config["shop_url"] == '' or app.config["shop_url"] == None:
+    if app.config['shop_url'] == '' or app.config['shop_url'] == None:
         flash(message="hata")
         return False
     return True
@@ -48,12 +48,12 @@ def fulFillment():
             response = response.json()
             for x in range(0,len(response["fulfillment_orders"])):
 
-                if  response["fulfillment_orders"][x]["status"] == "open":
+                if response["fulfillment_orders"][x]["status"] == "open":
                     fulFillId = response["fulfillment_orders"][x]["line_items"][0]["fulfillment_order_id"]
                     json_data = {"fulfillment":
                                      {"message":"Siparişiniz Kargoya Teslim Edildi.","notify_customer":"False","tracking_info":
                                          {
-                                             "number":11111,"url":i.cargoUrl,"company":"Yurtiçi Kargo"},
+                                             "number":i.trackingNumber,"url":i.cargoUrl,"company":"Yurtiçi Kargo"},
                                               "line_items_by_fulfillment_order":
                                                   [
                                                       {"fulfillment_order_id":fulFillId}]}}
@@ -86,12 +86,7 @@ def sendTagShipping(orderId):
 
 
 ####    SHIPPING   #####
-"""
-orders = OrderTable.query.filter_by(userId=session["userId"],orderStatus=3).all()
-    if orders!= None:
-        for i in orders:
-            a = int(i.orderId)
-"""
+
 #####     barcode #####
 
 def writeBarcode(orderId):
@@ -136,7 +131,7 @@ def sendTagPrintQr(orderId):
         return True
     return False
 def callQrOrder():
-    print(app.config["shop_url"])
+    print(app.config['shop_url'])
     checkSessionUrl()
 
     header = {f"X-Shopify-Access-Token": session["accessToken"], "Content-Type": "application/json"}
@@ -155,8 +150,8 @@ def sendTagCargo(orderId):
 
     #if createShipment(userYurtici=callYurticiUser(), order=getOrderOnDb(orderId=orderId))==False:
     #    return False
-    #if testCreateShipment() == False:
-    #    return False
+    if testCreateShipment(orderId=orderId) == False:
+        return False
 
     updateOrder(orderId=orderId, orderstatusStr="Yurtici Veri Gonderildi",orderStatus=2)
     ####  SEND CARGO TO YURTICI   ####
@@ -171,7 +166,7 @@ def sendTagCargo(orderId):
     return False
 
 def callCargoOrder():
-    print(app.config["shop_url"])
+    print(app.config['shop_url'])
     checkSessionUrl()
     header = {f"X-Shopify-Access-Token": session["accessToken"], "Content-Type": "application/json"}
     response = requests.get(f"https://{app.config['shop_url']}/admin/api/2022-07/orders.json?financial_status:paid AND fulfillment_status:unshipped&tag=Kargoya Veri Gonderildi",headers=header)
@@ -198,11 +193,11 @@ def callShippingOrder():
 
 
 def callNewOrder():
-    print(app.config["shop_url"])
+    print(app.config['shop_url'])
     checkSessionUrl()
 
     header = {f"X-Shopify-Access-Token": session["accessToken"], "Content-Type": "application/json"}
-    response = requests.get(f"https://{app.config['shop_url']}/admin/api/2022-07/orders.json?financial_status:paid AND fulfillment_status:unshipped&tag= ",headers=header)
+    response = requests.get(f"https://{app.config['shop_url']}/admin/api/2022-07/orders.json?financial_status:paid AND fulfillment_status:unshipped",headers=header)
     data = response.json()
     return data
 
@@ -245,6 +240,7 @@ def insertOrderOnDb(order:list):
 def jsonToOrder(data:dict):
     try:
         orderList = []
+        print(len(data["orders"]))
         for i in range(0,len(data["orders"])):
             order = Order()
             order.orderId = data["orders"][i]["id"]

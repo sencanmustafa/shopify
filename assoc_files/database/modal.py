@@ -28,8 +28,7 @@ class UserTable(db.Model):
     def __str__(self):
         return f" user -> {self.shopurl} - {self.accessToken}"
 
-query = UserTable.query.all()
-print(query)
+
 
 
 class OrderTable(db.Model):
@@ -42,6 +41,7 @@ class OrderTable(db.Model):
     orderStatus = db.Column(db.Integer, nullable=True)
     orderStatus2 = db.Column(db.String(300),nullable=True)
     cargoUrl = db.Column(db.String(300), nullable=True)
+    trackingNumber = db.Column(db.String(100), nullable=True)
     lastName = db.Column(db.String(300),nullable=False)
     address1 = db.Column(db.String(300),nullable=False)
     phone = db.Column(db.String(300),nullable=False)

@@ -4,12 +4,20 @@ import requests
 from assoc_files.database.modal import UserTable,ShopInformationTable
 from assoc_files.utilities.shopInfo import shopInfo
 from assoc_files.utilities.order import fulFillment
+from dotenv import load_dotenv
+import os
+load_dotenv()
 
-@app.route('/basicpayment',methods=['GET','POST'])
+RETURN_URL=os.getenv("RETURN_URL")
+
+
+
+
+@app.route('/basicpayment',methods=['GET'])
 def basicPayment():
     try:
         header = {f"X-Shopify-Access-Token": session["accessToken"], "Content-Type": "application/json"}
-        json_data = {'recurring_application_charge': {'name': 'Armonika Basic Plan','trial_days':1,'price': 0.1,'test':True,'return_url':app.config["return_url"],},}
+        json_data = {'recurring_application_charge': {'name': 'Armonika Basic Plan','trial_days':1,'price': 0.1,'test':True,'return_url':RETURN_URL,},}
         response = requests.post(f'https://{app.config["shop_url"]}/admin/api/2022-07/recurring_application_charges.json',headers=header, json=json_data)
         if response.status_code == 201:
             response = response.json()

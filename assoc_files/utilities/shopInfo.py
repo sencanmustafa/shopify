@@ -5,6 +5,7 @@ from assoc_files.yurticiApi.cargoApi import *
 from assoc_files.entity.UserClass import ShopInformation
 from sqlalchemy.exc import SQLAlchemyError
 
+
 def shopInfoAddDb(shop:ShopInformation):
     try:
         db_user = ShopInformationTable(shopId=shop.shopId,userId=shop.userId,name=shop.name,email=shop.email,domain=shop.domain,address=shop.address,city=shop.city,phone=shop.phone,createdAt=shop.createdAt,customer_email=shop.customer_email,shop_owner=shop.shop_owner,primary_location_id=shop.primary_location_id)

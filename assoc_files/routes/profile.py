@@ -4,9 +4,6 @@ from assoc_files.utilities.order import *
 from assoc_files.database.modal import ShopInformationTable
 
 
-
-
-
 @app.route('/updateprofile',methods=['POST'])
 def updateProfile():
     if request.method == 'POST':

@@ -2,7 +2,19 @@ from flask import  request,redirect,url_for
 from assoc_files.utilities.utilities import createAuthUrl
 from assoc_files.utilities.order import *
 from assoc_files.routes.login import user
-from assoc_files.routes.payment import checkUserCharge
+
+
+from dotenv import load_dotenv
+import os
+load_dotenv()
+
+API_KEY =os.getenv("API_KEY")
+SECRET_KEY=os.getenv("SECRET_KEY")
+
+
+
+
+
 @app.route('/api')
 def api():
     try:
@@ -13,7 +25,7 @@ def api():
         code = request.args['code']
         shop = request.args['shop']
         timestamp =request.args["timestamp"]
-        params = dict({"client_id":app.config['API_KEY'],"client_secret":app.config["SECRET_KEY"],"code":code,"shop":shop,"timestamp":timestamp})
+        params = dict({"client_id":API_KEY,"client_secret":SECRET_KEY,"code":code,"shop":shop,"timestamp":timestamp})
         access_token_url = f"https://{app.config['shop_url']}/admin/oauth/access_token"
         response = requests.post(access_token_url,data=params)
         data = response.json()

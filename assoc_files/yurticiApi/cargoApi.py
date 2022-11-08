@@ -1,10 +1,10 @@
 import json
-
 import requests , xmltodict
 from assoc_files.database.modal import *
 from sqlalchemy import desc
 from assoc_files.entity.UserClass import *
 from random import randint
+
 
 
 cargoUrl="http://testwebservices.yurticikargo.com:9090/KOPSWebServices/ShippingOrderDispatcherServices?wsdl "
@@ -105,7 +105,7 @@ def testCreateShipment(orderId):
            <soapenv:Body>
               <ship:createShipment>
                  <wsUserName>YKTEST</wsUserName><wsPassword>YK</wsPassword><userLanguage>TR</userLanguage>
-              <ShippingOrderVO><cargoKey>{value}</cargoKey><invoiceKey>{value}</invoiceKey><receiverCustName>ALICI ADI</receiverCustName><receiverAddress>ALICI SEVK ADRESi Kargo Plaza K:5 Maslak</receiverAddress><cityName>istanbul</cityName><townName>sisli</townName><receiverPhone1>2123652365</receiverPhone1><taxOfficeId/><cargoCount>1</cargoCount><specialField1>1$1340965#</specialField1><ttDocumentId/><dcSelectedCredit/><dcCreditRule/><orgReceiverCustId>11988</orgReceiverCustId></ShippingOrderVO></ship:createShipment>
+              <ShippingOrderVO><cargoKey>{orderId}</cargoKey><invoiceKey>{orderId}</invoiceKey><receiverCustName>ALICI ADI</receiverCustName><receiverAddress>ALICI SEVK ADRESi Kargo Plaza K:5 Maslak</receiverAddress><cityName>istanbul</cityName><townName>sisli</townName><receiverPhone1>2123652365</receiverPhone1><taxOfficeId/><cargoCount>1</cargoCount><specialField1>1$1340965#</specialField1><ttDocumentId/><dcSelectedCredit/><dcCreditRule/><orgReceiverCustId>11988</orgReceiverCustId></ShippingOrderVO></ship:createShipment>
            </soapenv:Body>
         </soapenv:Envelope>"""
 
