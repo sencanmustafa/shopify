@@ -89,11 +89,12 @@ def sendTagShipping(orderId):
 
 #####     barcode #####
 
-def writeBarcode(orderId):
+def writeBarcode(orderList:list):
     try:
-        Code128 = barcode.get_barcode_class('code128')
-        qr = Code128(f"{orderId}", writer=ImageWriter())
-        qr.save(f"assoc_files/static/barcode/{orderId}")
+        for i in orderList:
+            Code128 = barcode.get_barcode_class('code128')
+            qr = Code128(f"{i.orderId}", writer=ImageWriter())
+            qr.save(f"assoc_files/static/barcode/{i.orderId}")
         return True
     except Exception as e:
         print(e)

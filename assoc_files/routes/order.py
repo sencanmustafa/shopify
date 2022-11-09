@@ -23,19 +23,21 @@ def updateOrder(orderId):
     flash(message="Adres basariyla guncellendi", category="success")
     return redirect(url_for("order"))
 
-@app.route('/printqr/<int:orderId>',methods=['POST'])
-@login_required
-def printqr(orderId):
-    if request.method !='POST':
-        return redirect(url_for("login"))
-    if writeBarcode(orderId=orderId) == False:
-        flash(message="Beklenmeyen bir hata olustu", category="danger")
-        return redirect(url_for("order"))
-    if sendTagPrintQr(orderId=orderId) == False:
-        flash(message="Beklenmeyen bir hata olustu", category="danger")
-        return redirect(url_for("order"))
-    flash(message="Kargoya iletildi", category="danger")
-    return redirect(url_for("order"))
+
+
+#@app.route('/printqr/<int:orderId>',methods=['POST'])
+#@login_required
+#def printqr(orderId):
+#    if request.method !='POST':
+#        return redirect(url_for("login"))
+#    if writeBarcode(orderId=orderId) == False:
+#        flash(message="Beklenmeyen bir hata olustu", category="danger")
+#        return redirect(url_for("order"))
+#    if sendTagPrintQr(orderId=orderId) == False:
+#        flash(message="Beklenmeyen bir hata olustu", category="danger")
+#        return redirect(url_for("order"))
+#    flash(message="Kargoya iletildi", category="danger")
+#    return redirect(url_for("order"))
 
 
 @app.route('/sendcargo/<int:orderId>',methods=['POST'])
@@ -61,6 +63,7 @@ def order():
         #logger.info(f"userId -> {session['userId']} called order function")
         orderData = callNewOrder()
         orderList = jsonToOrder(data=orderData)
+        writeBarcode(orderList=orderList)
         checkOrderList = jsonToOrder(data=orderData)
         comparedOrderList = checkOrders(orderList=checkOrderList)
         insertOrderOnDb(comparedOrderList)
