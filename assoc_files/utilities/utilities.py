@@ -20,10 +20,6 @@ REDIRECT_URI=os.getenv("REDIRECT_URI")
 
 
 
-
-
-
-
 state = binascii.b2a_hex(os.urandom(15)).decode("utf-8")
 redirect_uri = REDIRECT_URI
 scopes = ['read_products', 'read_orders','write_orders','write_fulfillments','read_fulfillments','write_assigned_fulfillment_orders','read_assigned_fulfillment_orders','write_merchant_managed_fulfillment_orders','read_merchant_managed_fulfillment_orders','read_third_party_fulfillment_orders','write_third_party_fulfillment_orders']

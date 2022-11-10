@@ -67,8 +67,8 @@ def checkCharge(chargeid):
                         ## GET SHOP INFORMATION FUNCTION ##
                         shopInfo(user=db_user2)
                         ## GET SHOP INFORMATION FUNCTION ##
-
-
+                        if db_user2.userNameForGO == None or db_user2.userNameForGO == "" or db_user2.userPasswordForGO== None or db_user2.userPasswordForGO == "":
+                            return redirect(url_for("profile"))
                         return redirect(url_for("info"))
                 except Exception as e:
                     print(e)
