@@ -40,13 +40,18 @@
             <td>{{ i.firstName + i.lastName }}</td>
             <td>{{ i.tag }}</td>
             <td>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#orderAdressModal{{ i.orderId }}">Edit</button>
+                <button type="button" class="btn btn-primary" data-toggle="modal"
+                        data-target="#orderAdressModal{{ i.orderId }}">Edit
+                </button>
             </td>
             <td>
-                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#barkodModal{{ i.orderId }}">Barkod Yazdir</button>
+                <button type="button" class="btn btn-secondary" data-toggle="modal"
+                        data-target="#barcodeModal{{ i.orderId }}">Barkod Yazdir
+                </button>
             </td>
         </tr>
-        <div class="modal fade" id="orderAdressModal{{ i.orderId }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        <div class="modal fade" id="orderAdressModal{{ i.orderId }}" tabindex="-1" role="dialog"
+             aria-labelledby="exampleModalLabel"
              aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -65,30 +70,31 @@
                                     <div class="form-outline">
                                         <input value="{{ i.city }}" name="cityInput" type="text" id="form9Example3"
                                                class="form-control input-custom"/>
-                                        <label class="form-label" >City</label>
+                                        <label class="form-label">City</label>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="form-outline">
                                         <input value="{{ i.zip }}" name="zipInput" type="text" id="form9Example4"
                                                class="form-control input-custom"/>
-                                        <label class="form-label" >Zip</label>
+                                        <label class="form-label">Zip</label>
                                     </div>
                                 </div>
                             </div>
                             <div class="row mb-4">
                                 <div class="col">
                                     <div class="form-outline">
-                                            <input value="{{ i.address1 }}" name="addressInput" type="text" id="form9Example6"
-                                                   class="form-control input-custom"/>
-                                            <label class="form-label" >Address</label>
+                                        <input value="{{ i.address1 }}" name="addressInput" type="text"
+                                               id="form9Example6"
+                                               class="form-control input-custom"/>
+                                        <label class="form-label">Address</label>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button  type="submit" class="btn btn-primary">Save changes</button>
+                                <button type="submit" class="btn btn-primary">Save changes</button>
                             </div>
                         </form>
 
@@ -97,53 +103,45 @@
                 </div>
             </div>
         </div>
-        <div class="modal fade" id="barkodModal{{ i.orderId }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        <div class="modal fade" id="barcodeModal{{ i.orderId }}" tabindex="-1" role="dialog"
+             aria-labelledby="exampleModalLabel"
              aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Barkod</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Kargo</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
+                    <div class="modal-footer">
+                        <img id="{{ i.orderId }}" onclick="printDiv()" src="../static/barcode/{{ i.orderId }}.png"
+                             style="width: auto ">
+                    </div>
+                    <div><p>{{ i.firstName + i.lastName }}</p></div>
+                    <div><p>{{ i.address1 }}</p></div>
+                    <div>{{ i.phone }}</div>
+                    <div><p>{{ i.address2 }}</p></div>
                     <div class="modal-body">
-                        <form class="mb-0" action="" method="post">
-                             <div class="row mb-4">
-                            </div>
-                            <div class="row mb-4">
-                                <div class="col">
-                                    <div class="form-outline">
-                                        <input value="{{ i.city }}" name="cityInput" type="text" id="form9Example3"
-                                               class="form-control input-custom"/>
-                                        <label class="form-label" >City</label>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-outline">
-                                        <input value="{{ i.zip }}" name="zipInput" type="text" id="form9Example4"
-                                               class="form-control input-custom"/>
-                                        <label class="form-label" >Zip</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row mb-4">
-                                <div class="col">
-                                    <div class="form-outline">
-                                            <input value="{{ i.address1 }}" name="addressInput" type="text" id="form9Example6"
-                                                   class="form-control input-custom"/>
-                                            <label class="form-label" >Address</label>
-                                    </div>
-                                </div>
-                            </div>
+                        <form class="mb-0" action="{{ url_for("sendCargo",orderId=i.orderId) }}" method="post">
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button  type="submit" class="btn btn-primary">Barkod Yazdir</button>
+                                <button type="submit" class="btn btn-primary">Kargoya Gonder</button>
                             </div>
                         </form>
-
                     </div>
-
+                    <script>
+                        function printDiv() {
+                            var divContents = document.getElementById("barcodeModal{{ i.orderId }}").innerHTML;
+                            var a = window.open('', '', 'height=800, width=800');
+                            a.document.write('<html>');
+                            a.document.write('<body > <h1>Barcode<br>');
+                            a.document.write(divContents);
+                            a.document.write('');
+                            a.document.close();
+                            a.print();
+                        }
+                    </script>
                 </div>
             </div>
         </div>
