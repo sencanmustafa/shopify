@@ -3,7 +3,6 @@ from assoc_files.utilities.utilities import createAuthUrl
 from assoc_files.utilities.order import *
 from assoc_files.routes.login import user
 
-
 from dotenv import load_dotenv
 import os
 load_dotenv()
@@ -50,6 +49,7 @@ def api():
         session["shop_url"] = user.shopUrl
         session["userId"] = dbUser.id
         session["logged_in"] = True
+
         return redirect(url_for("checkUserCharge"))
 
     except Exception as e:

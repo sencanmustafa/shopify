@@ -110,12 +110,12 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Kargo</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button" class="close"  aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-footer">
-                        <img id="{{ i.orderId }}" onclick="printDiv()" src="../static/barcode/{{ i.orderId }}.png"
+                        <img id="{{ i.orderId }}" src="../static/barcode/{{ i.orderId }}.png"
                              style="width: auto ">
                     </div>
                     <div><p>{{ i.firstName + i.lastName }}</p></div>
@@ -123,10 +123,10 @@
                     <div>{{ i.phone }}</div>
                     <div><p>{{ i.address2 }}</p></div>
                     <div class="modal-body">
-                        <form class="mb-0" action="{{ url_for("sendCargo",orderId=i.orderId) }}" method="post">
+                        <form class="mb-0" action="{{ url_for("sendTagQr",orderId=i.orderId) }}" method="post">
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Kargoya Gonder</button>
+                                <button type="submit" onclick="printDiv()" class="btn btn-primary">YAZDIR</button>
                             </div>
                         </form>
                     </div>

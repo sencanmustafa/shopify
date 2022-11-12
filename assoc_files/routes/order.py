@@ -25,19 +25,16 @@ def updateOrder(orderId):
 
 
 
-#@app.route('/printqr/<int:orderId>',methods=['POST'])
-#@login_required
-#def printqr(orderId):
-#    if request.method !='POST':
-#        return redirect(url_for("login"))
-#    if writeBarcode(orderId=orderId) == False:
-#        flash(message="Beklenmeyen bir hata olustu", category="danger")
-#        return redirect(url_for("order"))
-#    if sendTagPrintQr(orderId=orderId) == False:
-#        flash(message="Beklenmeyen bir hata olustu", category="danger")
-#        return redirect(url_for("order"))
-#    flash(message="Kargoya iletildi", category="danger")
-#    return redirect(url_for("order"))
+@app.route('/printqr/<int:orderId>',methods=['POST'])
+@login_required
+def sendTagQr(orderId):
+    if request.method !='POST':
+        return redirect(url_for("login"))
+    if sendTagPrintQr(orderId=orderId) == False:
+        flash(message="Beklenmeyen bir hata olustu", category="danger")
+        return redirect(url_for("order"))
+    flash(message="Kargoya iletildi", category="danger")
+    return redirect(url_for("order"))
 
 
 @app.route('/sendcargo/<int:orderId>',methods=['POST'])

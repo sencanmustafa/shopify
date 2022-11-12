@@ -1,4 +1,6 @@
 from assoc_files import app
+
+
 from dotenv import load_dotenv
 import os
 
@@ -11,7 +13,6 @@ API_VERSION=os.getenv("API_VERSION")
 RETURN_URL=os.getenv("RETURN_URL")
 ACCESS_SCOPE_URL =os.getenv("ACCESS_SCOPE_URL")
 SHOP_URL = os.getenv("SHOP_URL")
-
 
 if __name__ == '__main__':
     load_dotenv()
