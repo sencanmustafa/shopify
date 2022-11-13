@@ -1,9 +1,9 @@
 from flask import Flask
-#from flask_session import Session
+from flask_session import Session
 from flask_sqlalchemy import SQLAlchemy
 from dotenv import load_dotenv
 import os
-#import redis
+import redis
 
 
 app = Flask(__name__,static_folder="static")
@@ -47,15 +47,15 @@ app.config["access_scope_url"] = ACCESS_SCOPE_URL
 
 
 
-#app.config["SESSION_TYPE"] = "redis"
-#app.config["SESSION_PERMANENT"] = True
-#app.config["SESSION_USE_SIGNER"] = False
-#app.config["SESSION_REDIS"] = redis.from_url("redis://127.0.0.1:6379")
-#
-#
-#
-#sess = Session(app)
-#sess.init_app(app)
+app.config["SESSION_TYPE"] = "redis"
+app.config["SESSION_PERMANENT"] = True
+app.config["SESSION_USE_SIGNER"] = False
+app.config["SESSION_REDIS"] = redis.from_url("redis://127.0.0.1:6379")
+
+
+
+sess = Session(app)
+sess.init_app(app)
 
 
 
