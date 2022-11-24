@@ -64,7 +64,7 @@ from assoc_files.routes import api
 from assoc_files.routes import order
 from assoc_files.routes import profile
 from assoc_files.routes import payment
-
+from assoc_files.routes import mandatoryWebhooks
 
 
 #from assoc_files.yurticiApi.checkTrackNumber import checkTrackNumber
