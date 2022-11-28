@@ -14,40 +14,50 @@ from assoc_files.yurticiApi.checkTrackNumber import checkTrackNumber
 @app.route('/updateorder/<int:orderId>',methods=['POST'])
 @login_required
 def updateOrder(orderId):
-    if request.method !='POST':
-        return redirect(url_for("login"))
-    address = request.form['addressInput']
-    if sendTagUpdateOrderAddress(orderId=orderId,address=address)==False:
-        flash(message="Adres guncellenirken hata olustu", category="danger")
+    try:
+        if request.method !='POST':
+            return redirect(url_for("login"))
+        address = request.form['addressInput']
+        if sendTagUpdateOrderAddress(orderId=orderId,address=address)==False:
+            flash(message="Adres guncellenirken hata olustu", category="danger")
+            return redirect(url_for("order"))
+        flash(message="Adres basariyla guncellendi", category="success")
         return redirect(url_for("order"))
-    flash(message="Adres basariyla guncellendi", category="success")
-    return redirect(url_for("order"))
-
+    except Exception as e:
+        print(e)
+        return redirect(url_for("login"))
 
 
 @app.route('/printqr/<int:orderId>',methods=['POST'])
 @login_required
 def sendTagQr(orderId):
-    if request.method !='POST':
-        return redirect(url_for("login"))
-    if sendTagPrintQr(orderId=orderId) == False:
-        flash(message="Beklenmeyen bir hata olustu", category="danger")
-        return redirect(url_for("order"))
-    flash(message="Kargoya iletildi", category="danger")
-    return redirect(url_for("order"))
+    try:
 
+        if request.method !='POST':
+            return redirect(url_for("login"))
+        if sendTagPrintQr(orderId=orderId) == False:
+            flash(message="Beklenmeyen bir hata olustu", category="danger")
+            return redirect(url_for("order"))
+        flash(message="Kargoya iletildi", category="danger")
+        return redirect(url_for("order"))
+    except Exception as e:
+        print(e)
+        return redirect(url_for("login"))
 
 @app.route('/sendcargo/<int:orderId>',methods=['POST'])
 @login_required
 def sendCargo(orderId):
-    if request.method !='POST':
+    try:
+        if request.method !='POST':
+            return redirect(url_for("login"))
+        if sendTagCargo(orderId=orderId) == False:
+            flash(message="Beklenmeyen bir hata olustu", category="danger")
+            return redirect(url_for("order"))
+        flash(message="Kargoya Veri Gonderildi", category="success")
+        return redirect(url_for("orderBarkod"))
+    except Exception as e:
+        print(e)
         return redirect(url_for("login"))
-    if sendTagCargo(orderId=orderId) == False:
-        flash(message="Beklenmeyen bir hata olustu", category="danger")
-        return redirect(url_for("order"))
-    flash(message="Kargoya Veri Gonderildi", category="success")
-    return redirect(url_for("orderBarkod"))
-
 
 
 
@@ -91,7 +101,7 @@ def orderCargo():
     try:
         if request.method != 'GET':
             return redirect(url_for("login"))
-        checkTrackNumber()
+        #checkTrackNumber()
         time.sleep(3)
         orderData = callCargoOrder()
         orderList = jsonToOrder(data=orderData)

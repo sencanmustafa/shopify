@@ -151,8 +151,8 @@ def sendTagCargo(orderId):
 
     #if createShipment(userYurtici=callYurticiUser(), order=getOrderOnDb(orderId=orderId))==False:
     #    return False
-    if testCreateShipment(orderId=orderId) == False:
-        return False
+    #if testCreateShipment(orderId=orderId) == False:
+    #    return False
 
     updateOrder(orderId=orderId, orderstatusStr="Yurtici Veri Gonderildi",orderStatus=2)
     ####  SEND CARGO TO YURTICI   ####

@@ -103,6 +103,19 @@
                 </div>
             </div>
         </div>
+        <style>
+
+
+            @media print {
+                body * {
+                    display: none;
+                }
+
+                #barcodeModal{{ i.orderId }}, #barcodeModal{{ i.orderId }} * {
+                    display: block;
+                }
+            }
+        </style>
         <div class="modal fade" id="barcodeModal{{ i.orderId }}" tabindex="-1" role="dialog"
              aria-labelledby="exampleModalLabel"
              aria-hidden="true">
@@ -125,28 +138,10 @@
                         <form class="mb-0" action="{{ url_for("sendTagQr",orderId=i.orderId) }}" method="post">
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="submit" onclick="printBarcode('barcodeModal{{ i.orderId }}')"
-                                        class="btn btn-primary">YAZDIR
-                                </button>
+                                <button type="submit" onclick="printElement()" class="btn btn-primary">YAZDIR</button>
                             </div>
                         </form>
                     </div>
-                    <script>
-                        function printBarcode(elem) {
-                            var mywindow = window.open('', 'PRINT', 'height=400,width=600');
-                            mywindow.document.write('<html><head><title>' + document.title + '</title>');
-                            mywindow.document.write('</head><body >');
-                            mywindow.document.write('<h1>' + document.title + '</h1>');
-                            mywindow.document.write('<img src="../static/barcode/{{ i.orderId }}.png" height="205" width="308">');
-                            mywindow.document.write(document.getElementById(elem).innerHTML);
-                            mywindow.document.write('</body></html>');
-                            mywindow.document.close(); // necessary for IE >= 10
-                            mywindow.focus(); // necessary for IE >= 10*/
-                            mywindow.print();
-                            mywindow.close();
-                            return true;
-                        }
-                    </script>
                 </div>
             </div>
         </div>
@@ -154,7 +149,11 @@
     </tbody>
 </table>
 <!-- Button trigger modal -->
-
+<script>
+    function printElement() {
+        print();
+    }
+</script>
 
 </body>
 </html>
