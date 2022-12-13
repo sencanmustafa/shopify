@@ -4,10 +4,6 @@ from assoc_files.utilities.utilities import login_required, checkOrders
 from assoc_files.utilities.order import *
 #from assoc_files.log.logging import logger
 
-from assoc_files.yurticiApi.checkTrackNumber import checkTrackNumber
-
-
-
 
 
 
@@ -32,7 +28,6 @@ def updateOrder(orderId):
 @login_required
 def sendTagQr(orderId):
     try:
-
         if request.method !='POST':
             return redirect(url_for("login"))
         if sendTagPrintQr(orderId=orderId) == False:
@@ -43,6 +38,44 @@ def sendTagQr(orderId):
     except Exception as e:
         print(e)
         return redirect(url_for("login"))
+
+
+
+
+
+@app.route('/order',methods=['GET'])
+@login_required
+def order():
+    try:
+        if request.method != 'GET':
+            return redirect(url_for("login"))
+        #logger.info(f"userId -> {session['userId']} called order function")
+        orderData = callNewOrder()
+        orderList = jsonToOrder(data=orderData)
+        checkOrderList = jsonToOrder(data=orderData)
+        comparedOrderList = checkOrders(orderList=checkOrderList)
+        writeBarcode(orderList=comparedOrderList)
+        insertOrderOnDb(comparedOrderList)
+        return render_template("order.html",orders=orderList)
+    except Exception as e:
+        print(e)
+        #logger.error(f"Error occurred {e} , userId -> {session['userId']}")
+        return redirect(url_for("login"))
+
+######  BARCODE AND SEND CARGO ######
+@app.route('/orderbarkod',methods=['GET'])
+@login_required
+def orderBarkod():
+    try:
+        if request.method != 'GET':
+            return redirect(url_for("login"))
+        orderData = callQrOrder()
+        orderList = jsonToOrder(data=orderData)
+        print(orderList,"orderlist")
+        return render_template("barkod.html",orders=orderList)
+    except Exception as e:
+        print(e)
+        return redirect(url_for("info"))
 
 @app.route('/sendcargo/<int:orderId>',methods=['POST'])
 @login_required
@@ -59,41 +92,7 @@ def sendCargo(orderId):
         print(e)
         return redirect(url_for("login"))
 
-
-
-@app.route('/order',methods=['GET'])
-@login_required
-def order():
-    try:
-        if request.method != 'GET':
-            return redirect(url_for("login"))
-        #logger.info(f"userId -> {session['userId']} called order function")
-        orderData = callNewOrder()
-        orderList = jsonToOrder(data=orderData)
-        writeBarcode(orderList=orderList)
-        checkOrderList = jsonToOrder(data=orderData)
-        comparedOrderList = checkOrders(orderList=checkOrderList)
-        insertOrderOnDb(comparedOrderList)
-        return render_template("order.html",orders=orderList)
-    except Exception as e:
-        print(e)
-        #logger.error(f"Error occurred {e} , userId -> {session['userId']}")
-        return redirect(url_for("login"))
-
-
-@app.route('/orderbarkod',methods=['GET'])
-@login_required
-def orderBarkod():
-    try:
-        if request.method != 'GET':
-            return redirect(url_for("login"))
-        orderData = callQrOrder()
-        orderList = jsonToOrder(data=orderData)
-        print(orderList,"orderlist")
-        return render_template("barkod.html",orders=orderList)
-    except Exception as e:
-        print(e)
-        return redirect(url_for("info"))
+######  BARCODE AND SEND CARGO ######
 
 @app.route('/ordercargo',methods=['GET'])
 @login_required

@@ -1,8 +1,7 @@
 import binascii
-import os
 from decimal import Decimal
 from assoc_files import app
-from flask import jsonify ,session , redirect,url_for
+from flask import session , redirect,url_for
 from functools import wraps
 from assoc_files.entity.UserClass import User
 #from assoc_files.log.logging import logger
@@ -80,7 +79,14 @@ def token_required(f):
         else:
             return redirect(url_for("getToken"))
     return decorated_function
-
+def urlRequired(f):
+    @wraps(f)
+    def decorated_function(*args,**kwargs):
+        if "shop_url" in session:
+            return f(*args, **kwargs)
+        else:
+            return redirect(url_for("login"))
+    return decorated_function()
 def validate(user:User,dbUser:UserTable):
     if dbUser!= None:
         if user.email == dbUser.email:

@@ -1,8 +1,6 @@
-import requests
+from assoc_files.utilities.utilities import urlRequired
 from assoc_files import app
 from flask import session,flash
-from assoc_files.entity.UserClass import User, Order
-from assoc_files.database.modal import OrderTable, UserTable
 from barcode.writer import ImageWriter
 import barcode
 from assoc_files.yurticiApi.cargoApi import *
@@ -134,7 +132,6 @@ def sendTagPrintQr(orderId):
 def callQrOrder():
     print(app.config['shop_url'])
     checkSessionUrl()
-
     header = {f"X-Shopify-Access-Token": session["accessToken"], "Content-Type": "application/json"}
     response = requests.get(f"https://{app.config['shop_url']}/admin/api/2022-07/orders.json?financial_status:paid&fulfillment_status:unshipped&tag=Barkod Alindi",headers=header)
     data = response.json()
@@ -153,7 +150,7 @@ def sendTagCargo(orderId):
     #    return False
     #if testCreateShipment(orderId=orderId) == False:
     #    return False
-
+    ####  SEND CARGO TO YURTICI   ####
     updateOrder(orderId=orderId, orderstatusStr="Yurtici Veri Gonderildi",orderStatus=2)
     ####  SEND CARGO TO YURTICI   ####
     headers = {f"X-Shopify-Access-Token":session["accessToken"]}
@@ -230,7 +227,6 @@ def InsertUserOnDb(user:User):
 def insertOrderOnDb(order:list):
     try:
         for i in range(0,len(order)):
-            print(order[i].orderId,session['userId'])
             dbOrder = OrderTable(orderId=order[i].orderId,userId=session['userId'],firstName=order[i].firstName,lastName=order[i].lastName,orderStatus=order[i].orderStatus,orderName=order[i].orderName,address1=order[i].address1,phone=order[i].phone,orderDate=order[i].date,city=order[i].city,zip=order[i].zip,address2=order[i].address2,country=order[i].country,company=order[i].company,name=order[i].name,countryCode=order[i].countryCode)
             OrderTable.insert(dbOrder)
         #logger.info(f"order inserted to database , userId -> {session['userId']} ")
@@ -241,7 +237,6 @@ def insertOrderOnDb(order:list):
 def jsonToOrder(data:dict):
     try:
         orderList = []
-        print(len(data["orders"]))
         for i in range(0,len(data["orders"])):
             order = Order()
             order.orderId = data["orders"][i]["id"]
@@ -261,6 +256,9 @@ def jsonToOrder(data:dict):
             order.orderName = data["orders"][i]["name"]
             order.tag = data["orders"][i]["tags"]
             order.orderStatusStr = "Null"
+
+            """BAD CODE"""
+
             if order.fulfillment_status == None:
                 order.fulfillment_status = "Null"
             if order.orderName == None:

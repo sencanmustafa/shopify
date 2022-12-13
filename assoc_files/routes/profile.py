@@ -44,9 +44,6 @@ def updateProfile():
 @login_required
 def profile():
     if request.method == 'POST':
-        if  request.form['check']:
-            print("check")
-    if request.method == 'POST':
         try:
             companyName = request.form['companyName']
             email = request.form['email']
@@ -58,8 +55,8 @@ def profile():
             usernameKO = request.form['usernameKO']
             passwordKO = request.form['passwordKO']
 
-            dbuser = ShopInformationTable(userId=session["userId"],domain=session["shop_url"],companyName=companyName,email=email,phone=phone,shop_address=shopAdress,note=note,userNameForGO=usernameGO,userPasswordForGO=passwordGO,userNameForKO=usernameKO,userPasswordForKO=passwordKO)
-            ShopInformationTable.insert(dbuser)
+            dbUser = ShopInformationTable(userId=session["userId"],domain=session["shop_url"],companyName=companyName,email=email,phone=phone,shop_address=shopAdress,note=note,userNameForGO=usernameGO,userPasswordForGO=passwordGO,userNameForKO=usernameKO,userPasswordForKO=passwordKO)
+            ShopInformationTable.insert(dbUser)
             return redirect(url_for("profile"))
         except Exception as e:
             print(e)
