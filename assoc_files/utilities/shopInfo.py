@@ -8,7 +8,7 @@ from sqlalchemy.exc import SQLAlchemyError
 
 def shopInfoAddDb(shop:ShopInformation):
     try:
-        db_user = ShopInformationTable(shopId=shop.shopId,userId=shop.userId,name=shop.name,email=shop.email,domain=shop.domain,address=shop.address,city=shop.city,phone=shop.phone,createdAt=shop.createdAt,customer_email=shop.customer_email,shop_owner=shop.shop_owner,primary_location_id=shop.primary_location_id)
+        db_user = ShopInformationTable(shopId=shop.shopId,userId=shop.userId,email=shop.email,domain=shop.domain,address=shop.address,city=shop.city,phone=shop.phone,createdAt=shop.createdAt,customer_email=shop.customer_email,shop_owner=shop.shop_owner,primary_location_id=shop.primary_location_id)
         ShopInformationTable.insert(db_user)
         return True
     except SQLAlchemyError as e:
@@ -45,13 +45,16 @@ def callShopInfo(user):
         if user!=None:
             if str(response["shop"]["id"]) == user.shopId:
                 return False
+            else:
+                data = jsonToShopInfo(data=response)
+                return data
+        else:
             data = jsonToShopInfo(data=response)
             return data
-        return False
     return False
 
 
-def shopInfo(user):
+def shopInfo(user=None):
     try:
         shop = callShopInfo(user=user)
         if shop:

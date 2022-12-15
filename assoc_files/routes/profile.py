@@ -66,6 +66,8 @@ def profile():
         existUser = ShopInformationTable.query.filter_by(userId=session["userId"]).one_or_none()
         if existUser !=None:
             return render_template("profile.html",existUser=existUser)
+        else:
+            return render_template("profile.html")
     except Exception as e:
         print(e)
         return render_template("profile.html")

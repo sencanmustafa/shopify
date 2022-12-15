@@ -65,9 +65,12 @@ def checkCharge(chargeid):
                         db_user.chargeStartDate = response["recurring_application_charge"]["created_at"]
                         UserTable.updateTable(db_user)
                         ## GET SHOP INFORMATION FUNCTION ##
-                        shopInfo(user=db_user2)
+                        if db_user2!=None:
                         ## GET SHOP INFORMATION FUNCTION ##
-                        if db_user2.userNameForGO == None or db_user2.userNameForGO == "" or db_user2.userPasswordForGO== None or db_user2.userPasswordForGO == "":
+                            if db_user2.userNameForGO == None or db_user2.userNameForGO == "" or db_user2.userPasswordForGO== None or db_user2.userPasswordForGO == "":
+                                return redirect(url_for("profile"))
+                        else:
+                            shopInfo()
                             return redirect(url_for("profile"))
                         return redirect(url_for("info"))
                 except Exception as e:

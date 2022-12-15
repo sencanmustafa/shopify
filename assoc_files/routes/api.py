@@ -46,8 +46,9 @@ def api():
             except Exception as e:
                 print(e)
                 return redirect(url_for("login"))
+        dbUser2 = UserTable.query.filter_by(shopurl=user.shopUrl).one_or_none()
         session["shop_url"] = user.shopUrl
-        session["userId"] = dbUser.id
+        session["userId"] = dbUser2.id
         session["logged_in"] = True
 
         return redirect(url_for("checkUserCharge"))
