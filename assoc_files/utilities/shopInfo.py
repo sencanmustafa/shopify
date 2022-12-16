@@ -36,27 +36,20 @@ def jsonToShopInfo(data: dict):
         return False
 
 
-def callShopInfo(user):
+def callShopInfo():
     checkSessionUrl()
     headers = {f"X-Shopify-Access-Token":session["accessToken"]}
     response = requests.get(f"https://{app.config['shop_url']}/admin/api/2022-07/shop.json",headers=headers)
     if response.status_code == 200:
         response = response.json()
-        if user!=None:
-            if str(response["shop"]["id"]) == user.shopId:
-                return False
-            else:
-                data = jsonToShopInfo(data=response)
-                return data
-        else:
-            data = jsonToShopInfo(data=response)
-            return data
+        data = jsonToShopInfo(data=response)
+        return data
     return False
 
 
-def shopInfo(user=None):
+def shopInfo():
     try:
-        shop = callShopInfo(user=user)
+        shop = callShopInfo()
         if shop:
             if shopInfoAddDb(shop=shop):
                 return True
