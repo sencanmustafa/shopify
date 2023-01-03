@@ -15,13 +15,13 @@ SHOP_URL = os.getenv("SHOP_URL")
 
 
 def run_app():
-    app.run(debug=True,use_reloader=False,port=8080)
+    app.run(debug=True,use_reloader=True,port=8080)
 
 
 
 if __name__ == '__main__':
     load_dotenv()
-    #app.run(debug=True, use_reloader=False, port=8080)
-    thread = Thread(target=run_app)
-    thread.start()
+    app.run(debug=True, use_reloader=True, port=8080)
+    #thread = Thread(target=run_app)
+    #thread.start()
 

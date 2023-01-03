@@ -32,6 +32,9 @@ def callYurticiUser():
         print(e)
         return False
 def checkOrders(orderList):
+    if len(orderList) == 0:
+        emptyOrderList = []
+        return emptyOrderList
     idOrder = []
     orders = OrderTable.query.filter_by(userId=session["userId"]).order_by(desc(OrderTable.orderDate)).all()
     for i in orderList:
@@ -58,7 +61,7 @@ def verifyLogin(dbUser):
         return False
     return False
 
-def createAuthUrl():
+def createAuthUrl() -> str:
     auth_url = f"https://{app.config['shop_url']}/admin/oauth/authorize?client_id={API_KEY}&scope={scopes_string}&redirect_uri={REDIRECT_URI}&state={state}"
     return auth_url
 
@@ -68,7 +71,7 @@ def login_required(f):
         if "logged_in" in session:
             return f(*args, **kwargs)
         else:
-            return redirect(url_for("login"))
+            return redirect(url_for("login")) , 404
     return decorated_function
 
 def token_required(f):

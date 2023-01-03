@@ -4,45 +4,18 @@ from assoc_files.utilities.utilities import login_required, checkOrders
 from assoc_files.utilities.order import *
 #from assoc_files.log.logging import logger
 
-
-
-
-@app.route('/updateorder/<int:orderId>',methods=['POST'])
+##### DASHBOARD PAGE #####
+@app.route('/info')
 @login_required
-def updateOrder(orderId):
-    try:
-        if request.method !='POST':
-            return redirect(url_for("login"))
-        address = request.form['addressInput']
-        if sendTagUpdateOrderAddress(orderId=orderId,address=address)==False:
-            flash(message="Adres guncellenirken hata olustu", category="danger")
-            return redirect(url_for("order"))
-        flash(message="Adres basariyla guncellendi", category="success")
-        return redirect(url_for("order"))
-    except Exception as e:
-        print(e)
-        return redirect(url_for("login"))
+def info():
+    print('*',session.values())
+    print(session.keys())
+
+    return render_template("info.html")
+##### DASHBOARD PAGE #####
 
 
-@app.route('/printqr/<int:orderId>',methods=['POST'])
-@login_required
-def sendTagQr(orderId):
-    try:
-        if request.method !='POST':
-            return redirect(url_for("login"))
-        if sendTagPrintQr(orderId=orderId) == False:
-            flash(message="Beklenmeyen bir hata olustu", category="danger")
-            return redirect(url_for("order"))
-        flash(message="Kargoya iletildi", category="danger")
-        return redirect(url_for("order"))
-    except Exception as e:
-        print(e)
-        return redirect(url_for("login"))
-
-
-
-
-
+##### ORDERS #####
 @app.route('/order',methods=['GET'])
 @login_required
 def order():
@@ -61,6 +34,47 @@ def order():
         print(e)
         #logger.error(f"Error occurred {e} , userId -> {session['userId']}")
         return redirect(url_for("login"))
+
+@app.route('/updateorder/<int:orderId>',methods=['GET','POST'])
+@login_required
+def updateOrder(orderId):
+    try:
+        if request.method !='POST':
+            return redirect(url_for("login"),404)
+        address = request.form['addressInput']
+        if sendTagUpdateOrderAddress(orderId=orderId,address=address)==False:
+            flash(message="Adres guncellenirken hata olustu", category="danger")
+            return redirect(url_for("order"))
+        flash(message="Adres basariyla guncellendi", category="success")
+        return redirect(url_for("order"))
+    except Exception as e:
+        print(e)
+        return redirect(url_for("login"))
+
+##### ORDERS #####
+
+
+### BARCODE TAG ###
+@app.route('/printqr/<int:orderId>',methods=['POST'])
+@login_required
+def sendTagQr(orderId):
+    try:
+        if request.method !='POST':
+            return redirect(url_for("login"))
+        if sendTagPrintQr(orderId=orderId) == False:
+            flash(message="Beklenmeyen bir hata olustu", category="danger")
+            return redirect(url_for("order"))
+        flash(message="Barkod ALindi", category="danger")
+        return redirect(url_for("order"))
+    except Exception as e:
+        print(e)
+        return redirect(url_for("order"))
+
+
+### BARCODE TAG ###
+
+
+
 
 ######  BARCODE AND SEND CARGO ######
 @app.route('/orderbarkod',methods=['GET'])
@@ -94,6 +108,8 @@ def sendCargo(orderId):
 
 ######  BARCODE AND SEND CARGO ######
 
+
+##### ORDERS SHIPPED TO CARGO #####
 @app.route('/ordercargo',methods=['GET'])
 @login_required
 def orderCargo():
@@ -126,12 +142,5 @@ def shipping():
         print(e)
         return redirect(url_for("info"))
 
-
-@app.route('/info')
-@login_required
-def info():
-    print('*',session.values())
-    print(session.keys())
-
-    return render_template("info.html")
+##### ORDERS SHIPPED TO CARGO #####
 

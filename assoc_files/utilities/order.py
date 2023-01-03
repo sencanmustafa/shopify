@@ -1,3 +1,5 @@
+import time
+
 from assoc_files.utilities.utilities import urlRequired
 from assoc_files import app
 from flask import session,flash
@@ -112,6 +114,7 @@ def sendTagUpdateOrderAddress(orderId,address):
     response = requests.put(f"https://{app.config['shop_url']}/admin/api/2022-07/orders/{orderId}.json",headers=headers, json=json_data)
     if response.status_code == 200:
         updateOrder(orderId=orderId,orderstatusStr="Adres Duzenlendi",orderStatus=0)
+        time.sleep(5)
         return True
     return False
 # UPDATE ORDER ADDRESS #
@@ -127,6 +130,7 @@ def sendTagPrintQr(orderId):
     response = requests.put(f"https://{app.config['shop_url']}/admin/api/2022-07/orders/{orderId}.json",headers=headers, json=json_data)
     if response.status_code == 200:
         updateOrder(orderId=orderId, orderstatusStr="Barkod Alindi",orderStatus=1)
+        time.sleep(5)
         return True
     return False
 def callQrOrder():
@@ -150,6 +154,9 @@ def sendTagCargo(orderId):
     #    return False
     #if testCreateShipment(orderId=orderId) == False:
     #    return False
+
+
+
     ####  SEND CARGO TO YURTICI   ####
     updateOrder(orderId=orderId, orderstatusStr="Yurtici Veri Gonderildi",orderStatus=2)
     ####  SEND CARGO TO YURTICI   ####
@@ -160,6 +167,7 @@ def sendTagCargo(orderId):
     response = requests.put(f"https://{app.config['shop_url']}/admin/api/2022-07/orders/{orderId}.json",headers=headers, json=json_data)
     if response.status_code == 200:
         updateOrder(orderId=orderId, orderstatusStr="Yurtici ve shopify veri Gonderildi",orderStatus=2)
+        time.sleep(5)
         return True
     return False
 

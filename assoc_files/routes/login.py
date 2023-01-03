@@ -24,9 +24,8 @@ limiter = Limiter(
 
 
 @app.route('/',methods=['GET'])
-
 def starter():
-    return "hello"
+    return redirect(url_for("login"))
 
 @app.route('/login',methods=['GET','POST'])
 def login():
