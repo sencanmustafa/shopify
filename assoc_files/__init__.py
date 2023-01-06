@@ -9,7 +9,6 @@ import redis
 app = Flask(__name__,static_folder="static")
 app.secret_key = "super secret key"
 
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://usrshp61022_usr06102022:Arm@n!k32021@185.73.202.133/usrshp61022_db6102022'
 
 load_dotenv()
 
