@@ -1,8 +1,6 @@
 import time
 import asyncio
 from flask import render_template,request , redirect,url_for,jsonify
-from flask_limiter import Limiter
-from flask_limiter.util import get_remote_address
 from assoc_files.utilities.utilities import verifyLogin,validate ,deleteAccessToken
 from assoc_files.utilities.order import *
 #from assoc_files.log.logging import logger

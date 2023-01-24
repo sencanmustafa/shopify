@@ -3,7 +3,6 @@ from assoc_files import db
 
 
 
-
 class UserTable(db.Model):
     __tablename__ = 'user'
     id = db.Column(db.BIGINT, primary_key=True, autoincrement=True)
